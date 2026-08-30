@@ -18,6 +18,12 @@ GitHub Pages delivers the initial HTML. After it loads, camera capture, image im
 
 The photos and documents you select are not uploaded by the app.
 
+## Screenshots
+
+![Submission PDF Scanner English UI](assets/screenshot-en.png)
+
+Japanese UI: [screenshot.png](assets/screenshot.png)
+
 ## Features
 
 - Camera-first document capture with a native-app-style UI on smartphones
@@ -26,12 +32,14 @@ The photos and documents you select are not uploaded by the app.
 - Native camera zoom when available, with centered **digital zoom up to 4×** as a fallback
 - Pinch / swipe / slider zoom controls on smartphones
 - Optional automatic capture when the document becomes stable
-- Local four-corner document detection with manual corner adjustment
+- Local four-corner document detection using edge strength, paper/background contrast, robust line consistency, and quadrilateral geometry, with manual corner adjustment, 1–4× zoom, wheel/pinch zoom, and panning for precise placement
 - Perspective correction for skewed photos
-- Auto / Color / Grayscale / B&W readability filters
 - Multi-page scanning workflow
-- Drag-and-drop page reordering
+- Drag-and-drop page reordering (with a dedicated touch grip for reliable cross-row moves)
 - Three-column page grid on smartphones
+- Actual corrected-result preview with No enhancement / Auto / Color / Grayscale / B&W readability modes; Auto uses conservative, smoothly interpolated illumination correction to avoid tiled artifacts and excessive whitening
+- Reopen any saved page from its Preview action to change readability or corners
+- Smartphone Scan / Pages / PDF bottom navigation switches page-like views instead of scrolling between sections
 - Editable output filename with automatic `.pdf` extension
 - Submission presets for **1 MB**, **2 MB**, **A4**, and **B&W**
 - Adaptive JPEG quality and resolution reduction for file-size limits
@@ -89,10 +97,10 @@ No Python, Node.js, or local web server is required for normal use of the genera
 1. Open the app and turn the camera on when needed, or import one or more existing images.
 2. Adjust zoom so the whole document is visible.
 3. Capture the page.
-4. Check the detected four corners and drag the handles if correction is needed.
-5. Choose Auto, Color, Grayscale, or B&W and add the page.
+4. Check the actual corrected result, switch to Adjust corners when needed, zoom in if useful, and drag the handles to refine the document boundary.
+5. Choose No enhancement, Auto, Color, Grayscale, or B&W and add the page.
 6. Repeat for additional pages.
-7. Drag page cards to reorder them.
+7. Drag page cards to reorder them. On touch screens, use the grip at the top right for reliable vertical or cross-row moves.
 8. Enter the output filename.
 9. Choose a submission preset such as **1 MB**, **2 MB**, **A4**, or **B&W**, or use custom settings.
 10. Generate the PDF, review the final size and pre-submit checks, then save or share it.
@@ -198,7 +206,7 @@ If camera access is unavailable, the app can still create PDFs from imported ima
 
 - Automatic corner detection can be inaccurate on low-contrast surfaces, white desks, reflections, deep shadows, or documents whose edges are outside the frame.
 - Manual four-corner adjustment is provided for recovery.
-- OCR and searchable-text PDF generation are not included in v1.0.
+- OCR and searchable-text PDF generation are not included.
 - File-size targets are best-effort rather than byte-perfect guarantees.
 - Very high-resolution photos or large page counts can consume substantial device memory.
 - Reloading or closing the tab clears the current scan session because page images are intentionally not persisted.
@@ -206,7 +214,7 @@ If camera access is unavailable, the app can still create PDFs from imported ima
 
 ## Dependencies
 
-The current v1.0 runtime does not require a third-party library for the main scanning and PDF-generation flow.
+The current v1.0.1 runtime does not require a third-party library for the main scanning and PDF-generation flow.
 
 Perspective correction, image processing, page management, camera handling, and PDF creation are implemented with browser APIs and application code. See [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md) for the current dependency record.
 
