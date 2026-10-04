@@ -21,7 +21,7 @@ function harness() {
     const el = { tag, dataset: {}, style: {}, value: '', textContent: '', innerHTML: '', disabled: false, open: false,
       classList: { add: x => classes.add(x), remove: x => classes.delete(x), contains: x => classes.has(x), toggle(x, on = !classes.has(x)) { on ? classes.add(x) : classes.delete(x); } },
       addEventListener(name, fn) { listeners.set(name, fn); }, fire(name, event = {}) { return listeners.get(name)?.({ target: el, preventDefault() {}, ...event }); },
-      setAttribute(name, value) { this[name] = value; }, appendChild() {}, remove() {}, focus() {},
+      setAttribute(name, value) { this[name] = value; }, appendChild(child) { (this.children ||= []).push(child); }, remove() {}, focus() {},
       click() { if (tag === 'a') downloads.push({ url: this.href, name: this.download }); return this.fire('click'); },
       showModal() { this.open = true; }, close() { this.open = false; this.fire('close'); },
       getBoundingClientRect() { return { width: 900, height: 600, top: 0, left: 0 }; }
@@ -50,7 +50,7 @@ function harness() {
   });
   vm.runInContext(app, c);
   const run = code => vm.runInContext(code, c);
-  run(`renderPages=()=>{}; resetEditorView=()=>{}; detectDocument=c=>({corners:defaultCorners(c.width,c.height),confidence:.8}); fileToBitmap=async file=>{if(file.bad)throw Error('decode');return {width:1000,height:700,close(){}}};`);
+  run(`globalThis.renderRealPages=renderPages; renderPages=()=>{}; resetEditorView=()=>{}; detectDocument=c=>({corners:defaultCorners(c.width,c.height),confidence:.8}); fileToBitmap=async file=>{if(file.bad)throw Error('decode');return {width:1000,height:700,close(){}}};`);
   $('#paperSelect').value = 'a4'; $('#colorSelect').value = 'page'; $('#limitSelect').value = '0';
   return { $, c, run, state: run('state'), revoked, downloads, shared, element };
 }
@@ -188,4 +188,11 @@ test('Reorder invalidates PDF and every preset produces a measured PDF with expe
   h.run('compressPage=async page=>({blob:new Blob([page.id]),width:page.canvas.width,height:page.canvas.height})');
   for(const preset of ['standard','1mb','2mb','a4','bw']){h.run(`applyPreset('${preset}')`);await h.run('generatePdf()');const p=h.state.lastPdf;assert.ok(p.blob.size>0);assert.match(await p.blob.text(),/\/Count 2/);assert.match(await p.blob.text(),/\/MediaBox \[0 0 841.89 595.28\]/);if(p.limit)assert.ok(p.blob.size<=p.limit);}
   assert.equal(h.$('#colorSelect').value,'bw');
+});
+
+test('Language switching refreshes existing page labels and camera-error details', () => {
+  const h=harness();h.state.pages=[page('a')];h.run('renderPages=renderRealPages; navigator.mediaDevices={getUserMedia(){}}; globalThis.isSecureContext=true; showCameraError({name:"NotFoundError"}); renderPages()');
+  assert.match(h.$('#cameraErrorText').textContent,/No usable camera/);
+  h.run('toggleLanguage()');const ja=h.$('#pageGrid').children.at(-1);assert.equal(ja['aria-label'],'ページ 1');assert.match(ja.innerHTML,/aria-label="プレビュー"/);assert.match(ja.innerHTML,/aria-label="回転"/);assert.match(ja.innerHTML,/aria-label="削除"/);assert.equal(h.$('#cameraErrorText').textContent,'利用できるカメラが見つかりません。');
+  h.run('toggleLanguage()');const en=h.$('#pageGrid').children.at(-1);assert.equal(en['aria-label'],'Page 1');assert.match(en.innerHTML,/aria-label="Preview"/);assert.match(h.$('#cameraErrorText').textContent,/No usable camera/);
 });

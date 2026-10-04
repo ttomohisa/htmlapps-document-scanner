@@ -6,6 +6,7 @@
 - Show batch-import filename and progress, with separate Skip image and Stop import actions. Close and Escape stop remaining images while preserving added pages.
 - Prevent duplicate or canceled asynchronous saves from adding pages or closing a newer editor.
 - Offer Undo after Delete all, retaining page order, rotation and editable sources.
+- Refresh existing page-action labels and camera error details when switching Japanese/English.
 - Run dependency-free workflow regression tests against the source and both generated standalone variants.
 
 ## 1.0.1 - 2026-08-31
