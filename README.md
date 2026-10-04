@@ -227,3 +227,11 @@ See [SECURITY.md](SECURITY.md) for the trust boundary and file-handling model.
 Copyright © 2026 ttomohisa
 
 Licensed under the [MIT License](LICENSE).
+
+## Import and export workflow
+
+When importing multiple images (up to 30 per selection), the editor shows the current filename and position. **Skip image** moves to the next image; **Stop import**, Close, or Escape stops the remaining queue and keeps pages already added. **Full image** includes the complete image boundary, within the existing resolution cap.
+
+A completed PDF remains ready when its filename changes. Save and Share use the normalized current filename without rebuilding its contents. Changing pages or PDF settings still requires generating the PDF again. **Delete all** asks for confirmation and offers the same five-second Undo as deleting a single page. Undo restores the original editable pages before any newly added pages.
+
+Development checks require PowerShell and Node.js (no npm dependencies): run `./scripts/check-repository.ps1`. The workflow tests run against the source and both release variants.
