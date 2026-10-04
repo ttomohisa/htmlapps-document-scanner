@@ -27,13 +27,13 @@ A user can photograph or import several paper pages, automatically detect the do
 - Torch when supported by the active camera track.
 - Zoom is always available while the camera is active: use native camera-track zoom when exposed, otherwise use centered digital zoom up to 4×. Detection and captured output must match the zoomed field of view.
 - Optional auto-capture: detect a stable document for consecutive scans and trigger capture.
-- Image import through `<input type=file accept=image/* multiple>`.
+- Image import through `<input type=file accept=image/* multiple>`, with current filename/queue position, separate Skip image and Stop import actions, and Close/Escape stopping remaining images while retaining added pages.
 - Local document-corner estimation that combines directional edge strength, inside/outside paper contrast, robust line fitting, edge coverage, and quadrilateral geometry, with graceful fallback to an inset rectangle.
 - Editor can switch between an actual corrected-result preview and a four-corner touch adjustment view with accessible reset and full-image actions.
 - Perspective correction using WebGL, with a Canvas 2D fallback.
 - Filters: No enhancement, Auto (conservative smooth illumination/levels correction with color preservation), Color (light contrast correction), Grayscale, B&W.
 - Page cards include Preview so a saved working page can be reopened to change filter/corners before PDF generation.
-- Rotation and delete from page cards; delete offers Undo.
+- Rotation and delete from page cards; both single-page delete and confirmed Delete all offer Undo while retaining editable sources and order.
 - Pointer/touch reorder with target highlighting and auto-scroll near viewport edges; touch devices provide a dedicated grip for reliable vertical and cross-row moves.
 - Three page columns on narrow smartphones.
 - Smartphone camera UX follows the Browser Kitty QR Reader pattern: near-full-screen live preview, safe-area-aware top controls, a discreet camera power control, status overlay, translucent bottom camera dock, inline zoom, pinch/swipe zoom gestures, and fixed page-like bottom navigation (Scan / Pages / PDF) that switches views instead of scrolling between sections.
@@ -42,7 +42,7 @@ A user can photograph or import several paper pages, automatically detect the do
 - A4 and original-ratio paper modes.
 - Output size presets including 1 MB and 2 MB, using JPEG quality and resolution reduction.
 - Output filename editing with a sane default; invalid filesystem characters are replaced and `.pdf` is appended when omitted.
-- Download and Web Share API file sharing when available.
+- Download and Web Share API file sharing when available. Filename-only edits preserve an already generated PDF and update its displayed/download/shared name.
 - Japanese/English switch without reload.
 - In-app help with privacy, camera constraints, and data-loss notes.
 

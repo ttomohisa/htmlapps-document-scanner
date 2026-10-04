@@ -1,5 +1,13 @@
 # Changelog
 
+## Unreleased
+- Preserve every image edge with Full image, including the Canvas fallback and tiny images.
+- Keep completed PDF bytes available when only its filename changes; save/share use the current normalized name.
+- Show batch-import filename and progress, with separate Skip image and Stop import actions. Close and Escape stop remaining images while preserving added pages.
+- Prevent duplicate or canceled asynchronous saves from adding pages or closing a newer editor.
+- Offer Undo after Delete all, retaining page order, rotation and editable sources.
+- Run dependency-free workflow regression tests against the source and both generated standalone variants.
+
 ## 1.0.1 - 2026-08-31
 - Fixed page reordering so dragged cards no longer fight the browser's native image drag or lose their drop target; drag motion now follows the pointer without the card transition delay, and the mobile drag handle supports reliable cross-row reordering.
 - Fixed camera capture so the document corners currently shown in the live recognition guide are carried into the captured page instead of being detected again independently at full resolution.
