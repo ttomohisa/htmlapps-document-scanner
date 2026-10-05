@@ -20,8 +20,8 @@ function harness() {
     const classes = new Set(), listeners = new Map();
     const el = { tag, dataset: {}, style: {}, value: '', textContent: '', innerHTML: '', disabled: false, open: false,
       classList: { add: x => classes.add(x), remove: x => classes.delete(x), contains: x => classes.has(x), toggle(x, on = !classes.has(x)) { on ? classes.add(x) : classes.delete(x); } },
-      addEventListener(name, fn) { listeners.set(name, fn); }, fire(name, event = {}) { return listeners.get(name)?.({ target: el, preventDefault() {}, ...event }); },
-      setAttribute(name, value) { this[name] = value; }, appendChild(child) { (this.children ||= []).push(child); }, remove() {}, focus() {},
+      addEventListener(name, fn) { listeners.set(name, fn); }, fire(name, event = {}) { return listeners.get(name)?.({ type: name, target: el, preventDefault() {}, ...event }); },
+      removeEventListener(name) { listeners.delete(name); }, hasListener(name) { return listeners.has(name); }, setPointerCapture(id) { this.capture=id; }, releasePointerCapture() { this.capture=null; }, setAttribute(name, value) { this[name] = value; }, appendChild(child) { (this.children ||= []).push(child); }, remove() {}, focus() {},
       click() { if (tag === 'a') downloads.push({ url: this.href, name: this.download }); return this.fire('click'); },
       showModal() { this.open = true; }, close() { this.open = false; this.fire('close'); },
       getBoundingClientRect() { return { width: 900, height: 600, top: 0, left: 0 }; }
@@ -195,4 +195,144 @@ test('Language switching refreshes existing page labels and camera-error details
   assert.match(h.$('#cameraErrorText').textContent,/No usable camera/);
   h.run('toggleLanguage()');const ja=h.$('#pageGrid').children.at(-1);assert.equal(ja['aria-label'],'ページ 1');assert.match(ja.innerHTML,/aria-label="プレビュー"/);assert.match(ja.innerHTML,/aria-label="回転"/);assert.match(ja.innerHTML,/aria-label="削除"/);assert.equal(h.$('#cameraErrorText').textContent,'利用できるカメラが見つかりません。');
   h.run('toggleLanguage()');const en=h.$('#pageGrid').children.at(-1);assert.equal(en['aria-label'],'Page 1');assert.match(en.innerHTML,/aria-label="Preview"/);assert.match(h.$('#cameraErrorText').textContent,/No usable camera/);
+});
+
+function dragHarness() {
+ const h=harness(); h.state.pages=[page('a'),page('b'),page('c')]; const blob=pdf(h);
+ const cards=['a','b','c'].map((id,i)=>{const x=h.element();x.dataset.id=id;x.getBoundingClientRect=()=>({left:i*100,top:0,right:i*100+80,bottom:100,width:80,height:100});return x});
+ h.c.document.querySelectorAll=sel=>sel==='.page-card'?cards:[];
+ Object.assign(h.c,{scrollX:0,scrollY:0,innerHeight:800});
+ const frames=new Map();let frameId=0;h.c.requestAnimationFrame=fn=>{frames.set(++frameId,fn);return frameId};h.c.cancelAnimationFrame=id=>frames.delete(id);h.c.window.scrollBy=()=>{};
+ const flush=()=>{const pending=[...frames.values()];frames.clear();pending.forEach(fn=>fn())};
+ h.c.card=cards[0];h.run('bindPageDrag(card)');
+ const fire=(type,x=0,y=50)=>{const result=cards[0].fire(type,{type,button:0,pointerId:1,pointerType:'mouse',clientX:x,clientY:y,target:{closest:()=>null}});flush();return result};
+ return {...h,cards,fire,blob,frames};
+}
+function order(h){return Array.from(h.state.pages,p=>p.id)}
+test('BUG: canceled drag must preserve order and completed PDF',()=>{
+ const h=dragHarness(); h.fire('pointerdown',20);h.fire('pointermove',120);h.fire('pointercancel',120);
+ assert.deepEqual(order(h),['a','b','c']);assert.equal(h.state.lastPdf?.blob,h.blob);assert.deepEqual(h.revoked,[]);
+});
+test('BUG: drag returned to its origin must preserve completed PDF',()=>{
+ const h=dragHarness();h.fire('pointerdown',20);h.fire('pointermove',120);h.fire('pointermove',20);h.fire('pointerup',20);
+ assert.deepEqual(order(h),['a','b','c']);assert.equal(h.state.lastPdf?.blob,h.blob);assert.deepEqual(h.revoked,[]);
+});
+test('CONTROL: committed drag actually changes order and invalidates PDF',()=>{
+ const h=dragHarness();h.fire('pointerdown',20);h.fire('pointermove',120);h.fire('pointerup',120);
+ assert.deepEqual(order(h),['b','a','c']);assert.equal(h.state.lastPdf,null);assert.deepEqual(h.revoked,['blob:existing']);
+});
+test('CONTROL: click without dragging preserves order and PDF',()=>{
+ const h=dragHarness();h.fire('pointerdown',20);h.fire('pointerup',20);
+ assert.deepEqual(order(h),['a','b','c']);assert.equal(h.state.lastPdf.blob,h.blob);assert.deepEqual(h.revoked,[]);
+});
+test('CONTROL: keyboard boundary no-op preserves PDF and valid move changes it',()=>{
+ const h=dragHarness();h.cards[0].fire('keydown',{altKey:true,key:'ArrowLeft'});
+ assert.deepEqual(order(h),['a','b','c']);assert.equal(h.state.lastPdf.blob,h.blob);
+ h.cards[0].fire('keydown',{altKey:true,key:'ArrowRight'});assert.deepEqual(order(h),['b','a','c']);assert.equal(h.state.lastPdf,null);
+});
+test('CONTROL: page edit uses detached corners, Cancel leaves original untouched',async()=>{
+ const h=harness(),a=page('a'),b=page('b');h.state.pages=[a,b];const original=plain(a.corners);
+ h.c.a=a;const editing=h.run('openEditorFromPage(a)');await tick();h.state.editor.corners[0].x=55;h.state.editor.filter='gray';
+ h.$('#editorCloseBtn').fire('click');await editing;
+ assert.equal(h.state.pages[0],a);assert.deepEqual(plain(a.corners),original);assert.equal(a.filter,'none');assert.deepEqual(order(h),['a','b']);
+});
+
+function smallPage(h,id) {
+  const p=page(id);p.canvas=h.element('canvas');p.canvas.width=40;p.canvas.height=32;
+  p.label=id+'.png';p.confidence=.73;p.rotation=0;p.thumb='original-'+id;
+  p.corners=[{x:0,y:0},{x:40,y:0},{x:40,y:32},{x:0,y:32}];return p;
+}
+function smallDecode(h) { h.run('fileToBitmap=async()=>({width:40,height:32,close(){}})'); }
+async function edit(h,p) { h.c.editPage=p; const done=h.run('openEditorFromPage(editPage)'); await tick();return {ed:h.state.editor,done}; }
+test('Copy action is localized and appears only when editing a saved page', async()=>{
+  assert.match(html,/<button[^>]*id="saveAsNewPageBtn"[^>]*type="button"[^>]*data-i18n="saveAsNewPage"/);
+  const h=harness();smallDecode(h);const p=smallPage(h,'a');h.state.pages=[p];
+  for(const lang of ['ja','en']) { h.state.lang=lang;const e=await edit(h,p);
+    assert.equal(h.$('#saveAsNewPageBtn').classList.contains('hidden'),false);
+    assert.equal(h.$('#saveAsNewPageBtn').textContent,lang==='ja'?'別ページとして保存':'Save as new page');
+    h.$('#editorCloseBtn').fire('click');await e.done;
+  }
+  h.c.source=p.canvas;const adding=h.run('openEditorFromSource(source,"capture")');
+  assert.equal(h.$('#saveAsNewPageBtn').classList.contains('hidden'),true);await h.$('#saveAsNewPageBtn').fire('click');assert.equal(h.state.pages.length,1);
+  h.$('#editorCloseBtn').fire('click');await adding;
+});
+test('Save as new page preserves original object and inserts independent edited output immediately after it',async()=>{
+  const h=harness();smallDecode(h);const [a,b,c]=['a','b','c'].map(id=>smallPage(h,id));h.state.pages=[a,b,c];const old={...b},before=plain(b.corners),blob=pdf(h);
+  const {ed,done}=await edit(h,b);ed.corners=[{x:5,y:4},{x:35,y:4},{x:35,y:28},{x:5,y:28}];ed.filter='gray';ed.rotation=1;
+  await h.$('#saveAsNewPageBtn').fire('click');assert.equal(h.state.pages.length,4);await done;
+  const copy=h.state.pages[2];assert.deepEqual(Array.from(h.state.pages,p=>p.id),['a','b',copy.id,'c']);assert.ok(!['a','b','c'].includes(copy.id));
+  assert.equal(h.state.pages[1],b);for(const k of Object.keys(old))assert.equal(b[k],old[k]);assert.deepEqual(plain(b.corners),before);
+  assert.equal(copy.canvas.width,24);assert.equal(copy.canvas.height,30);assert.notEqual(copy.canvas,b.canvas);assert.notEqual(copy.canvas,ed.source);
+  assert.equal(copy.filter,'gray');assert.equal(copy.rotation,1);assert.equal(copy.label,'b.png');assert.equal(copy.confidence,.73);assert.equal(copy.sourceBlob,b.sourceBlob);
+  assert.notEqual(copy.corners,ed.corners);assert.notEqual(copy.corners[0],ed.corners[0]);assert.notEqual(copy.corners[0],b.corners[0]);
+  ed.corners[0].x=19;assert.equal(copy.corners[0].x,5);assert.equal(b.corners[0].x,0);assert.equal(h.state.lastPdf,null);assert.deepEqual(h.revoked,['blob:existing']);assert.ok(blob);
+});
+test('Original and copy can be reopened, changed, rotated, deleted and restored independently',async()=>{
+  const h=harness();smallDecode(h);const a=smallPage(h,'a'),b=smallPage(h,'b');h.state.pages=[a,b];let e=await edit(h,a);
+  await h.$('#saveAsNewPageBtn').fire('click');assert.equal(h.state.pages.length,3);await e.done;const copy=h.state.pages[1],originalCanvas=a.canvas;
+  e=await edit(h,copy);assert.equal(e.ed.source.width,40);assert.equal(e.ed.source.height,32);e.ed.corners[0].x=3;await h.$('#addPageBtn').fire('click');await e.done;
+  assert.equal(a.canvas,originalCanvas);assert.equal(a.corners[0].x,0);assert.equal(copy.corners[0].x,3);const copyCanvas=copy.canvas;
+  await pageAction(h,'a','rotate');assert.equal(copy.canvas,copyCanvas);assert.equal(copy.rotation,0);assert.equal(a.rotation,1);
+  e=await edit(h,a);e.ed.filter='bw';await h.$('#addPageBtn').fire('click');await e.done;assert.equal(copy.filter,'none');assert.equal(a.filter,'bw');
+  for(const target of [copy,a]) { const deleting=pageAction(h,target.id,'delete');h.run('confirmUI.finish(true)');await deleting;assert.ok(!h.state.pages.includes(target));h.$('#toastAction').fire('click');assert.deepEqual(Array.from(h.state.pages),[a,copy,b]); }
+});
+test('Copy resolves its source position by ID after asynchronous work and preserves pending Undo',async()=>{
+  const h=harness();smallDecode(h);const a=smallPage(h,'a'),b=smallPage(h,'b'),c=smallPage(h,'c');h.state.pages=[a,b,c];const undo={page:smallPage(h,'deleted'),index:0};h.state.lastDeleted=undo;
+  const e=await edit(h,b);h.run('canvasToDataURLThumb=()=>new Promise(resolve=>globalThis.finishThumb=resolve)');const saving=h.$('#saveAsNewPageBtn').fire('click');await tick();
+  h.state.pages=[b,a,c];h.run('finishThumb("copy-thumb")');await saving;assert.equal(h.state.pages.length,4);await e.done;
+  assert.equal(h.state.pages[0],b);assert.equal(h.state.pages[2],a);assert.equal(h.state.pages[3],c);assert.equal(h.state.lastDeleted,undo);
+});
+test('Copy does not turn the 30-image import batch limit into a document page limit',async()=>{
+  const h=harness();smallDecode(h);h.state.pages=Array.from({length:30},(_,i)=>smallPage(h,'p'+i));const e=await edit(h,h.state.pages[29]);await h.$('#saveAsNewPageBtn').fire('click');assert.equal(h.state.pages.length,31);await e.done;
+});
+test('Copy without a compressed source encodes its own editable source without changing original',async()=>{
+  const h=harness(),a=smallPage(h,'a');a.sourceBlob=null;h.state.pages=[a];const e=await edit(h,a);await h.$('#saveAsNewPageBtn').fire('click');assert.equal(h.state.pages.length,2);await e.done;
+  const copy=h.state.pages[1];assert.ok(copy.sourceBlob instanceof Blob);assert.equal(copy.sourceBlob.type,'image/jpeg');assert.equal(a.sourceBlob,null);assert.notEqual(copy.canvas,a.canvas);
+});
+for(const first of ['saveAsNewPageBtn','addPageBtn'])test(`${first} shares a single-flight latch with both save controls`,async()=>{
+  const h=harness();smallDecode(h);const a=smallPage(h,'a');h.state.pages=[a];const e=await edit(h,a);
+  h.run('canvasToDataURLThumb=()=>new Promise(resolve=>globalThis.finishThumb=resolve)');const saving=h.$('#'+first).fire('click');await tick();
+  assert.equal(e.ed.saving,true);assert.equal(h.$('#addPageBtn').disabled,true);assert.equal(h.$('#saveAsNewPageBtn').disabled,true);
+  await h.$('#saveAsNewPageBtn').fire('click');await h.$('#addPageBtn').fire('click');h.run('finishThumb("thumb")');await saving;await e.done;
+  assert.equal(h.state.pages.length,first==='saveAsNewPageBtn'?2:1);
+});
+for(const action of ['editorCloseBtn','Escape'])test(`Pending copy canceled with ${action} preserves PDF and cannot close a newer editor`,async()=>{
+  const h=harness();smallDecode(h);const a=smallPage(h,'a'),b=smallPage(h,'b');h.state.pages=[a,b];const blob=pdf(h),e=await edit(h,a);
+  h.run('canvasToDataURLThumb=()=>new Promise(resolve=>globalThis.finishThumb=resolve)');const saving=h.$('#saveAsNewPageBtn').fire('click');await tick();assert.equal(e.ed.saving,true);
+  if(action==='Escape')h.$('#editorDialog').fire('cancel');else h.$('#'+action).fire('click');await e.done;const replacement=await edit(h,b);
+  h.run('finishThumb("stale")');await saving;assert.equal(h.state.editor,replacement.ed);assert.equal(h.$('#editorDialog').open,true);assert.deepEqual(Array.from(h.state.pages),[a,b]);assert.equal(h.state.lastPdf.blob,blob);assert.deepEqual(h.revoked,[]);
+  h.$('#editorCloseBtn').fire('click');await replacement.done;
+});
+test('Failed copy retains original and ready PDF, then retry succeeds',async()=>{
+  const h=harness(),a=smallPage(h,'a');a.sourceBlob=null;h.state.pages=[a];const original=a.canvas,blob=pdf(h),e=await edit(h,a);
+  h.run('canvasToBlob=async()=>{throw Error("encode")}');await h.$('#saveAsNewPageBtn').fire('click');assert.equal(h.state.editor,e.ed);assert.equal(e.ed.saving,false);assert.equal(h.$('#saveAsNewPageBtn').disabled,false);assert.equal(h.$('#addPageBtn').disabled,false);assert.equal(h.$('#editorError').classList.contains('hidden'),false);assert.equal(h.state.lastPdf.blob,blob);assert.equal(a.canvas,original);assert.deepEqual(h.revoked,[]);
+  h.run('canvasToBlob=async()=>new Blob(["encoded"],{type:"image/jpeg"})');await h.$('#saveAsNewPageBtn').fire('click');assert.equal(h.state.pages.length,2);await e.done;assert.equal(a.canvas,original);
+});
+test('Removing the source during a pending copy prevents insertion',async()=>{
+  const h=harness();smallDecode(h);const a=smallPage(h,'a'),b=smallPage(h,'b');h.state.pages=[a,b];const blob=pdf(h),e=await edit(h,a);
+  h.run('canvasToDataURLThumb=()=>new Promise(resolve=>globalThis.finishThumb=resolve)');const saving=h.$('#saveAsNewPageBtn').fire('click');await tick();assert.equal(e.ed.saving,true);h.state.pages=[b];h.run('finishThumb("stale")');await saving;await e.done;
+  assert.deepEqual(Array.from(h.state.pages),[b]);assert.equal(h.state.lastPdf.blob,blob);assert.deepEqual(h.revoked,[]);
+});
+test('Generated PDF contains original and copy in visible order and filename editing stays non-destructive',async()=>{
+  const h=harness();smallDecode(h);const a=smallPage(h,'a'),b=smallPage(h,'b');h.state.pages=[a,b];const e=await edit(h,a);await h.$('#saveAsNewPageBtn').fire('click');assert.equal(h.state.pages.length,3);await e.done;const copy=h.state.pages[1];
+  h.run('compressPage=async p=>({blob:new Blob(["page-"+p.id]),width:p.canvas.width,height:p.canvas.height})');await h.run('generatePdf()');const blob=h.state.lastPdf.blob,text=await blob.text();assert.match(text,/\/Count 3/);assert.ok(text.indexOf('page-a')<text.indexOf('page-'+copy.id));assert.ok(text.indexOf('page-'+copy.id)<text.indexOf('page-b'));
+  h.$('#filenameInput').value='two-crops';h.$('#filenameInput').fire('input');assert.equal(h.state.lastPdf.blob,blob);assert.equal(h.state.lastPdf.name,'two-crops.pdf');
+});
+for(const end of ['pointercancel','pointerup'])test(`${end} no-op clears drag state, capture, paint and listeners without altering Undo`,()=>{
+  const h=dragHarness(),undo={page:page('deleted'),index:0};h.state.lastDeleted=undo;h.fire('pointerdown',20);h.fire('pointermove',120);if(end==='pointerup')h.fire('pointermove',20);h.fire(end,20);
+  assert.deepEqual(order(h),['a','b','c']);assert.equal(h.state.lastDeleted,undo);assert.equal(h.state.drag,null);assert.equal(h.cards[0].capture,null);assert.equal(h.cards[0].style.transform,'');assert.equal(h.cards[0].classList.contains('dragging'),false);assert.ok(h.cards.every(c=>!c.classList.contains('drop-target')));assert.equal(h.frames.size,0);for(const name of ['pointermove','pointerup','pointercancel'])assert.equal(h.cards[0].hasListener(name),false);
+});
+test('Drop uses final pointer location rather than an earlier painted target',()=>{
+  const h=dragHarness();h.fire('pointerdown',20);h.fire('pointermove',120);h.fire('pointerup',20);assert.deepEqual(order(h),['a','b','c']);assert.equal(h.state.lastPdf.blob,h.blob);
+});
+test('Returning to the edge of the original card cannot snap to a nearby card',()=>{
+  const h=dragHarness();h.fire('pointerdown',70);h.fire('pointermove',120);h.fire('pointermove',70);h.fire('pointerup',70);
+  assert.deepEqual(order(h),['a','b','c']);assert.equal(h.state.lastPdf.blob,h.blob);assert.deepEqual(h.revoked,[]);
+});
+test('Copy snapshots crop, filter, rotation and label before async work',async()=>{
+  const h=harness();smallDecode(h);const a=smallPage(h,'a');h.state.pages=[a];const e=await edit(h,a);
+  e.ed.corners=[{x:4,y:4},{x:36,y:4},{x:36,y:28},{x:4,y:28}];e.ed.filter='gray';e.ed.rotation=1;e.ed.label='first.png';
+  h.run('canvasToDataURLThumb=()=>new Promise(resolve=>globalThis.finishThumb=resolve)');const saving=h.$('#saveAsNewPageBtn').fire('click');await tick();
+  e.ed.corners[0].x=9;e.ed.filter='bw';e.ed.rotation=3;e.ed.label='later.png';h.run('finishThumb("thumb")');await saving;await e.done;
+  const copy=h.state.pages[1];assert.equal(copy.corners[0].x,4);assert.equal(copy.filter,'gray');assert.equal(copy.rotation,1);assert.equal(copy.label,'first.png');assert.equal(copy.canvas.width,24);assert.equal(copy.canvas.height,32);assert.equal(a.corners[0].x,0);
 });

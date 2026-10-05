@@ -1,8 +1,12 @@
+param([string]$OutputDirectory = '')
 $ErrorActionPreference = 'Stop'
 $Root = Split-Path -Parent $MyInvocation.MyCommand.Path
 $SourcePath = Join-Path $Root 'src\index.template.html'
 $ConfigPath = Join-Path $Root 'app.config.json'
-$Dist = Join-Path $Root 'dist'
+$DefaultDist = [IO.Path]::GetFullPath((Join-Path $Root 'dist'))
+$Dist = if ($OutputDirectory) { $ExecutionContext.SessionState.Path.GetUnresolvedProviderPathFromPSPath($OutputDirectory) } else { $DefaultDist }
+$PathComparison = if ([IO.Path]::DirectorySeparatorChar -eq '\') { [StringComparison]::OrdinalIgnoreCase } else { [StringComparison]::Ordinal }
+$SyncRootRelease = [string]::Equals($Dist.TrimEnd([IO.Path]::DirectorySeparatorChar), $DefaultDist.TrimEnd([IO.Path]::DirectorySeparatorChar), $PathComparison)
 $Output = Join-Path $Dist 'index.html'
 $SelfOutput = Join-Path $Dist 'index.self-extract.html'
 
@@ -29,6 +33,7 @@ $html = $source.Replace('__APP_CONFIG_JSON__', $configRaw.Trim())
 $html = $html.Replace('__BUILD_MANIFEST_JSON__', $manifest)
 $html = $html.Replace('__EMBEDDED_ASSET_BUNDLE_BASE64__', '"e30="')
 [IO.File]::WriteAllText($Output, $html, $utf8)
+if ($SyncRootRelease) { [IO.File]::WriteAllText((Join-Path $Root 'document-scanner.html'), $html, $utf8) }
 [IO.File]::WriteAllText((Join-Path $Dist 'build-manifest.json'), ($manifestObj | ConvertTo-Json -Depth 4), $utf8)
 [IO.File]::WriteAllText((Join-Path $Dist '.nojekyll'), '', $utf8)
 $dependencyManifest = [ordered]@{
