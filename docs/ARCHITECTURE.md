@@ -27,6 +27,8 @@ When a page is first captured or imported, the original working image is kept on
 - thumbnail
 - compressed editable source plus the current four corner coordinates
 
+Save as new page uses the existing editor-output pipeline and inserts a new ID immediately after the source page, resolving the source by ID after asynchronous work. The original page stays untouched. Each page owns its processed canvas and corner objects; compressed source Blobs may be shared because they are immutable. The two save actions share the same single-flight, snapshot, cancellation, and retry guards.
+
 This allows the Preview action to reopen a page and change readability or corner correction without retaining a second full-resolution source canvas for every page.
 
 ## Output sizing
@@ -36,3 +38,7 @@ The 1 MB / 2 MB presets budget bytes per page and reduce JPEG quality first, the
 ## Privacy boundary
 
 Runtime network access is blocked by CSP with `connect-src 'none'`. Camera frames, imported images, editable page sources, corrected pages, and generated PDFs stay in the browser unless the user explicitly saves or shares the result.
+
+## Release parity
+
+The default PowerShell build also refreshes root `document-scanner.html`, which is the Browser Kitty catalog entry. `-OutputDirectory` can build both variants and manifests elsewhere without touching the default artifacts or root release. Verification compares the root alias, decoded self-extract payload, SHA-256 hashes, and byte sizes. The aggregate check runs workflow tests against source and all three shipped HTML paths, plus isolated default/custom build and drift-rejection regressions.

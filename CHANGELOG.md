@@ -1,6 +1,9 @@
 # Changelog
 
 ## Unreleased
+- Add Save as new page / 別ページとして保存 in saved-page editing: keep the original and insert an independently editable crop/filter/rotation variant immediately after it.
+- Preserve page order, Undo and completed PDFs when a page drag is canceled or ends without a move; commit only the final drop target.
+- Refresh the catalog root document-scanner.html on default builds and verify readable/root/self-extract parity and manifest hashes. Custom-output builds leave default releases untouched.
 - Preserve every image edge with Full image, including the Canvas fallback and tiny images.
 - Keep completed PDF bytes available when only its filename changes; save/share use the current normalized name.
 - Show batch-import filename and progress, with separate Skip image and Stop import actions. Close and Escape stop remaining images while preserving added pages.
