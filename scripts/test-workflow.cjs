@@ -313,11 +313,21 @@ test('Removing the source during a pending copy prevents insertion',async()=>{
   h.run('canvasToDataURLThumb=()=>new Promise(resolve=>globalThis.finishThumb=resolve)');const saving=h.$('#saveAsNewPageBtn').fire('click');await tick();assert.equal(e.ed.saving,true);h.state.pages=[b];h.run('finishThumb("stale")');await saving;await e.done;
   assert.deepEqual(Array.from(h.state.pages),[b]);assert.equal(h.state.lastPdf.blob,blob);assert.deepEqual(h.revoked,[]);
 });
-test('Generated PDF contains original and copy in visible order and filename editing stays non-destructive',async()=>{
-  const h=harness();smallDecode(h);const a=smallPage(h,'a'),b=smallPage(h,'b');h.state.pages=[a,b];const e=await edit(h,a);await h.$('#saveAsNewPageBtn').fire('click');assert.equal(h.state.pages.length,3);await e.done;const copy=h.state.pages[1];
-  h.run('compressPage=async p=>({blob:new Blob(["page-"+p.id]),width:p.canvas.width,height:p.canvas.height})');await h.run('generatePdf()');const blob=h.state.lastPdf.blob,text=await blob.text();assert.match(text,/\/Count 3/);assert.ok(text.indexOf('page-a')<text.indexOf('page-'+copy.id));assert.ok(text.indexOf('page-'+copy.id)<text.indexOf('page-b'));
+for(const [caseName,firstId,lastId,copyId] of [
+  ['random ID','a','b',null],
+  ['b-prefixed UUID','a','b','b1111111-1111-4111-8111-111111111111'],
+  ['ba-prefixed UUID','a','b','baaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa'],
+  ['shared ID prefixes','page','page-long','page-longer']
+])test(`Generated PDF preserves exact original/copy order (${caseName}) and filename readiness`,async()=>{
+  const h=harness();smallDecode(h);if(copyId)h.c.crypto={randomUUID:()=>copyId};
+  const a=smallPage(h,firstId),b=smallPage(h,lastId);h.state.pages=[a,b];const e=await edit(h,a);await h.$('#saveAsNewPageBtn').fire('click');assert.equal(h.state.pages.length,3);await e.done;const copy=h.state.pages[1];
+  h.run('compressPage=async p=>({blob:new Blob(["page-"+p.id]),width:p.canvas.width,height:p.canvas.height})');await h.run('generatePdf()');const blob=h.state.lastPdf.blob,text=await blob.text();assert.match(text,/\/Count 3/);
+  // Compare complete fake image-stream payloads: a UUID starting with b also contains the marker 'page-b'.
+  const images=Array.from(text.matchAll(/\/Subtype \/Image[^\n]*\nstream\n([^\n]*)\nendstream/g),match=>match[1]);
+  assert.deepEqual(images,['page-'+firstId,'page-'+copy.id,'page-'+lastId]);
   h.$('#filenameInput').value='two-crops';h.$('#filenameInput').fire('input');assert.equal(h.state.lastPdf.blob,blob);assert.equal(h.state.lastPdf.name,'two-crops.pdf');
 });
+
 for(const end of ['pointercancel','pointerup'])test(`${end} no-op clears drag state, capture, paint and listeners without altering Undo`,()=>{
   const h=dragHarness(),undo={page:page('deleted'),index:0};h.state.lastDeleted=undo;h.fire('pointerdown',20);h.fire('pointermove',120);if(end==='pointerup')h.fire('pointermove',20);h.fire(end,20);
   assert.deepEqual(order(h),['a','b','c']);assert.equal(h.state.lastDeleted,undo);assert.equal(h.state.drag,null);assert.equal(h.cards[0].capture,null);assert.equal(h.cards[0].style.transform,'');assert.equal(h.cards[0].classList.contains('dragging'),false);assert.ok(h.cards.every(c=>!c.classList.contains('drop-target')));assert.equal(h.frames.size,0);for(const name of ['pointermove','pointerup','pointercancel'])assert.equal(h.cards[0].hasListener(name),false);
