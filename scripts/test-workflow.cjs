@@ -346,3 +346,69 @@ test('Copy snapshots crop, filter, rotation and label before async work',async()
   e.ed.corners[0].x=9;e.ed.filter='bw';e.ed.rotation=3;e.ed.label='later.png';h.run('finishThumb("thumb")');await saving;await e.done;
   const copy=h.state.pages[1];assert.equal(copy.corners[0].x,4);assert.equal(copy.filter,'gray');assert.equal(copy.rotation,1);assert.equal(copy.label,'first.png');assert.equal(copy.canvas.width,24);assert.equal(copy.canvas.height,32);assert.equal(a.corners[0].x,0);
 });
+
+for (const [language, label, accessible, help] of [
+  ['ja', 'EN', '英語に切り替え', '使い方と注意事項'],
+  ['en', 'JA', 'Switch to Japanese', 'How to use & notes']
+]) test(`Header uses localized target-language controls in ${language}`, () => {
+  const h = harness();
+  const helpButtons = ['#helpBtn', '#mobileHelpBtn'].map(id => h.$(id));
+  helpButtons.forEach(button => { button.dataset.i18nAria = 'help'; });
+  const badge = h.element();
+  badge.dataset.i18n = 'localOnly';
+  h.c.document.querySelectorAll = selector => selector === '[data-i18n-aria]' ? helpButtons : selector === '[data-i18n]' ? [badge] : [];
+  const savedPage = page('kept-page');
+  h.state.pages = [savedPage];
+  const completedPdf = pdf(h);
+  h.state.lang = language;
+  h.run('applyI18n()');
+  for (const id of ['#langBtn', '#mobileLangBtn']) {
+    assert.equal(h.$(id).textContent, label);
+    assert.equal(h.$(id)['aria-label'], accessible);
+    assert.equal(h.$(id).title, accessible);
+  }
+  for (const button of helpButtons) {
+    assert.equal(button['aria-label'], help);
+    assert.equal(button.title, help);
+  }
+  assert.equal(badge.textContent, language === 'ja' ? '完全ローカル処理' : 'Fully local processing');
+  assert.equal(h.state.pages[0], savedPage);
+  assert.equal(h.state.lastPdf.blob, completedPdf);
+});
+
+function bootWithoutRealCamera(h) {
+  const timers = [];
+  let cameraRequests = 0;
+  h.c.navigator.mediaDevices = { getUserMedia() { cameraRequests++; return new Promise(() => {}); } };
+  h.c.setTimeout = callback => { timers.push(callback); return timers.length; };
+  const startup = html.slice(html.indexOf('\napplyI18n();'), html.indexOf('// APP:END'));
+  h.run(startup);
+  return { requests: () => cameraRequests, flushTimers() { while (timers.length) timers.shift()(); } };
+}
+
+test('Startup, language switching and image import keep the camera off until explicitly requested', async () => {
+  const h = harness(), boot = bootWithoutRealCamera(h);
+  boot.flushTimers();
+  assert.equal(boot.requests(), 0, 'loading the app must not request camera access');
+  h.$('#langBtn').fire('click');
+  h.$('#mobileLangBtn').fire('click');
+  const importing = h.$('#fileInput').fire('change', { target: { files: files(1) } });
+  await tick();
+  assert.ok(h.state.editor, 'image import remains available with the camera off');
+  h.$('#editorCloseBtn').fire('click');
+  await importing;
+  boot.flushTimers();
+  assert.equal(boot.requests(), 0);
+  assert.equal(h.state.stream, null);
+  assert.equal(h.state.cameraError, null);
+});
+
+for (const id of ['#desktopCameraPowerBtn', '#mobileCameraPowerBtn', '#mobileStartCameraBtn']) {
+  test(`${id} explicitly starts a camera request from the initial off state`, () => {
+    const h = harness(), boot = bootWithoutRealCamera(h);
+    boot.flushTimers();
+    assert.equal(boot.requests(), 0);
+    h.$(id).fire('click');
+    assert.equal(boot.requests(), 1, 'the explicit camera action still reaches getUserMedia');
+  });
+}

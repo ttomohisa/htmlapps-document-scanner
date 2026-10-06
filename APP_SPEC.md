@@ -5,13 +5,13 @@
 - **Purpose:** Turn paper documents into submission-ready PDFs from a phone browser without uploading source images.
 - **Primary users:** People submitting forms to government, school, insurance, workplaces, and other web portals.
 - **Release:** `dist/index.html` and `dist/index.self-extract.html`
-- **Version:** `1.0.1`
+- **Version:** `1.0.2`
 
 ## 2. Core outcome
 A user can photograph or import several paper pages, automatically detect the document, fine-tune four corners, correct perspective, enhance readability, reorder pages, and generate/share one PDF that satisfies common submission constraints.
 
 ## 3. Core flow
-1. Open the app and grant camera permission, or import existing images.
+1. Open the app with the camera off. Choose Start camera or a camera power control before granting camera permission, or import existing images without camera access.
 2. Capture a page. The app estimates document corners locally.
 3. Review the actual corrected result; switch to the four-corner adjustment view and drag corners when needed.
 4. Choose No enhancement / Auto / Color / Grayscale / B&W and add the page.
@@ -66,10 +66,10 @@ A user can photograph or import several paper pages, automatically detect the do
 - Auto-capture detection is throttled.
 
 ## 8. Browser target
-Current stable Chromium, Safari, and Firefox. The app must attempt `getUserMedia` on startup without excluding `file://`; direct-file camera access is specifically supported for desktop Chrome when the browser grants permission. Other browsers may apply different local-file permission policies. File import and PDF generation must continue to work without camera access.
+Current stable Chromium, Safari, and Firefox. The app must keep the camera off on startup and call `getUserMedia` only after an explicit camera action, without excluding `file://`; direct-file camera access is specifically supported for desktop Chrome when the browser grants permission. Other browsers may apply different local-file permission policies. File import and PDF generation must continue to work without camera access.
 
 ## 9. Acceptance criteria
-- Camera startup is attempted automatically on initial load, including direct `file://` opening, with retry and image-import actions when access fails.
+- Initial load, language switching, and image import never request camera access. Start camera and desktop/mobile camera power controls explicitly initiate camera startup, including direct `file://` opening; retry and image-import actions remain available when access fails.
 - Turning the camera off releases the stream immediately, hides live-camera controls, and leaves a clear in-preview action to start it again.
 - Native zoom is used when available; otherwise digital zoom remains usable and capture/detection uses the same cropped field of view shown in the preview.
 - App remains useful when camera is unavailable by offering image import immediately.

@@ -71,13 +71,13 @@ Submission PDF Scanner treats those requirements as part of the scan workflow in
 
 Just [open the demo](https://ttomohisa.github.io/htmlapps-document-scanner/). No installation or account is required.
 
-The app attempts to start the camera when the scan screen opens. You can turn the camera off at any time from the camera UI.
+The app opens with the camera off. Choose **Start camera** or a camera power control when needed; **Add images** works without camera access. You can turn the camera off at any time from the camera UI.
 
 ### Use the downloaded HTML directly
 
 1. Download `dist/index.html` from this repository.
 2. Open it in a current Chromium-based browser, Firefox, or Safari.
-3. Allow camera access when prompted, or use **Add images** instead.
+3. Choose **Start camera** and allow access when prompted, or use **Add images** without starting the camera.
 
 Desktop Chrome is also an explicit `file://` target. The app does not block camera startup simply because the HTML was opened directly from disk.
 
@@ -214,7 +214,7 @@ If camera access is unavailable, the app can still create PDFs from imported ima
 
 ## Dependencies
 
-The current v1.0.1 runtime does not require a third-party library for the main scanning and PDF-generation flow.
+The current v1.0.2 runtime does not require a third-party library for the main scanning and PDF-generation flow.
 
 Perspective correction, image processing, page management, camera handling, and PDF creation are implemented with browser APIs and application code. See [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md) for the current dependency record.
 
