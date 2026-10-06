@@ -3,7 +3,7 @@
   "name": "Submission PDF Scanner",
   "nameJa": "提出PDFスキャナー",
   "slug": "document-scanner",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Scan paper documents, correct perspective, organize pages, and create submission-ready PDFs entirely in your browser.",
   "descriptionJa": "紙を撮影し、台形補正・ページ整理・提出条件に合わせたPDF化までブラウザーだけで完結します。",
   "defaultLanguage": "auto",

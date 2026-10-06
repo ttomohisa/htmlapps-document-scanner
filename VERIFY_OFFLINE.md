@@ -13,7 +13,7 @@
 11. Enter a custom output filename and confirm `.pdf` is appended when omitted.
 12. Generate a PDF with Standard, A4, B&W, 1 MB, and 2 MB settings as applicable; verify the reported file size and open the saved PDF in a common viewer.
 13. Repeat the import/edit/export flow with `dist/index.self-extract.html`.
-14. In desktop Chrome, open `dist/index.html` via `file://` and verify that the permission prompt/live preview appears without a server; test Retry after denying once.
+14. In desktop Chrome, open `dist/index.html` via `file://` and verify the camera remains off without a permission prompt, including after language switching and image import. Then choose **Start camera** or a camera power control and verify the permission prompt/live preview appears without a server; test Retry after denying once.
 15. Turn the camera off and confirm the browser camera indicator disappears, then turn it on again from both the preview power control and the in-preview start action.
 16. Verify zoom on a camera with native zoom when available, and on a camera without native zoom confirm the digital fallback reaches 4× and the captured image matches the preview crop.
 17. On HTTPS (for example GitHub Pages), verify camera capture again.

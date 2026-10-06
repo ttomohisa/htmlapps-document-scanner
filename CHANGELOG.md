@@ -1,6 +1,12 @@
 # Changelog
 
 ## Unreleased
+
+## 1.0.2 - 2026-10-06
+- Start with the camera off and request access only after an explicit camera action. Language switching and image import no longer trigger the delayed startup request; update Japanese/English help and documentation to describe the new behavior.
+- Standardize desktop and mobile language controls to EN / JA, with localized accessible names and tooltips.
+- Keep localized help labels and the existing Fully local processing / 完全ローカル処理 badge.
+- Synchronize v1.0.2 metadata and standalone artifacts.
 - Add Save as new page / 別ページとして保存 in saved-page editing: keep the original and insert an independently editable crop/filter/rotation variant immediately after it.
 - Preserve page order, Undo and completed PDFs when a page drag is canceled or ends without a move; commit only the final drop target.
 - Refresh the catalog root document-scanner.html on default builds and verify readable/root/self-extract parity and manifest hashes. Custom-output builds leave default releases untouched.
