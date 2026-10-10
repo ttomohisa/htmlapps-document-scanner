@@ -462,16 +462,16 @@ function editorFocusHarness() {
   const h=harness(); smallDecode(h);
   const d=h.c.document, grid=h.$('#pageGrid'), create=d.createElement, query=d.querySelector;
   const focusable=el=>Object.assign(el,{isConnected:true,rendered:true,getClientRects(){return this.rendered?[{}]:[];},focus(options){if(this.isConnected&&this.rendered&&!this.disabled){d.activeElement=this;this.focusOptions=options;}}});
-  const disconnect=card=>{card.isConnected=false;if(card.preview)card.preview.isConnected=false;};
+  const disconnect=card=>{card.isConnected=false;for(const button of Object.values(card.actions||{}))button.isConnected=false;};
   Object.defineProperty(grid,'innerHTML',{set(){(grid.children||[]).forEach(disconnect);grid.children=[];},get(){return '';}});
-  d.createElement=tag=>{const el=focusable(create(tag));if(tag==='article')el.querySelector=selector=>{if(selector!=='[data-action="preview"]'||!el.innerHTML.includes('data-action="preview"'))return null;if(!el.preview){el.preview=focusable(create('button'));el.preview.dataset.action='preview';el.preview.card=el;}return el.preview;};return el;};
+  d.createElement=tag=>{const el=focusable(create(tag));if(tag==='article')el.querySelector=selector=>{const action=selector.match(/^\[data-action="(preview|rotate|delete)"\]$/)?.[1];if(!action||!el.innerHTML.includes('data-action="'+action+'"'))return null;el.actions||={};if(!el.actions[action]){const button=el.actions[action]=focusable(create('button'));button.dataset.action=action;button.card=el;}return el.actions[action];};return el;};
   d.querySelectorAll=selector=>selector==='.page-card'?(grid.children||[]):[];
   d.querySelector=selector=>selector==='dialog:modal'?(['#editorDialog','#confirmDialog','#helpDialog'].map(query).find(el=>el.open)||null):query(selector);
   for(const selector of ['#mobileNav button.active','#importBtn','#importRoundBtn'])focusable(query(selector));
   query('#mobileNav button.active').rendered=false;
   const dialog=query('#editorDialog');dialog.close=()=>{dialog.open=false;d.activeElement=d.body;dialog.fire('close');};
   h.run('renderPages=renderRealPages');
-  h.preview=id=>(grid.children||[]).find(el=>el.dataset.id===id)?.querySelector('[data-action="preview"]');
+  h.action=(id,action)=>(grid.children||[]).find(el=>el.dataset.id===id)?.querySelector('[data-action="'+action+'"]');h.preview=id=>h.action(id,'preview');
   h.render=()=>h.run('renderPages()'); h.doc=d; return h;
 }
 for(const save of ['addPageBtn','saveAsNewPageBtn'])test(`${save} restores the original page's replacement Preview after real card rerender`,async()=>{
@@ -511,4 +511,45 @@ test('A newer editor started during close retains focus ownership',async()=>{
 });
 test('Import editor closure does not apply saved-page focus restoration',async()=>{
   const h=editorFocusHarness();h.c.source=smallPage(h,'a').canvas;const done=h.run('openEditorFromSource(source,"capture")');h.$('#editorCloseBtn').fire('click');await done;assert.equal(h.doc.activeElement,h.doc.body);
+});
+
+for(const mobile of [false,true])test(`Delete all focuses a stable ${mobile?'mobile navigation':'desktop import'} control; Undo restores the first page Preview`,async()=>{
+  const h=editorFocusHarness(),a=smallPage(h,'a'),b=smallPage(h,'b');h.state.pages=[a,b];h.state.mobileView='pagesSection';h.render();pdf(h);
+  const nav=h.$('#mobileNav button.active');nav.rendered=mobile;h.doc.activeElement=h.$('#clearAllBtn');const clearing=h.$('#clearAllBtn').fire('click');h.run('confirmUI.finish(true)');await clearing;
+  assert.equal(h.state.pages.length,0);assert.equal(h.doc.activeElement,mobile?nav:h.$('#importBtn'));assert.equal(h.state.mobileView,'pagesSection');assert.equal(h.state.lastPdf,null);
+  h.$('#toastAction').fire('click');assert.deepEqual(Array.from(h.state.pages),[a,b]);assert.equal(h.doc.activeElement,h.preview('a'));assert.equal(h.state.lastDeleted,null);assert.equal(h.state.mobileView,'pagesSection');
+});
+test('Single-page Undo restores that page Preview at its preserved insertion index',()=>{
+  const h=editorFocusHarness(),a=smallPage(h,'a'),b=smallPage(h,'b');h.state.pages=[a];h.state.lastDeleted={page:b,index:1};h.render();h.doc.activeElement=h.$('#toastAction');h.$('#toastAction').fire('click');
+  assert.deepEqual(Array.from(h.state.pages),[a,b]);assert.equal(h.doc.activeElement,h.preview('b'));
+});
+test('Clear cancellation preserves pages, PDF, Undo and current focus',async()=>{
+  const h=editorFocusHarness(),a=smallPage(h,'a');h.state.pages=[a];h.render();const blob=pdf(h),undo={page:a,index:0};h.state.lastDeleted=undo;const opener=h.$('#clearAllBtn');h.doc.activeElement=opener;
+  const clearing=h.$('#clearAllBtn').fire('click');h.run('confirmUI.finish(false)');await clearing;assert.deepEqual(Array.from(h.state.pages),[a]);assert.equal(h.state.lastPdf.blob,blob);assert.equal(h.state.lastDeleted,undo);assert.equal(h.doc.activeElement,opener);
+});
+test('Clear and Undo do not steal focus from a newer modal',async()=>{
+  const h=editorFocusHarness(),a=smallPage(h,'a');h.state.pages=[a];h.render();const clearing=h.$('#clearAllBtn').fire('click');h.run('confirmUI.finish(true)');const other=h.$('#helpDialog');other.open=true;h.doc.activeElement=other;await clearing;
+  assert.equal(h.doc.activeElement,other);h.$('#toastAction').fire('click');assert.equal(h.doc.activeElement,other);assert.deepEqual(Array.from(h.state.pages),[a]);
+});
+test('Empty Undo is a no-op for focus and page state',()=>{
+  const h=editorFocusHarness();const target=h.$('#importBtn');h.doc.activeElement=target;h.$('#toastAction').fire('click');assert.equal(h.doc.activeElement,target);assert.equal(h.state.pages.length,0);
+});
+
+test('Rotate restores the same page Rotate control after rerender',async()=>{
+  const h=editorFocusHarness(),a=smallPage(h,'a'),b=smallPage(h,'b');h.state.pages=[a,b];h.render();const old=h.action('b','rotate');old.focus();pdf(h);await pageAction(h,'b','rotate');
+  assert.equal(old.isConnected,false);assert.equal(h.doc.activeElement,h.action('b','rotate'));assert.equal(b.rotation,1);assert.equal(h.state.lastPdf,null);assert.deepEqual(Array.from(h.state.pages),[a,b]);
+});
+for(const index of [0,1,2])test(`Confirmed page Delete at index${index} focuses a surviving neighbor Preview`,async()=>{
+  const h=editorFocusHarness();h.state.pages=['a','b','c'].map(id=>smallPage(h,id));h.render();const removed=h.state.pages[index];h.action(removed.id,'delete').focus();const deleting=pageAction(h,removed.id,'delete');h.run('confirmUI.finish(true)');await deleting;
+  const neighbor=h.state.pages[Math.min(index,h.state.pages.length-1)];assert.equal(h.doc.activeElement,h.preview(neighbor.id));assert.equal(h.state.lastDeleted.page,removed);assert.equal(h.state.lastDeleted.index,index);
+  h.$('#toastAction').fire('click');assert.equal(h.doc.activeElement,h.preview(removed.id));assert.deepEqual(Array.from(h.state.pages,p=>p.id),['a','b','c']);
+});
+test('Deleting the only page uses visible fallback; cancellation preserves its opener and PDF',async()=>{
+  const h=editorFocusHarness(),a=smallPage(h,'a');h.state.pages=[a];h.render();const opener=h.action('a','delete');opener.focus();const blob=pdf(h);
+  let deleting=pageAction(h,'a','delete');h.run('confirmUI.finish(false)');await deleting;assert.equal(h.doc.activeElement,opener);assert.equal(h.state.lastPdf.blob,blob);assert.equal(h.state.pages[0],a);
+  deleting=pageAction(h,'a','delete');h.run('confirmUI.finish(true)');await deleting;assert.equal(h.doc.activeElement,h.$('#importBtn'));assert.equal(h.state.pages.length,0);
+});
+test('Pending Rotate and confirmed Delete cannot steal focus from a newer modal',async()=>{
+  const h=editorFocusHarness(),a=smallPage(h,'a');h.state.pages=[a];h.render();h.run('canvasToDataURLThumb=()=>new Promise(resolve=>globalThis.finishThumb=resolve)');const rotating=pageAction(h,'a','rotate');await tick();const help=h.$('#helpDialog');help.open=true;h.doc.activeElement=help;h.run('finishThumb("rotated")');await rotating;assert.equal(h.doc.activeElement,help);
+  help.open=false;const deleting=pageAction(h,'a','delete');h.run('confirmUI.finish(true)');help.open=true;h.doc.activeElement=help;await deleting;assert.equal(h.doc.activeElement,help);
 });
