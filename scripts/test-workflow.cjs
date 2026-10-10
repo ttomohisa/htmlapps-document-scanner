@@ -412,3 +412,47 @@ for (const id of ['#desktopCameraPowerBtn', '#mobileCameraPowerBtn', '#mobileSta
     assert.equal(boot.requests(), 1, 'the explicit camera action still reaches getUserMedia');
   });
 }
+
+// CSS contracts complement native geometry checks; this harness does not perform layout.
+const auditCss = html.match(/<style>([\s\S]*?)<\/style>/)[1];
+const mobileAuditCss = auditCss.slice(auditCss.indexOf('@media(max-width:600px)'), auditCss.indexOf('@media(max-width:360px)'));
+function auditRule(css, selector) {
+  const escaped = selector.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  const match = css.match(new RegExp(escaped + '\\s*\\{([^}]+)\\}'));
+  assert.ok(match, `Missing scoped rule: ${selector}`);
+  return match[1];
+}
+test('Modal dialogs lock both root and body scrolling only while modal', () => {
+  const rule = auditRule(auditCss, 'html:has(dialog:modal),body:has(dialog:modal)');
+  assert.match(rule, /overflow\s*:\s*hidden/);
+});
+test('Mobile camera-off content can grow and keeps ordinary vertical scrolling', () => {
+  const rule = auditRule(mobileAuditCss, '.camera-preview-shell.camera-off');
+  assert.match(rule, /height\s*:\s*auto/);
+  assert.match(rule, /touch-action\s*:\s*pan-y/);
+  const empty = auditRule(mobileAuditCss, '.camera-preview-shell.camera-off .camera-empty');
+  assert.match(empty, /position\s*:\s*relative/);
+  assert.match(empty, /min-height\s*:\s*inherit/);
+});
+test('Mobile camera-off dock exposes the existing Image action without live-camera controls', () => {
+  const rule = auditRule(mobileAuditCss, '.camera-preview-shell.camera-off .camera-bottom');
+  assert.match(rule, /opacity\s*:\s*1/);
+  assert.match(rule, /pointer-events\s*:\s*auto/);
+  assert.match(rule, /grid-template-columns\s*:\s*1fr/);
+  for (const id of ['torchBtn','shutterBtn','mobileAutoBtn','switchCameraBtn']) {
+    assert.match(mobileAuditCss, new RegExp('\\.camera-preview-shell\\.camera-off #' + id));
+  }
+  assert.doesNotMatch(mobileAuditCss, /camera-off #importRoundBtn[^}]*display\s*:\s*none/);
+  assert.match(auditCss, /\.camera-preview-shell\.camera-off \.camera-bottom[^}]*opacity:0/,
+    'desktop camera-off dock remains hidden; its separate import control is unchanged');
+});
+test('Mobile off-state Image button reaches the existing picker without requesting a camera', () => {
+  const h=harness(), boot=bootWithoutRealCamera(h); boot.flushTimers();
+  let picks=0; h.$('#fileInput').click=()=>{picks++;};
+  for(let i=0;i<3;i++) h.$('#importRoundBtn').fire('click');
+  assert.equal(picks,3); assert.equal(boot.requests(),0); assert.equal(h.state.stream,null);
+});
+test('Local-processing badge retains the existing shield artwork and truthful labels', () => {
+  assert.match(html, /class="privacy-pill"><svg[^>]*><path d="M12 3 5\.5 6v5\.3c0 4\.1 2\.7 7\.8 6\.5 9\.2/);
+  assert.ok(html.includes('完全ローカル処理')); assert.ok(html.includes('Fully local processing'));
+});
