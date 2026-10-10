@@ -5,7 +5,7 @@
 - **Purpose:** Turn paper documents into submission-ready PDFs from a phone browser without uploading source images.
 - **Primary users:** People submitting forms to government, school, insurance, workplaces, and other web portals.
 - **Release:** `dist/index.html` and `dist/index.self-extract.html`
-- **Version:** `1.0.2`
+- **Version:** `1.0.3`
 
 ## 2. Core outcome
 A user can photograph or import several paper pages, automatically detect the document, fine-tune four corners, correct perspective, enhance readability, reorder pages, and generate/share one PDF that satisfies common submission constraints.
@@ -82,3 +82,8 @@ Current stable Chromium, Safari, and Firefox. The app must keep the camera off o
 - Japanese and English controls fit at 360 px.
 - Smartphone bottom navigation remains clear of safe areas and keeps toast/status messages above it.
 - Output filename can be edited before PDF generation and the generated/downloaded/shared filename matches the normalized input.
+
+## Responsive dialog audit
+- Native modal dialogs lock background scrolling for their open lifetime; closing restores ordinary page scrolling.
+- With the camera off on narrow screens, the existing Image action remains available without camera access; the off-state content grows and scrolls on short viewports. Active-camera controls retain their original layout.
+- Closing saved-page editing restores the same page’s Preview control after card rerendering; Rotate restores its page’s Rotate action. Confirmed Delete focuses a surviving neighbor’s Preview, Delete all uses existing visible navigation/import, and Undo focuses the restored page’s Preview. Unavailable targets fall back to visible existing controls without switching views or interrupting another editor/dialog.

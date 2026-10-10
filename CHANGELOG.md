@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.0.3 - 2026-10-10
+- Return keyboard focus to the corresponding page action after editing, copying or rotating a page. Delete, Delete all and Undo choose a surviving/restored page or a visible existing control when rerendering removes the opener.
+- Prevent background scrolling while native modal dialogs are open.
+- Keep the mobile camera-off Image action visible and let short camera-off screens scroll to the Start camera and Image controls. Camera access remains opt-in.
+- Preserve the existing local-processing shield and add responsive regression coverage.
+
 ## Unreleased
 
 ## 1.0.2 - 2026-10-06

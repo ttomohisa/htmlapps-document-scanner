@@ -412,3 +412,144 @@ for (const id of ['#desktopCameraPowerBtn', '#mobileCameraPowerBtn', '#mobileSta
     assert.equal(boot.requests(), 1, 'the explicit camera action still reaches getUserMedia');
   });
 }
+
+// CSS contracts complement native geometry checks; this harness does not perform layout.
+const auditCss = html.match(/<style>([\s\S]*?)<\/style>/)[1];
+const mobileAuditCss = auditCss.slice(auditCss.indexOf('@media(max-width:600px)'), auditCss.indexOf('@media(max-width:360px)'));
+function auditRule(css, selector) {
+  const escaped = selector.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  const match = css.match(new RegExp(escaped + '\\s*\\{([^}]+)\\}'));
+  assert.ok(match, `Missing scoped rule: ${selector}`);
+  return match[1];
+}
+test('Modal dialogs lock both root and body scrolling only while modal', () => {
+  const rule = auditRule(auditCss, 'html:has(dialog:modal),body:has(dialog:modal)');
+  assert.match(rule, /overflow\s*:\s*hidden/);
+});
+test('Mobile camera-off content can grow and keeps ordinary vertical scrolling', () => {
+  const rule = auditRule(mobileAuditCss, '.camera-preview-shell.camera-off');
+  assert.match(rule, /height\s*:\s*auto/);
+  assert.match(rule, /touch-action\s*:\s*pan-y/);
+  const empty = auditRule(mobileAuditCss, '.camera-preview-shell.camera-off .camera-empty');
+  assert.match(empty, /position\s*:\s*relative/);
+  assert.match(empty, /min-height\s*:\s*inherit/);
+});
+test('Mobile camera-off dock exposes the existing Image action without live-camera controls', () => {
+  const rule = auditRule(mobileAuditCss, '.camera-preview-shell.camera-off .camera-bottom');
+  assert.match(rule, /opacity\s*:\s*1/);
+  assert.match(rule, /pointer-events\s*:\s*auto/);
+  assert.match(rule, /grid-template-columns\s*:\s*1fr/);
+  for (const id of ['torchBtn','shutterBtn','mobileAutoBtn','switchCameraBtn']) {
+    assert.match(mobileAuditCss, new RegExp('\\.camera-preview-shell\\.camera-off #' + id));
+  }
+  assert.doesNotMatch(mobileAuditCss, /camera-off #importRoundBtn[^}]*display\s*:\s*none/);
+  assert.match(auditCss, /\.camera-preview-shell\.camera-off \.camera-bottom[^}]*opacity:0/,
+    'desktop camera-off dock remains hidden; its separate import control is unchanged');
+});
+test('Mobile off-state Image button reaches the existing picker without requesting a camera', () => {
+  const h=harness(), boot=bootWithoutRealCamera(h); boot.flushTimers();
+  let picks=0; h.$('#fileInput').click=()=>{picks++;};
+  for(let i=0;i<3;i++) h.$('#importRoundBtn').fire('click');
+  assert.equal(picks,3); assert.equal(boot.requests(),0); assert.equal(h.state.stream,null);
+});
+test('Local-processing badge retains the existing shield artwork and truthful labels', () => {
+  assert.match(html, /class="privacy-pill"><svg[^>]*><path d="M12 3 5\.5 6v5\.3c0 4\.1 2\.7 7\.8 6\.5 9\.2/);
+  assert.ok(html.includes('完全ローカル処理')); assert.ok(html.includes('Fully local processing'));
+});
+
+// Minimal rendered-card/focus DOM double. Saves still execute real renderPages and editor handlers.
+function editorFocusHarness() {
+  const h=harness(); smallDecode(h);
+  const d=h.c.document, grid=h.$('#pageGrid'), create=d.createElement, query=d.querySelector;
+  const focusable=el=>Object.assign(el,{isConnected:true,rendered:true,getClientRects(){return this.rendered?[{}]:[];},focus(options){if(this.isConnected&&this.rendered&&!this.disabled){d.activeElement=this;this.focusOptions=options;}}});
+  const disconnect=card=>{card.isConnected=false;for(const button of Object.values(card.actions||{}))button.isConnected=false;};
+  Object.defineProperty(grid,'innerHTML',{set(){(grid.children||[]).forEach(disconnect);grid.children=[];},get(){return '';}});
+  d.createElement=tag=>{const el=focusable(create(tag));if(tag==='article')el.querySelector=selector=>{const action=selector.match(/^\[data-action="(preview|rotate|delete)"\]$/)?.[1];if(!action||!el.innerHTML.includes('data-action="'+action+'"'))return null;el.actions||={};if(!el.actions[action]){const button=el.actions[action]=focusable(create('button'));button.dataset.action=action;button.card=el;}return el.actions[action];};return el;};
+  d.querySelectorAll=selector=>selector==='.page-card'?(grid.children||[]):[];
+  d.querySelector=selector=>selector==='dialog:modal'?(['#editorDialog','#confirmDialog','#helpDialog'].map(query).find(el=>el.open)||null):query(selector);
+  for(const selector of ['#mobileNav button.active','#importBtn','#importRoundBtn'])focusable(query(selector));
+  query('#mobileNav button.active').rendered=false;
+  const dialog=query('#editorDialog');dialog.close=()=>{dialog.open=false;d.activeElement=d.body;dialog.fire('close');};
+  h.run('renderPages=renderRealPages');
+  h.action=(id,action)=>(grid.children||[]).find(el=>el.dataset.id===id)?.querySelector('[data-action="'+action+'"]');h.preview=id=>h.action(id,'preview');
+  h.render=()=>h.run('renderPages()'); h.doc=d; return h;
+}
+for(const save of ['addPageBtn','saveAsNewPageBtn'])test(`${save} restores the original page's replacement Preview after real card rerender`,async()=>{
+  const h=editorFocusHarness(),a=smallPage(h,'a'),b=smallPage(h,'b');h.state.pages=[a,b];h.render();const old=h.preview('b');old.focus();const e=await edit(h,b);
+  await h.$('#'+save).fire('click');await e.done;
+  const current=h.preview('b');assert.notEqual(current,old);assert.equal(old.isConnected,false);assert.equal(h.doc.activeElement,current);assert.equal(current.focusOptions.preventScroll,true);
+  assert.equal(h.state.pages[1],b);assert.equal(h.state.pages.length,save==='addPageBtn'?2:3);
+});
+test('Ordinary edited-page Close restores the existing Preview and preserves the PDF',async()=>{
+  const h=editorFocusHarness(),a=smallPage(h,'a');h.state.pages=[a];h.render();const opener=h.preview('a');opener.focus();const blob=pdf(h),e=await edit(h,a);
+  h.$('#editorCloseBtn').fire('click');await e.done;assert.equal(h.doc.activeElement,opener);assert.equal(h.state.lastPdf.blob,blob);
+});
+for(const unavailable of ['hidden','removed','disabled','disconnected'])test(`Edited-page ${unavailable} opener falls back to visible active navigation without changing views`,async()=>{
+  const h=editorFocusHarness(),a=smallPage(h,'a');h.state.pages=[a];h.state.mobileView='exportSection';h.render();const e=await edit(h,a);
+  const target=h.preview('a');if(unavailable==='hidden')target.rendered=false;if(unavailable==='disabled')target.disabled=true;if(unavailable==='disconnected')target.isConnected=false;if(unavailable==='removed'){h.state.pages=[];h.render();}
+  const nav=h.$('#mobileNav button.active');nav.rendered=true;h.$('#editorCloseBtn').fire('click');await e.done;
+  assert.equal(h.doc.activeElement,nav);assert.equal(h.state.mobileView,'exportSection');assert.equal(h.state.pages.length,unavailable==='removed'?0:1);assert.equal(nav.focusOptions.preventScroll,true);
+});
+test('Desktop fallback skips hidden or unsuccessful targets and reaches a visible import action',async()=>{
+  const h=editorFocusHarness(),a=smallPage(h,'a');h.state.pages=[a];h.render();const e=await edit(h,a);h.preview('a').rendered=false;
+  h.$('#importBtn').focus=()=>{};h.$('#editorCloseBtn').fire('click');await e.done;assert.equal(h.doc.activeElement,h.$('#importRoundBtn'));
+});
+test('Finishing an edited page does not steal focus from another modal opened during close',async()=>{
+  const h=editorFocusHarness(),a=smallPage(h,'a');h.state.pages=[a];h.render();const e=await edit(h,a),other=h.$('#confirmDialog');
+  h.$('#editorDialog').close=()=>{h.$('#editorDialog').open=false;other.open=true;h.doc.activeElement=other;};
+  h.$('#editorCloseBtn').fire('click');await e.done;assert.equal(h.doc.activeElement,other);
+});
+test('A stale editor completion cannot restore focus over a newer editor',async()=>{
+  const h=editorFocusHarness(),a=smallPage(h,'a'),b=smallPage(h,'b');h.state.pages=[a,b];h.render();const first=await edit(h,a);h.$('#editorCloseBtn').fire('click');await first.done;
+  const second=await edit(h,b);h.doc.activeElement=h.$('#addPageBtn');h.c.stale=first.ed;h.run('finishEditor("updated",stale)');
+  assert.equal(h.state.editor,second.ed);assert.equal(h.doc.activeElement,h.$('#addPageBtn'));assert.equal(h.$('#editorDialog').open,true);h.$('#editorCloseBtn').fire('click');await second.done;
+});
+test('A newer editor started during close retains focus ownership',async()=>{
+  const h=editorFocusHarness(),a=smallPage(h,'a');h.state.pages=[a];h.render();const e=await edit(h,a),newer={mode:'edit',pageId:'newer'};
+  h.$('#editorDialog').close=()=>{h.$('#editorDialog').open=false;h.state.editor=newer;h.doc.activeElement=h.$('#addPageBtn');};
+  h.run('finishEditor("updated")');await e.done;assert.equal(h.state.editor,newer);assert.equal(h.doc.activeElement,h.$('#addPageBtn'));
+});
+test('Import editor closure does not apply saved-page focus restoration',async()=>{
+  const h=editorFocusHarness();h.c.source=smallPage(h,'a').canvas;const done=h.run('openEditorFromSource(source,"capture")');h.$('#editorCloseBtn').fire('click');await done;assert.equal(h.doc.activeElement,h.doc.body);
+});
+
+for(const mobile of [false,true])test(`Delete all focuses a stable ${mobile?'mobile navigation':'desktop import'} control; Undo restores the first page Preview`,async()=>{
+  const h=editorFocusHarness(),a=smallPage(h,'a'),b=smallPage(h,'b');h.state.pages=[a,b];h.state.mobileView='pagesSection';h.render();pdf(h);
+  const nav=h.$('#mobileNav button.active');nav.rendered=mobile;h.doc.activeElement=h.$('#clearAllBtn');const clearing=h.$('#clearAllBtn').fire('click');h.run('confirmUI.finish(true)');await clearing;
+  assert.equal(h.state.pages.length,0);assert.equal(h.doc.activeElement,mobile?nav:h.$('#importBtn'));assert.equal(h.state.mobileView,'pagesSection');assert.equal(h.state.lastPdf,null);
+  h.$('#toastAction').fire('click');assert.deepEqual(Array.from(h.state.pages),[a,b]);assert.equal(h.doc.activeElement,h.preview('a'));assert.equal(h.state.lastDeleted,null);assert.equal(h.state.mobileView,'pagesSection');
+});
+test('Single-page Undo restores that page Preview at its preserved insertion index',()=>{
+  const h=editorFocusHarness(),a=smallPage(h,'a'),b=smallPage(h,'b');h.state.pages=[a];h.state.lastDeleted={page:b,index:1};h.render();h.doc.activeElement=h.$('#toastAction');h.$('#toastAction').fire('click');
+  assert.deepEqual(Array.from(h.state.pages),[a,b]);assert.equal(h.doc.activeElement,h.preview('b'));
+});
+test('Clear cancellation preserves pages, PDF, Undo and current focus',async()=>{
+  const h=editorFocusHarness(),a=smallPage(h,'a');h.state.pages=[a];h.render();const blob=pdf(h),undo={page:a,index:0};h.state.lastDeleted=undo;const opener=h.$('#clearAllBtn');h.doc.activeElement=opener;
+  const clearing=h.$('#clearAllBtn').fire('click');h.run('confirmUI.finish(false)');await clearing;assert.deepEqual(Array.from(h.state.pages),[a]);assert.equal(h.state.lastPdf.blob,blob);assert.equal(h.state.lastDeleted,undo);assert.equal(h.doc.activeElement,opener);
+});
+test('Clear and Undo do not steal focus from a newer modal',async()=>{
+  const h=editorFocusHarness(),a=smallPage(h,'a');h.state.pages=[a];h.render();const clearing=h.$('#clearAllBtn').fire('click');h.run('confirmUI.finish(true)');const other=h.$('#helpDialog');other.open=true;h.doc.activeElement=other;await clearing;
+  assert.equal(h.doc.activeElement,other);h.$('#toastAction').fire('click');assert.equal(h.doc.activeElement,other);assert.deepEqual(Array.from(h.state.pages),[a]);
+});
+test('Empty Undo is a no-op for focus and page state',()=>{
+  const h=editorFocusHarness();const target=h.$('#importBtn');h.doc.activeElement=target;h.$('#toastAction').fire('click');assert.equal(h.doc.activeElement,target);assert.equal(h.state.pages.length,0);
+});
+
+test('Rotate restores the same page Rotate control after rerender',async()=>{
+  const h=editorFocusHarness(),a=smallPage(h,'a'),b=smallPage(h,'b');h.state.pages=[a,b];h.render();const old=h.action('b','rotate');old.focus();pdf(h);await pageAction(h,'b','rotate');
+  assert.equal(old.isConnected,false);assert.equal(h.doc.activeElement,h.action('b','rotate'));assert.equal(b.rotation,1);assert.equal(h.state.lastPdf,null);assert.deepEqual(Array.from(h.state.pages),[a,b]);
+});
+for(const index of [0,1,2])test(`Confirmed page Delete at index${index} focuses a surviving neighbor Preview`,async()=>{
+  const h=editorFocusHarness();h.state.pages=['a','b','c'].map(id=>smallPage(h,id));h.render();const removed=h.state.pages[index];h.action(removed.id,'delete').focus();const deleting=pageAction(h,removed.id,'delete');h.run('confirmUI.finish(true)');await deleting;
+  const neighbor=h.state.pages[Math.min(index,h.state.pages.length-1)];assert.equal(h.doc.activeElement,h.preview(neighbor.id));assert.equal(h.state.lastDeleted.page,removed);assert.equal(h.state.lastDeleted.index,index);
+  h.$('#toastAction').fire('click');assert.equal(h.doc.activeElement,h.preview(removed.id));assert.deepEqual(Array.from(h.state.pages,p=>p.id),['a','b','c']);
+});
+test('Deleting the only page uses visible fallback; cancellation preserves its opener and PDF',async()=>{
+  const h=editorFocusHarness(),a=smallPage(h,'a');h.state.pages=[a];h.render();const opener=h.action('a','delete');opener.focus();const blob=pdf(h);
+  let deleting=pageAction(h,'a','delete');h.run('confirmUI.finish(false)');await deleting;assert.equal(h.doc.activeElement,opener);assert.equal(h.state.lastPdf.blob,blob);assert.equal(h.state.pages[0],a);
+  deleting=pageAction(h,'a','delete');h.run('confirmUI.finish(true)');await deleting;assert.equal(h.doc.activeElement,h.$('#importBtn'));assert.equal(h.state.pages.length,0);
+});
+test('Pending Rotate and confirmed Delete cannot steal focus from a newer modal',async()=>{
+  const h=editorFocusHarness(),a=smallPage(h,'a');h.state.pages=[a];h.render();h.run('canvasToDataURLThumb=()=>new Promise(resolve=>globalThis.finishThumb=resolve)');const rotating=pageAction(h,'a','rotate');await tick();const help=h.$('#helpDialog');help.open=true;h.doc.activeElement=help;h.run('finishThumb("rotated")');await rotating;assert.equal(h.doc.activeElement,help);
+  help.open=false;const deleting=pageAction(h,'a','delete');h.run('confirmUI.finish(true)');help.open=true;h.doc.activeElement=help;await deleting;assert.equal(h.doc.activeElement,help);
+});
