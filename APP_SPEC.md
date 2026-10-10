@@ -86,3 +86,4 @@ Current stable Chromium, Safari, and Firefox. The app must keep the camera off o
 ## Responsive dialog audit
 - Native modal dialogs lock background scrolling for their open lifetime; closing restores ordinary page scrolling.
 - With the camera off on narrow screens, the existing Image action remains available without camera access; the off-state content grows and scrolls on short viewports. Active-camera controls retain their original layout.
+- Closing saved-page editing restores the same page’s Preview control after card rerendering. If it is unavailable, focus returns to a visible existing navigation or import control without switching views or interrupting another editor/dialog.

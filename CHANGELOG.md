@@ -1,6 +1,7 @@
 # Changelog
 
 ## 1.0.3 - 2026-10-10
+- Return keyboard focus to the corresponding page Preview after saving edited pages or a new copy; use a visible existing control if the opener is unavailable.
 - Prevent background scrolling while native modal dialogs are open.
 - Keep the mobile camera-off Image action visible and let short camera-off screens scroll to the Start camera and Image controls. Camera access remains opt-in.
 - Preserve the existing local-processing shield and add responsive regression coverage.

@@ -456,3 +456,59 @@ test('Local-processing badge retains the existing shield artwork and truthful la
   assert.match(html, /class="privacy-pill"><svg[^>]*><path d="M12 3 5\.5 6v5\.3c0 4\.1 2\.7 7\.8 6\.5 9\.2/);
   assert.ok(html.includes('完全ローカル処理')); assert.ok(html.includes('Fully local processing'));
 });
+
+// Minimal rendered-card/focus DOM double. Saves still execute real renderPages and editor handlers.
+function editorFocusHarness() {
+  const h=harness(); smallDecode(h);
+  const d=h.c.document, grid=h.$('#pageGrid'), create=d.createElement, query=d.querySelector;
+  const focusable=el=>Object.assign(el,{isConnected:true,rendered:true,getClientRects(){return this.rendered?[{}]:[];},focus(options){if(this.isConnected&&this.rendered&&!this.disabled){d.activeElement=this;this.focusOptions=options;}}});
+  const disconnect=card=>{card.isConnected=false;if(card.preview)card.preview.isConnected=false;};
+  Object.defineProperty(grid,'innerHTML',{set(){(grid.children||[]).forEach(disconnect);grid.children=[];},get(){return '';}});
+  d.createElement=tag=>{const el=focusable(create(tag));if(tag==='article')el.querySelector=selector=>{if(selector!=='[data-action="preview"]'||!el.innerHTML.includes('data-action="preview"'))return null;if(!el.preview){el.preview=focusable(create('button'));el.preview.dataset.action='preview';el.preview.card=el;}return el.preview;};return el;};
+  d.querySelectorAll=selector=>selector==='.page-card'?(grid.children||[]):[];
+  d.querySelector=selector=>selector==='dialog:modal'?(['#editorDialog','#confirmDialog','#helpDialog'].map(query).find(el=>el.open)||null):query(selector);
+  for(const selector of ['#mobileNav button.active','#importBtn','#importRoundBtn'])focusable(query(selector));
+  query('#mobileNav button.active').rendered=false;
+  const dialog=query('#editorDialog');dialog.close=()=>{dialog.open=false;d.activeElement=d.body;dialog.fire('close');};
+  h.run('renderPages=renderRealPages');
+  h.preview=id=>(grid.children||[]).find(el=>el.dataset.id===id)?.querySelector('[data-action="preview"]');
+  h.render=()=>h.run('renderPages()'); h.doc=d; return h;
+}
+for(const save of ['addPageBtn','saveAsNewPageBtn'])test(`${save} restores the original page's replacement Preview after real card rerender`,async()=>{
+  const h=editorFocusHarness(),a=smallPage(h,'a'),b=smallPage(h,'b');h.state.pages=[a,b];h.render();const old=h.preview('b');old.focus();const e=await edit(h,b);
+  await h.$('#'+save).fire('click');await e.done;
+  const current=h.preview('b');assert.notEqual(current,old);assert.equal(old.isConnected,false);assert.equal(h.doc.activeElement,current);assert.equal(current.focusOptions.preventScroll,true);
+  assert.equal(h.state.pages[1],b);assert.equal(h.state.pages.length,save==='addPageBtn'?2:3);
+});
+test('Ordinary edited-page Close restores the existing Preview and preserves the PDF',async()=>{
+  const h=editorFocusHarness(),a=smallPage(h,'a');h.state.pages=[a];h.render();const opener=h.preview('a');opener.focus();const blob=pdf(h),e=await edit(h,a);
+  h.$('#editorCloseBtn').fire('click');await e.done;assert.equal(h.doc.activeElement,opener);assert.equal(h.state.lastPdf.blob,blob);
+});
+for(const unavailable of ['hidden','removed','disabled','disconnected'])test(`Edited-page ${unavailable} opener falls back to visible active navigation without changing views`,async()=>{
+  const h=editorFocusHarness(),a=smallPage(h,'a');h.state.pages=[a];h.state.mobileView='exportSection';h.render();const e=await edit(h,a);
+  const target=h.preview('a');if(unavailable==='hidden')target.rendered=false;if(unavailable==='disabled')target.disabled=true;if(unavailable==='disconnected')target.isConnected=false;if(unavailable==='removed'){h.state.pages=[];h.render();}
+  const nav=h.$('#mobileNav button.active');nav.rendered=true;h.$('#editorCloseBtn').fire('click');await e.done;
+  assert.equal(h.doc.activeElement,nav);assert.equal(h.state.mobileView,'exportSection');assert.equal(h.state.pages.length,unavailable==='removed'?0:1);assert.equal(nav.focusOptions.preventScroll,true);
+});
+test('Desktop fallback skips hidden or unsuccessful targets and reaches a visible import action',async()=>{
+  const h=editorFocusHarness(),a=smallPage(h,'a');h.state.pages=[a];h.render();const e=await edit(h,a);h.preview('a').rendered=false;
+  h.$('#importBtn').focus=()=>{};h.$('#editorCloseBtn').fire('click');await e.done;assert.equal(h.doc.activeElement,h.$('#importRoundBtn'));
+});
+test('Finishing an edited page does not steal focus from another modal opened during close',async()=>{
+  const h=editorFocusHarness(),a=smallPage(h,'a');h.state.pages=[a];h.render();const e=await edit(h,a),other=h.$('#confirmDialog');
+  h.$('#editorDialog').close=()=>{h.$('#editorDialog').open=false;other.open=true;h.doc.activeElement=other;};
+  h.$('#editorCloseBtn').fire('click');await e.done;assert.equal(h.doc.activeElement,other);
+});
+test('A stale editor completion cannot restore focus over a newer editor',async()=>{
+  const h=editorFocusHarness(),a=smallPage(h,'a'),b=smallPage(h,'b');h.state.pages=[a,b];h.render();const first=await edit(h,a);h.$('#editorCloseBtn').fire('click');await first.done;
+  const second=await edit(h,b);h.doc.activeElement=h.$('#addPageBtn');h.c.stale=first.ed;h.run('finishEditor("updated",stale)');
+  assert.equal(h.state.editor,second.ed);assert.equal(h.doc.activeElement,h.$('#addPageBtn'));assert.equal(h.$('#editorDialog').open,true);h.$('#editorCloseBtn').fire('click');await second.done;
+});
+test('A newer editor started during close retains focus ownership',async()=>{
+  const h=editorFocusHarness(),a=smallPage(h,'a');h.state.pages=[a];h.render();const e=await edit(h,a),newer={mode:'edit',pageId:'newer'};
+  h.$('#editorDialog').close=()=>{h.$('#editorDialog').open=false;h.state.editor=newer;h.doc.activeElement=h.$('#addPageBtn');};
+  h.run('finishEditor("updated")');await e.done;assert.equal(h.state.editor,newer);assert.equal(h.doc.activeElement,h.$('#addPageBtn'));
+});
+test('Import editor closure does not apply saved-page focus restoration',async()=>{
+  const h=editorFocusHarness();h.c.source=smallPage(h,'a').canvas;const done=h.run('openEditorFromSource(source,"capture")');h.$('#editorCloseBtn').fire('click');await done;assert.equal(h.doc.activeElement,h.doc.body);
+});
