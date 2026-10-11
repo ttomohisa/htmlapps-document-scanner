@@ -11,3 +11,10 @@ foreach ($variant in @('src/index.template.html', 'dist/index.html', 'dist/index
   if ($LASTEXITCODE -ne 0) { throw "Workflow regression tests failed for $variant" }
 }
 Write-Host 'Repository check passed.'
+
+
+# Keep user help focused on usage rather than implementation audit notes.
+foreach ($HelpArtifact in @("src/index.template.html", "dist/index.html", "dist/index.self-extract.html")) {
+  & node (Join-Path $Root "scripts/test-help-copy.cjs") --html (Join-Path $Root $HelpArtifact)
+  if ($LASTEXITCODE -ne 0) { throw "Help copy regression failed: $HelpArtifact" }
+}
