@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.0.4 - 2026-10-27
+
+- Keep the header version visible on narrow smartphones without overlapping the app name or language/Help controls. The camera overlay shows the same configuration-derived version while the desktop header stays hidden in the camera-first mobile layout.
+
 ## 1.0.3 - 2026-10-10
 - Return keyboard focus to the corresponding page action after editing, copying or rotating a page. Delete, Delete all and Undo choose a surviving/restored page or a visible existing control when rerendering removes the opener.
 - Prevent background scrolling while native modal dialogs are open.

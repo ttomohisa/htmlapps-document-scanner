@@ -30,6 +30,7 @@ foreach ($token in @('__APP_CONFIG_JSON__','__BUILD_MANIFEST_JSON__','__EMBEDDED
 }
 
 $html = $source.Replace('__APP_CONFIG_JSON__', $configRaw.Trim())
+$html = $html.Replace('data-app-version></span>', ('data-app-version>v' + $config.version + '</span>'))
 $html = $html.Replace('__BUILD_MANIFEST_JSON__', $manifest)
 $html = $html.Replace('__EMBEDDED_ASSET_BUNDLE_BASE64__', '"e30="')
 [IO.File]::WriteAllText($Output, $html, $utf8)

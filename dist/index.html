@@ -65,17 +65,31 @@
       .camera-preview-shell.camera-off .camera-bottom{opacity:1;pointer-events:auto;grid-template-columns:1fr;max-width:176px}
       .camera-preview-shell.camera-off #torchBtn,.camera-preview-shell.camera-off #shutterBtn,.camera-preview-shell.camera-off #mobileAutoBtn,.camera-preview-shell.camera-off #switchCameraBtn{display:none}
     }
-    @media(max-width:360px){.privacy-pill span{display:none}.version-badge{display:none}.preset{padding:7px 9px}.setting-grid{grid-template-columns:1fr}.setting-grid .field{padding-left:0!important;padding-right:0!important}.filter-row{grid-template-columns:repeat(2,1fr)}}
+    @media(max-width:360px){.privacy-pill span{display:none}.preset{padding:7px 9px}.setting-grid{grid-template-columns:1fr}.setting-grid .field{padding-left:0!important;padding-right:0!important}.filter-row{grid-template-columns:repeat(2,1fr)}}
     @media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
   .import-progress{margin:12px 0 8px;font-size:12px;color:var(--muted);overflow-wrap:anywhere}.crop-side{min-width:0}.crop-side .editor-error{color:var(--danger)}#saveAsNewPageBtn{grid-column:1/-1;white-space:normal}
-</style>
+
+    @media (max-width: 600px) {
+      .brand-name { display: flex; align-items: center; }
+      .brand-name > span:first-child { min-width: 0; overflow: hidden; text-overflow: ellipsis; }
+      .version-badge { flex: 0 0 auto; white-space: nowrap; }
+      .header-actions { flex: 0 0 auto; }
+    }
+
+    @media (max-width: 600px) {
+      .mobile-camera-title { min-width: 0; display: flex; align-items: center; }
+      .mobile-camera-title > span:first-child { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+      .mobile-camera-actions { flex: 0 0 auto; }
+      .mobile-camera-title .version-badge { margin-left: 5px; padding: 1px 5px; color: inherit; border-color: currentColor; background: transparent; text-shadow: inherit; }
+    }
+  </style>
 </head>
 <body>
 <header class="app-header">
   <div class="header-inner">
     <div class="brand">
       <div class="brand-mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M7 4h10v16H7z" fill="currentColor" opacity=".2"/><path d="M5 8V4h4M19 8V4h-4M5 16v4h4M19 16v4h-4M9 9h6M9 12h6M9 15h4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></div>
-      <div class="brand-copy"><h1 class="brand-name"><span data-i18n="appName">提出PDFスキャナー</span><span class="version-badge">v1.0.3</span></h1><p class="brand-meta" data-i18n="brandMeta">補正・整理・提出条件まで、端末内で完結</p></div>
+      <div class="brand-copy"><h1 class="brand-name"><span data-i18n="appName">提出PDFスキャナー</span><span class="version-badge" data-app-version>v1.0.4</span></h1><p class="brand-meta" data-i18n="brandMeta">補正・整理・提出条件まで、端末内で完結</p></div>
     </div>
     <div class="header-actions">
       <button class="plain-button" id="langBtn" type="button" aria-label="英語に切り替え" title="英語に切り替え">EN</button>
@@ -92,7 +106,7 @@
   <section class="start-card" id="scanSection" aria-labelledby="scanHeading">
     <div class="camera-preview-shell" id="cameraShell">
       <video id="video" autoplay playsinline muted></video><canvas id="guideCanvas"></canvas>
-      <div class="mobile-camera-top"><div class="mobile-camera-title" data-i18n="appName">提出PDFスキャナー</div><div class="mobile-camera-actions"><button class="mobile-language" id="mobileLangBtn" type="button" aria-label="英語に切り替え" title="英語に切り替え">EN</button><button class="mobile-camera-power" id="mobileCameraPowerBtn" type="button" data-i18n-aria="turnCameraOff" aria-label="カメラをオフ"><svg viewBox="0 0 24 24" fill="none"><path d="M12 3v8" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/><path d="M7.1 5.9a8 8 0 1 0 9.8 0" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/></svg></button><button id="mobileHelpBtn" type="button" data-i18n-aria="help" aria-label="使い方と注意事項" title="使い方と注意事項"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.8"/><path d="M9.7 9a2.45 2.45 0 0 1 4.73.92c0 1.8-2.43 1.91-2.43 3.6M12 17.2h.01" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></button></div></div>
+      <div class="mobile-camera-top"><div class="mobile-camera-title"><span data-i18n="appName">提出PDFスキャナー</span><span class="version-badge" data-app-version>v1.0.4</span></div><div class="mobile-camera-actions"><button class="mobile-language" id="mobileLangBtn" type="button" aria-label="英語に切り替え" title="英語に切り替え">EN</button><button class="mobile-camera-power" id="mobileCameraPowerBtn" type="button" data-i18n-aria="turnCameraOff" aria-label="カメラをオフ"><svg viewBox="0 0 24 24" fill="none"><path d="M12 3v8" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/><path d="M7.1 5.9a8 8 0 1 0 9.8 0" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/></svg></button><button id="mobileHelpBtn" type="button" data-i18n-aria="help" aria-label="使い方と注意事項" title="使い方と注意事項"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.8"/><path d="M9.7 9a2.45 2.45 0 0 1 4.73.92c0 1.8-2.43 1.91-2.43 3.6M12 17.2h.01" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></button></div></div>
       <div class="camera-error" id="cameraError"><div class="camera-error-card"><svg viewBox="0 0 24 24" fill="none"><path d="M3 7h4l2-2h6l2 2h4v12H3z" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="13" r="3.5" stroke="currentColor" stroke-width="1.8"/><path d="M4 4l16 16" stroke="currentColor" stroke-width="1.8"/></svg><h3 data-i18n="cameraErrorTitle">カメラを使用できません</h3><p id="cameraErrorText">カメラを開始できませんでした。</p><div class="camera-error-actions"><button class="primary" id="retryCameraBtn" type="button" data-i18n="retryCamera">再試行</button><button id="errorImportBtn" type="button" data-i18n="importImages">画像を追加</button></div></div></div>
       <div class="camera-empty" id="cameraEmpty"><div><svg viewBox="0 0 64 64" fill="none"><rect x="11" y="17" width="42" height="32" rx="6" stroke="currentColor" stroke-width="3"/><circle cx="32" cy="33" r="9" stroke="currentColor" stroke-width="3"/><path d="m21 17 4-6h14l4 6" stroke="currentColor" stroke-width="3" stroke-linejoin="round"/></svg><strong id="cameraEmptyTitle" data-i18n="cameraReadyTitle">カメラで紙をスキャン</strong><span id="cameraEmptyText" data-i18n="cameraReadyText">カメラが使えない場合も、既存画像から追加できます。</span><button class="mobile-camera-start" id="mobileStartCameraBtn" type="button"><svg viewBox="0 0 24 24" fill="none"><path d="M4 8.5h3l1.5-2h7l1.5 2h3v10H4v-10Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><circle cx="12" cy="13.5" r="3.2" stroke="currentColor" stroke-width="1.8"/></svg><span data-i18n="startCamera">カメラを開始</span></button></div></div>
       <div class="camera-topbar">
@@ -169,7 +183,7 @@
   "name": "Submission PDF Scanner",
   "nameJa": "提出PDFスキャナー",
   "slug": "document-scanner",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Scan paper documents, correct perspective, organize pages, and create submission-ready PDFs entirely in your browser.",
   "descriptionJa": "紙を撮影し、台形補正・ページ整理・提出条件に合わせたPDF化までブラウザーだけで完結します。",
   "defaultLanguage": "auto",
@@ -186,7 +200,7 @@
     }
   }
 }</script>
-<script type="application/json" id="buildManifest">{"name":"Submission PDF Scanner","version":"1.0.3","generatedAtUtc":"2026-10-11T22:17:28.4868620Z","dependencyCount":0,"runtimeNetworkBlocked":true}</script>
+<script type="application/json" id="buildManifest">{"name":"Submission PDF Scanner","version":"1.0.4","generatedAtUtc":"2026-10-27T03:13:59.6147015Z","dependencyCount":0,"runtimeNetworkBlocked":true}</script>
 <script type="application/json" id="assetBundle">"e30="</script>
 <script>
 (() => {
