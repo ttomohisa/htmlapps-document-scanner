@@ -1,8 +1,8 @@
 {
-  "generatedAtUtc": "2026-10-27T03:13:59.6147015Z",
-  "sourceBytes": 143331,
-  "compressedBytes": 39832,
-  "selfExtractBytes": 54138,
-  "sourceSha256": "9076d4a027e0f8eb078b613050ac74edb2104a4fa973f0231564233cf2173c21",
-  "selfExtractSha256": "81100fe693590ffb5434a249eb05b62cf44cb55438baeb7cb0f5299ee558e51f"
+  "generatedAtUtc": "2026-11-13T15:36:30.9201210Z",
+  "sourceBytes": 144480,
+  "compressedBytes": 39733,
+  "selfExtractBytes": 54006,
+  "sourceSha256": "9d5a5f4ab23706ace527a8018ccb255177f5207e80e041bcdcb495f75d6e8fc8",
+  "selfExtractSha256": "644858940244e072ce9462606edf515f6c5763205c48dd3157a17ad2b2d63b9c"
 }

@@ -452,8 +452,8 @@ test('Mobile off-state Image button reaches the existing picker without requesti
   for(let i=0;i<3;i++) h.$('#importRoundBtn').fire('click');
   assert.equal(picks,3); assert.equal(boot.requests(),0); assert.equal(h.state.stream,null);
 });
-test('Local-processing badge retains the existing shield artwork and truthful labels', () => {
-  assert.match(html, /class="privacy-pill"><svg[^>]*><path d="M12 3 5\.5 6v5\.3c0 4\.1 2\.7 7\.8 6\.5 9\.2/);
+test('Local-processing badge uses the shared shield artwork and truthful labels', () => {
+  assert.match(html, /class="local-badge"><svg[^>]*><path d="M12 3 5 6v5c0 4\.6 2\.8 8 7 10/);
   assert.ok(html.includes('完全ローカル処理')); assert.ok(html.includes('Fully local processing'));
 });
 
