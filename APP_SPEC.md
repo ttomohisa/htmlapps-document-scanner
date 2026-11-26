@@ -31,6 +31,7 @@ A user can photograph or import several paper pages, automatically detect the do
 - Local document-corner estimation combines directional edge strength, inside/outside paper contrast, robust line fitting, edge coverage, and quadrilateral geometry. When detection fails, the editor starts with the entire image selected for manual review.
 - Editor can switch between an actual corrected-result preview and a four-corner touch adjustment view with accessible reset and full-image actions.
 - On narrow screens the editor keeps the save action visible. Dragging a corner shows a magnified view of the source under that handle.
+- On desktop, the editor keeps the source or corrected image beside its tools. Focused corner handles move one source pixel per arrow key press, or ten with Shift.
 - Perspective correction using WebGL, with a Canvas 2D fallback.
 - Filters: No enhancement, Auto (conservative smooth illumination/levels correction with color preservation), Color (light contrast correction), Grayscale, B&W.
 - Page cards include Preview so a saved working page can be reopened to change filter/corners before PDF generation. In that editor, Save as new page inserts an independently editable crop/filter/rotation variant immediately after the original while leaving it unchanged. Save still updates the original; Close/Escape discards the draft.
@@ -40,6 +41,7 @@ A user can photograph or import several paper pages, automatically detect the do
 - Three page columns on narrow smartphones.
 - Smartphone camera UX follows the Browser Kitty QR Reader pattern: near-full-screen live preview, safe-area-aware top controls, a discreet camera power control, status overlay, translucent bottom camera dock, inline zoom, pinch/swipe zoom gestures, and fixed page-like bottom navigation (Scan / Pages / PDF) that switches views instead of scrolling between sections.
 - Desktop camera UX uses a large live-preview surface with glass-style overlay controls, a centered shutter dock, inline zoom, and a compact camera power control rather than form-like camera buttons.
+- Desktop users can drop multiple image files into the import area or start the camera there. At widths of 960 px and above, PDF settings sit alongside the import area and page list.
 - PDF output generated without a server or third-party runtime library.
 - A4 and original-ratio paper modes.
 - Output size presets including 1 MB and 2 MB, using JPEG quality and resolution reduction.
@@ -72,7 +74,7 @@ Current stable Chromium, Safari, and Firefox. The app must keep the camera off o
 
 ## 9. Acceptance criteria
 - Initial load, language switching, and image import never request camera access. Start camera and desktop/mobile camera power controls explicitly initiate camera startup, including direct `file://` opening; retry and image-import actions remain available when access fails.
-- Turning the camera off releases the stream immediately, hides live-camera controls, and leaves a clear in-preview action to start it again.
+- Turning the camera off releases the stream immediately, hides live-camera controls, and leaves a visible action to start it again.
 - Native zoom is used when available; otherwise digital zoom remains usable and capture/detection uses the same cropped field of view shown in the preview.
 - App remains useful when camera is unavailable by offering image import immediately.
 - Auto-detected corners can always be manually corrected, and the user can switch between the corrected result and corner-adjustment views. Corner adjustment supports 1–4× zoom, wheel/pinch zoom, and panning far enough to reach every image edge on desktop and smartphone.
