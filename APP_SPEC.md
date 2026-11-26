@@ -16,9 +16,9 @@ A user can photograph or import several paper pages, automatically detect the do
 3. Review the actual corrected result; switch to the four-corner adjustment view and drag corners when needed.
 4. Choose No enhancement / Auto / Color / Grayscale / B&W and add the page.
 5. Repeat. Pages appear as draggable cards (3 columns on narrow phones); Preview reopens a saved page for filter or corner changes.
-6. Enter or edit the output filename, then choose a submission preset: Standard, 1 MB, 2 MB, A4, or B&W.
+6. Enter or edit the output filename. Combine a size limit, A4 paper, and B&W as needed, or reset to standard settings.
 7. Generate the PDF. The app checks page count, output size, paper mode, and target-size compliance.
-8. Download or share the PDF with the OS share sheet when supported.
+8. Open the generated PDF to inspect small text and margins, then download or share it.
 
 ## 4. Functional requirements
 - Camera capture with environment-facing camera preference.
@@ -26,9 +26,9 @@ A user can photograph or import several paper pages, automatically detect the do
 - Camera switch when multiple cameras are available where the browser exposes it.
 - Torch when supported by the active camera track.
 - Zoom is always available while the camera is active: use native camera-track zoom when exposed, otherwise use centered digital zoom up to 4×. Detection and captured output must match the zoomed field of view.
-- Optional auto-capture: detect a stable document for consecutive scans and trigger capture.
+- Optional auto-capture requires consecutive stable frames in the active scan view. Leaving it cancels a pending shutter.
 - Image import through `<input type=file accept=image/* multiple>`, with current filename/queue position, separate Skip image and Stop import actions, and Close/Escape stopping remaining images while retaining added pages.
-- Local document-corner estimation that combines directional edge strength, inside/outside paper contrast, robust line fitting, edge coverage, and quadrilateral geometry, with graceful fallback to an inset rectangle.
+- Local document-corner estimation combines directional edge strength, inside/outside paper contrast, robust line fitting, edge coverage, and quadrilateral geometry. When detection fails, the editor starts with the entire image selected for manual review.
 - Editor can switch between an actual corrected-result preview and a four-corner touch adjustment view with accessible reset and full-image actions.
 - Perspective correction using WebGL, with a Canvas 2D fallback.
 - Filters: No enhancement, Auto (conservative smooth illumination/levels correction with color preservation), Color (light contrast correction), Grayscale, B&W.

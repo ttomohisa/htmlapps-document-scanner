@@ -120,13 +120,13 @@ When the camera is turned off, the active video tracks are stopped instead of le
 
 | Preset | Behavior |
 | --- | --- |
-| Standard | Keeps normal output settings without a strict size limit |
+| Reset to standard | Restores A4, per-page color, and no size limit |
 | 1 MB | Reduces JPEG quality and resolution as needed to target 1 MB or less |
 | 2 MB | Reduces JPEG quality and resolution as needed to target 2 MB or less |
 | A4 | Places pages on portrait or landscape A4 sheets |
 | B&W | Generates monochrome document pages |
 
-File-size presets are best-effort. Extremely image-heavy documents may require stronger quality reduction, so always verify small text in the generated PDF before submitting it.
+Paper, color, and size shortcuts can be combined in any order. File-size targets are best-effort. Check the measured size, then choose **Open PDF to review** to inspect fine print and margins before submitting.
 
 ## Publish with GitHub Pages
 
