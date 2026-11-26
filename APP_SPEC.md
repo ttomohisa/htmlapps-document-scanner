@@ -30,6 +30,7 @@ A user can photograph or import several paper pages, automatically detect the do
 - Image import through `<input type=file accept=image/* multiple>`, with current filename/queue position, separate Skip image and Stop import actions, and Close/Escape stopping remaining images while retaining added pages.
 - Local document-corner estimation combines directional edge strength, inside/outside paper contrast, robust line fitting, edge coverage, and quadrilateral geometry. When detection fails, the editor starts with the entire image selected for manual review.
 - Editor can switch between an actual corrected-result preview and a four-corner touch adjustment view with accessible reset and full-image actions.
+- On narrow screens the editor keeps the save action visible. Dragging a corner shows a magnified view of the source under that handle.
 - Perspective correction using WebGL, with a Canvas 2D fallback.
 - Filters: No enhancement, Auto (conservative smooth illumination/levels correction with color preservation), Color (light contrast correction), Grayscale, B&W.
 - Page cards include Preview so a saved working page can be reopened to change filter/corners before PDF generation. In that editor, Save as new page inserts an independently editable crop/filter/rotation variant immediately after the original while leaving it unchanged. Save still updates the original; Close/Escape discards the draft.
@@ -42,6 +43,7 @@ A user can photograph or import several paper pages, automatically detect the do
 - PDF output generated without a server or third-party runtime library.
 - A4 and original-ratio paper modes.
 - Output size presets including 1 MB and 2 MB, using JPEG quality and resolution reduction.
+- The phone PDF view groups paper, color and size limit into three choices and reports the page count, measured size and selected limit together.
 - Output filename editing with a sane default; invalid filesystem characters are replaced and `.pdf` is appended when omitted.
 - Download and Web Share API file sharing when available. Filename-only edits preserve an already generated PDF and update its displayed/download/shared name.
 - Japanese/English switch without reload.
