@@ -14,7 +14,7 @@ if (!html.includes('// APP:BEGIN')) {
 const app = html.slice(html.indexOf('// APP:BEGIN'), html.indexOf('\napplyI18n();'));
 const plain = value => JSON.parse(JSON.stringify(value));
 const tick = () => new Promise(resolve => setImmediate(resolve));
-function harness() {
+function harness({ realDetection = false } = {}) {
   const elements = new Map(), revoked = [], downloads = [], shared = [];
   function element(tag = '') {
     const classes = new Set(), listeners = new Map();
@@ -22,6 +22,7 @@ function harness() {
       classList: { add: x => classes.add(x), remove: x => classes.delete(x), contains: x => classes.has(x), toggle(x, on = !classes.has(x)) { on ? classes.add(x) : classes.delete(x); } },
       addEventListener(name, fn) { listeners.set(name, fn); }, fire(name, event = {}) { return listeners.get(name)?.({ type: name, target: el, preventDefault() {}, ...event }); },
       removeEventListener(name) { listeners.delete(name); }, hasListener(name) { return listeners.has(name); }, setPointerCapture(id) { this.capture=id; }, releasePointerCapture() { this.capture=null; }, setAttribute(name, value) { this[name] = value; }, appendChild(child) { (this.children ||= []).push(child); }, remove() {}, focus() {},
+      removeAttribute(name) { delete this[name]; },
       click() { if (tag === 'a') downloads.push({ url: this.href, name: this.download }); return this.fire('click'); },
       showModal() { this.open = true; }, close() { this.open = false; this.fire('close'); },
       getBoundingClientRect() { return { width: 900, height: 600, top: 0, left: 0 }; }
@@ -50,13 +51,107 @@ function harness() {
   });
   vm.runInContext(app, c);
   const run = code => vm.runInContext(code, c);
-  run(`globalThis.renderRealPages=renderPages; renderPages=()=>{}; resetEditorView=()=>{}; detectDocument=c=>({corners:defaultCorners(c.width,c.height),confidence:.8}); fileToBitmap=async file=>{if(file.bad)throw Error('decode');return {width:1000,height:700,close(){}}};`);
+  run(`globalThis.renderRealPages=renderPages; renderPages=()=>{}; resetEditorView=()=>{}; fileToBitmap=async file=>{if(file.bad)throw Error('decode');return {width:1000,height:700,close(){}}};`);
+  if (!realDetection) run('detectDocument=c=>({corners:defaultCorners(c.width,c.height),confidence:.8})');
   $('#paperSelect').value = 'a4'; $('#colorSelect').value = 'page'; $('#limitSelect').value = '0';
   return { $, c, run, state: run('state'), revoked, downloads, shared, element };
 }
 function pdf(h) { const blob = new Blob(['existing-pdf'], { type: 'application/pdf' }); h.state.lastPdf = { blob, url: 'blob:existing', name: 'document.pdf', limit: 0 }; h.$('#filenameInput').value = 'document.pdf'; return blob; }
 function page(id) { return { id, canvas: { width: 1000, height: 700 }, filter: 'none', rotation: 1, sourceBlob: new Blob(['source']), corners: [{x:0,y:0},{x:1000,y:0},{x:1000,y:700},{x:0,y:700}] }; }
 const files = n => Array.from({ length: n }, (_, i) => ({ name: `page-${i + 1}.png` }));
+
+test('Failed detection preserves the full original image on import and redetection', async () => {
+  const h = harness({ realDetection: true });
+  const source = h.element('canvas');
+  source.width = 601; source.height = 841;
+  h.c.source = source;
+  const done = h.run("openEditorFromSource(source, 'borderless.png')");
+  const full = [{x:0,y:0}, {x:601,y:0}, {x:601,y:841}, {x:0,y:841}];
+  assert.equal(h.state.editor.view, 'corners');
+  assert.deepEqual(plain(h.state.editor.corners), full);
+  h.state.editor.corners[0] = {x:20,y:15};
+  h.$('#resetCornersBtn').click();
+  assert.deepEqual(plain(h.state.editor.corners), full);
+  h.$('#editorCloseBtn').click();
+  await done;
+});
+
+test('Submission shortcuts combine independently and Standard restores the defaults', () => {
+  const h = harness();
+  const settings = () => ['paperSelect', 'colorSelect', 'limitSelect'].map(id => h.$('#'+id).value);
+  h.run("applyPreset('1mb'); applyPreset('bw')");
+  assert.deepEqual(settings(), ['a4', 'bw', '1048576']);
+  h.$('#paperSelect').value = 'original';
+  h.run("applyPreset('2mb')");
+  assert.deepEqual(settings(), ['original', 'bw', '2097152']);
+  h.run("applyPreset('a4')");
+  assert.deepEqual(settings(), ['a4', 'bw', '2097152']);
+  h.run("applyPreset('standard')");
+  assert.deepEqual(settings(), ['a4', 'page', '0']);
+});
+
+test('Size check distinguishes no limit, exact limit, and over limit', () => {
+  const h = harness();
+  h.state.lang = 'en';
+  for (const [size, limit, label] of [[1400, 0, 'No size limit set'], [1000, 1000, 'Within size limit'], [1001, 1000, 'Above size limit']]) {
+    h.run(`renderChecks(${size}, ${limit})`);
+    assert.ok(h.$('#checks').innerHTML.includes(label), label);
+  }
+});
+
+test('Reapplying an active requirement keeps the PDF available for review', async () => {
+  const h = harness();
+  h.state.pages = [smallPage(h, 'one')];
+  h.run("applyPreset('bw')");
+  await h.run('generatePdf()');
+  const completed = h.state.lastPdf;
+  h.run("applyPreset('bw'); applyPreset('a4')");
+  assert.equal(h.state.lastPdf, completed);
+  assert.equal(h.$('#previewPdfLink').href, completed.url);
+});
+
+test('Generated PDF preview uses the download URL and invalidation clears it', async () => {
+  const h = harness();
+  h.state.pages = [smallPage(h, 'one')];
+  await h.run('generatePdf()');
+  h.run('downloadPdf()');
+  assert.equal(h.$('#previewPdfLink').href, h.downloads[0].url);
+  h.$('#colorSelect').fire('change');
+  assert.equal(h.$('#previewPdfLink').href, undefined);
+  assert.ok(h.revoked.includes(h.downloads[0].url));
+});
+
+test('Mobile navigation cancels a pending shutter and requires fresh stable frames on return', async () => {
+  const h = harness();
+  h.c.innerWidth = 390;
+  Object.assign(h.$('#video'), {readyState: 4, videoWidth: 320, videoHeight: 240});
+  h.state.stream = {};
+  h.run('drawGuide=()=>{}; captureFrame=()=>captures++; globalThis.captures=0; setAutoCapture(true)');
+  const timers = new Map();
+  let nextId = 0;
+  h.c.setTimeout = (fn, ms) => { const id = ++nextId; if (ms === 220) timers.set(id, fn); return id; };
+  h.c.clearTimeout = id => timers.delete(id);
+  const frame = () => h.run('analyzeVideoFrame()');
+  const flushShutter = async () => {
+    for (const [id, fn] of timers) { timers.delete(id); fn(); }
+    await tick();
+  };
+  await frame(); await frame(); const pending = frame();
+  assert.equal(timers.size, 1);
+  h.run("setMobileView('exportSection', false); setMobileView('scanSection', false)");
+  await flushShutter(); await pending;
+  assert.equal(h.c.captures, 0);
+  for (const view of ['pagesSection', 'exportSection']) {
+    h.run(`setMobileView('${view}', false)`);
+    for (let i=0; i<4; i++) { const f=frame(); await flushShutter(); await f; }
+    assert.equal(h.c.captures, 0);
+  }
+  h.run("setMobileView('scanSection', false)");
+  await frame(); await frame(); await flushShutter();
+  assert.equal(h.c.captures, 0);
+  const fresh = frame(); await flushShutter(); await fresh;
+  assert.equal(h.c.captures, 1);
+});
 
 test('Full image retains exact source boundaries and dimensions', () => {
   const h = harness(); h.state.editor = { source: { width: 1000, height: 700 } };

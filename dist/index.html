@@ -30,7 +30,7 @@
     .brand{display:flex;align-items:center;gap:10px;min-width:0}.brand-mark{display:grid;place-items:center;width:38px;height:38px;flex:0 0 auto}.brand-mark svg{width:38px;height:38px;display:block}
     .brand-copy{min-width:0}.brand-name{margin:0;font-size:17px;line-height:1.15;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.version-badge{display:inline-flex;align-items:center;margin-left:7px;padding:1px 6px;border:1px solid var(--line);border-radius:999px;color:var(--muted);background:var(--surface-muted);font-size:11px;font-weight:650;vertical-align:2px}.brand-meta{margin:2px 0 0;color:var(--muted);font-size:11px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
     .header-actions{margin-left:auto;display:flex;align-items:center;gap:11px}.plain-button{min-width:0;padding:5px 1px;border:0;background:transparent;color:var(--muted);font-size:12px;font-weight:750;cursor:pointer}.plain-button:hover{color:var(--text)}.header-icon{width:32px;height:32px;display:grid;place-items:center;border:0;background:transparent;color:var(--muted);border-radius:8px;cursor:pointer}.header-icon:hover{color:var(--text);background:var(--surface-muted)}.header-icon svg{width:20px;height:20px}
-    .main{width:min(1180px,100%);margin:0 auto;padding:20px clamp(14px,2.8vw,30px) 92px}.intro{display:flex;align-items:flex-start;justify-content:space-between;gap:18px;margin-bottom:16px}.intro h2{margin:0;font-size:clamp(20px,3vw,25px);letter-spacing:-.025em}.intro p{margin:5px 0 0;color:var(--muted);font-size:13px;max-width:760px}.local-badge{display:inline-flex;align-items:center;gap:7px;flex:0 0 auto;margin-top:3px;padding:7px 0;border:0;border-radius:0;color:var(--accent);background:transparent;font-size:12px;font-weight:500;white-space:nowrap}.local-badge svg{width:15px;height:15px}
+    .main{width:min(1180px,100%);margin:0 auto;padding:20px clamp(14px,2.8vw,30px) 92px}.intro{display:flex;align-items:center;justify-content:space-between;gap:18px;margin-bottom:16px}.intro p{margin:0;font-size:15px}.local-badge{display:inline-flex;align-items:center;gap:7px;flex:0 0 auto;padding:4px 0;border:0;border-radius:0;color:var(--accent);background:transparent;font-size:12px;font-weight:500;white-space:nowrap}.local-badge svg{width:15px;height:15px}
     .start-card{display:grid;grid-template-columns:minmax(0,1.48fr) minmax(270px,.52fr);gap:18px;padding:16px;border:1px solid var(--line);border-radius:20px;background:var(--surface);box-shadow:var(--shadow-sm)}
     .camera-preview-shell{position:relative;height:clamp(460px,calc(100vh - 190px),640px);min-height:460px;overflow:hidden;border:1px solid rgba(255,255,255,.08);border-radius:20px;background:#0d100f;color:#fff;box-shadow:0 18px 42px rgba(25,28,24,.15),inset 0 0 0 1px rgba(255,255,255,.03);--digital-zoom:1}.camera-preview-shell:after{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;background:linear-gradient(to bottom,rgba(0,0,0,.34),transparent 20%,transparent 61%,rgba(0,0,0,.58))}.camera-preview-shell video{position:absolute;z-index:0;inset:0;width:100%;height:100%;object-fit:cover;background:#0d100f;transform:scale(var(--digital-zoom,1));transform-origin:center;transition:transform .08s linear}.camera-preview-shell video.mirror{transform:scaleX(-1) scale(var(--digital-zoom,1))}
     .camera-empty{position:absolute;z-index:3;inset:0;display:grid;place-items:center;padding:24px;text-align:center;background:radial-gradient(circle at 50% 38%,#2a2e2a,#101311 72%)}.camera-empty svg{width:54px;height:54px;margin:0 auto 12px;opacity:.82}.camera-empty strong{display:block;font-size:16px}.camera-empty span{display:block;margin-top:6px;color:#c9cec8;font-size:12px}
@@ -49,7 +49,7 @@
     .pages-empty{padding:30px 18px;border:1px dashed var(--line-strong);border-radius:15px;text-align:center;background:color-mix(in srgb,var(--surface) 70%,transparent);color:var(--muted)}.pages-empty svg{width:32px;height:32px;margin:0 auto 8px}.pages-empty strong{display:block;color:var(--text);font-size:14px}.pages-empty span{display:block;margin-top:4px;font-size:12px}
     .page-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px}.page-card{position:relative;min-width:0;padding:8px;user-select:none;-webkit-user-select:none;border:1px solid var(--line);border-radius:13px;background:var(--surface);box-shadow:var(--shadow-sm);touch-action:pan-y;transition:transform .16s ease,box-shadow .16s ease,border-color .16s ease}.page-card.dragging{z-index:30;opacity:.92;box-shadow:var(--shadow-md);transform:scale(1.03);transition:none!important;will-change:transform}.page-card.drop-target{border-color:var(--accent);transform:translateY(2px)}.page-thumb{position:relative;aspect-ratio:1/1.37;overflow:hidden;border-radius:8px;background:var(--surface-muted);display:grid;place-items:center}.page-thumb img{width:100%;height:100%;object-fit:contain;background:#eceeea}.page-number{position:absolute;top:6px;left:6px;min-width:25px;height:25px;padding:0 6px;border-radius:8px;display:grid;place-items:center;background:rgba(20,22,20,.72);color:#fff;font-size:11px;font-weight:800;backdrop-filter:blur(6px)}.drag-hint{position:absolute;top:6px;right:6px;width:25px;height:25px;border-radius:8px;display:grid;place-items:center;background:rgba(255,255,255,.82);color:#555;touch-action:none;cursor:grab}.page-card.dragging .drag-hint{cursor:grabbing}.drag-hint svg{width:14px;height:14px}.page-meta{display:flex;justify-content:space-between;gap:5px;align-items:center;padding:7px 2px 1px}.page-meta span{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--muted);font-size:10px}.page-actions{display:flex;gap:3px}.mini-icon{width:29px;height:29px;border:0;border-radius:8px;background:transparent;color:var(--muted);display:grid;place-items:center;cursor:pointer}.mini-icon:hover{background:var(--surface-muted);color:var(--text)}.mini-icon.danger:hover{color:var(--danger)}.mini-icon svg{width:15px;height:15px}
     .export-card{display:grid;grid-template-columns:minmax(0,1fr) minmax(280px,.72fr);gap:16px;padding:17px;border:1px solid var(--line);border-radius:17px;background:var(--surface);box-shadow:var(--shadow-sm)}.setting-title{margin:0 0 9px;font-size:13px}.preset-row{display:flex;flex-wrap:wrap;gap:7px}.preset{min-height:37px;padding:7px 11px;border:1px solid var(--line);border-radius:999px;background:var(--surface);cursor:pointer;font-size:12px;font-weight:720}.preset.active{border-color:var(--accent);background:var(--accent-soft);color:var(--accent)}.setting-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}.field{display:grid;gap:5px}.field label{color:var(--muted);font-size:11px;font-weight:700}.field select,.field input{width:100%;min-height:40px;padding:7px 10px;border:1px solid var(--line);border-radius:10px;background:#fbfbf9}.filename-field{grid-column:1/-1}.filename-help{margin:0;color:var(--muted);font-size:10px}.export-side{padding:14px;border-radius:14px;background:var(--surface-muted);display:flex;flex-direction:column}.export-side h3{margin:0;font-size:14px}.export-side p{margin:5px 0 12px;color:var(--muted);font-size:11px}.summary-list{display:grid;gap:6px;margin-bottom:12px}.summary-item{display:flex;justify-content:space-between;gap:10px;font-size:12px}.summary-item span{color:var(--muted)}.export-side .btn{margin-top:auto}
-    .result-card{margin-top:14px;padding:14px;border:1px solid color-mix(in srgb,var(--accent) 28%,var(--line));border-radius:14px;background:var(--accent-soft)}.result-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}.result-head h3{margin:0;color:var(--accent);font-size:14px}.result-size{font-size:15px;font-weight:800}.checks{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px;margin-top:10px}.check{display:flex;align-items:center;gap:7px;padding:8px;border-radius:9px;background:rgba(255,255,255,.58);font-size:11px}.check svg{width:15px;height:15px;color:var(--accent);flex:none}.check.warn svg{color:var(--warning)}.result-actions{display:flex;flex-wrap:wrap;gap:7px;margin-top:11px}
+    .result-card{margin-top:14px;padding:14px;border:1px solid color-mix(in srgb,var(--accent) 28%,var(--line));border-radius:14px;background:var(--accent-soft)}.result-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}.result-head h3{margin:0;color:var(--accent);font-size:14px}.result-size{font-size:15px;font-weight:800}.checks{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px;margin-top:10px}.check{display:flex;align-items:center;gap:7px;padding:8px;border-radius:9px;background:rgba(255,255,255,.58);font-size:11px}.check svg{width:15px;height:15px;color:var(--accent);flex:none}.check.warn svg{color:var(--warning)}.result-actions a.btn{color:inherit;text-decoration:none}.result-actions{display:flex;flex-wrap:wrap;gap:7px;margin-top:11px}
     .status-line{position:fixed;left:50%;bottom:max(14px,env(safe-area-inset-bottom));z-index:80;transform:translateX(-50%);max-width:min(480px,calc(100vw - 28px));padding:10px 13px;border:1px solid var(--line);border-radius:999px;background:rgba(255,255,255,.94);box-shadow:var(--shadow-md);color:var(--text);font-size:12px;opacity:0;pointer-events:none;transition:opacity .18s,transform .18s}.status-line.show{opacity:1;transform:translate(-50%,-4px)}
     .toast{position:fixed;right:16px;bottom:max(16px,env(safe-area-inset-bottom));z-index:90;max-width:min(360px,calc(100vw - 32px));padding:10px 11px 10px 14px;border:1px solid var(--line);border-radius:12px;background:var(--surface);box-shadow:var(--shadow-md);display:none;align-items:center;gap:12px;font-size:12px}.toast.show{display:flex}.toast button{margin-left:auto;border:0;background:transparent;color:var(--accent);font-weight:800;cursor:pointer}
     dialog{border:0;padding:0;border-radius:17px;background:var(--surface);color:var(--text);box-shadow:0 24px 80px rgba(0,0,0,.24);width:min(640px,calc(100vw - 26px));max-height:min(86vh,760px)}dialog::backdrop{background:rgba(20,22,20,.42);backdrop-filter:blur(2px)}.dialog-head{position:sticky;top:0;z-index:2;display:flex;align-items:center;gap:12px;padding:14px 16px;border-bottom:1px solid var(--line);background:var(--surface)}.dialog-head h2{margin:0;font-size:17px}.dialog-head button{margin-left:auto}
@@ -64,7 +64,7 @@
     .mobile-nav{display:none}.mobile-camera-start{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:44px;margin:18px auto 0;padding:9px 16px;border:1px solid rgba(255,255,255,.24);border-radius:999px;background:#fff;color:#161816;font-weight:800;cursor:pointer}.mobile-camera-start svg{width:18px;height:18px}.camera-empty .mobile-camera-start span{display:inline;margin:0;color:inherit;font-size:inherit}
     @media(min-width:821px) and (min-height:700px){.crop-actions{position:sticky;bottom:-14px;z-index:4;padding:10px 0 14px;background:linear-gradient(to bottom,rgba(255,255,255,0),var(--surface) 24%)}}
     @media(max-width:820px){.start-card,.export-card{grid-template-columns:1fr}.start-side{display:grid;grid-template-columns:1fr 1fr}.page-grid{grid-template-columns:repeat(4,minmax(0,1fr))}.editor-body{grid-template-columns:1fr;height:auto;max-height:none}.crop-side{max-height:none}.crop-stage{min-height:55vh}.editor-dialog{position:fixed;inset:0;width:100vw;max-width:none;max-height:100dvh;height:100dvh;margin:0;border-radius:0}.editor-dialog .dialog-head{padding-top:max(12px,env(safe-area-inset-top))}}
-    @media(max-width:600px){:root{--header-height:58px}html{background:var(--surface)}body{background:var(--bg);padding-bottom:calc(74px + env(safe-area-inset-bottom))}.app-header{display:none}.main{width:100%;padding:0 0 26px}.intro{display:none}.start-card{display:block;padding:0;border:0;border-radius:0;background:transparent;box-shadow:none}.camera-preview-shell{height:calc(100dvh - 74px - env(safe-area-inset-bottom));min-height:calc(100svh - 74px - env(safe-area-inset-bottom));border-radius:0;box-shadow:none;background:#0b0e0d;touch-action:none}.camera-preview-shell:after{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;background:linear-gradient(to bottom,rgba(0,0,0,.38),transparent 18%,transparent 64%,rgba(0,0,0,.55))}.mobile-camera-top{position:absolute;z-index:8;top:0;left:0;right:0;display:flex;align-items:center;justify-content:space-between;padding:calc(env(safe-area-inset-top) + 12px) 16px 10px;color:#fff;pointer-events:none}.mobile-camera-title{font-size:16px;font-weight:780;letter-spacing:-.01em;text-shadow:0 1px 12px rgba(0,0,0,.55)}.mobile-camera-actions{display:flex;align-items:center;gap:15px;pointer-events:auto}.mobile-camera-top button{border:0;padding:4px 1px;background:transparent;color:#fff;font-weight:760;cursor:pointer;filter:drop-shadow(0 1px 5px rgba(0,0,0,.45))}.mobile-camera-top button svg{width:22px;height:22px}.mobile-camera-top .mobile-language{font-size:12px}.mobile-camera-power{display:grid;place-items:center}.mobile-camera-power.is-off{opacity:.62}.camera-topbar{z-index:7;top:calc(env(safe-area-inset-top) + 60px);left:50%;right:auto;transform:translateX(-50%);width:auto}.camera-topbar #autoChip,.camera-topbar .camera-power-btn{display:none!important}.camera-chip{min-height:32px;background:rgba(10,13,12,.62);backdrop-filter:blur(10px);white-space:nowrap}.camera-bottom{z-index:8;bottom:calc(env(safe-area-inset-bottom) + 14px);width:calc(100% - 28px);max-width:430px;padding:7px;border-radius:20px;grid-template-columns:1fr 1fr 88px 1fr 1fr;gap:3px}.round-camera-btn,.camera-auto-action{height:58px}.shutter{width:72px;height:72px;border-width:4px;z-index:2}.mobile-zoom-bar{z-index:8;bottom:calc(env(safe-area-inset-bottom) + 96px);width:calc(100% - 34px);max-width:420px;min-height:44px;padding:7px 12px}.camera-empty{z-index:3;padding:calc(env(safe-area-inset-top) + 86px) 24px calc(env(safe-area-inset-bottom) + 128px);background:radial-gradient(circle at 50% 36%,#2a2d29,#101311 72%)}.mobile-camera-start{min-height:46px;padding:10px 18px}.camera-error{padding:calc(env(safe-area-inset-top) + 74px) 24px calc(env(safe-area-inset-bottom) + 112px)}.start-side{display:none}.zoom-wrap{display:none!important}.start-card,.section{scroll-margin-top:calc(var(--header-height) + env(safe-area-inset-top) + 10px)}.section{margin:22px 12px 0}.section-head{align-items:center;margin-bottom:10px;padding:0 2px}.section-head h2{font-size:18px}.section-head p{display:none}.count-badge{height:24px;min-width:24px}.pages-empty{padding:34px 18px;border:0;border-radius:16px;background:var(--surface);box-shadow:var(--shadow-sm)}.page-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}.page-card{padding:5px;border:0;border-radius:12px;box-shadow:0 1px 2px rgba(25,28,24,.08),0 3px 12px rgba(25,28,24,.05)}.page-thumb{border-radius:9px}.page-number{top:5px;left:5px;min-width:23px;height:23px;border-radius:7px}.drag-hint{top:5px;right:5px;width:34px;height:34px}.drag-hint svg{width:16px;height:16px}.page-meta{padding-top:4px}.page-meta span{display:none}.page-actions{width:100%;justify-content:space-around}.mini-icon{width:30px;height:30px}.export-card{display:block;padding:0;border:0;background:transparent;box-shadow:none}.setting-title{margin:0 2px 9px;font-size:12px;color:var(--muted)}.preset-row{margin:0 -12px;padding:0 12px 4px;flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch}.preset-row::-webkit-scrollbar{display:none}.preset{flex:0 0 auto;min-height:40px;padding:8px 14px;background:var(--surface);box-shadow:var(--shadow-sm)}.setting-grid{grid-template-columns:1fr 1fr;gap:0;margin-top:10px;padding:3px 14px;border-radius:16px;background:var(--surface);box-shadow:var(--shadow-sm)}.field{min-width:0;padding:10px 0}.field:nth-child(2n+1):not(.filename-field){padding-right:7px}.field:nth-child(2n):not(.filename-field){padding-left:7px}.filename-field{grid-column:1/-1;padding:11px 0 12px;border-bottom:1px solid var(--line)}.setting-grid .field:last-child{grid-column:1/-1;padding-left:0!important;padding-right:0!important;border-top:1px solid var(--line)}.field label{font-size:10px}.field select,.field input{min-height:42px;padding:8px 9px;border-color:#d7d8d3;background:#fbfbfa;font-size:16px}.filename-field input{font-weight:700}.filename-help{margin-top:1px;font-size:10px}.export-side{margin-top:12px;padding:15px;border-radius:16px;background:var(--surface);box-shadow:var(--shadow-sm)}.summary-list{margin-bottom:14px}.summary-item{padding:2px 0;font-size:12px}.export-side .btn{min-height:50px;border-radius:13px;font-size:14px}.result-card{margin-top:12px;border:0;border-radius:16px;box-shadow:var(--shadow-sm)}.result-actions{display:grid;grid-template-columns:1fr 1fr}.result-actions .btn{min-height:46px}.checks{grid-template-columns:1fr}.mobile-nav{position:fixed;z-index:75;left:0;right:0;bottom:0;display:grid;grid-template-columns:repeat(3,1fr);padding:6px 10px calc(6px + env(safe-area-inset-bottom));border-top:1px solid rgba(218,219,214,.78);background:rgba(255,255,255,.94);backdrop-filter:blur(18px) saturate(1.35);box-shadow:0 -8px 24px rgba(20,22,20,.06)}.mobile-nav button{position:relative;min-height:54px;border:0;border-radius:12px;background:transparent;color:#757973;display:grid;place-items:center;align-content:center;gap:3px;font-size:10px;font-weight:750}.mobile-nav button svg{width:21px;height:21px}.mobile-nav button.active{color:var(--accent);background:var(--accent-soft)}.mobile-nav-count{position:absolute;top:4px;left:calc(50% + 7px);min-width:17px;height:17px;padding:0 4px;border-radius:999px;background:var(--accent);color:#fff;display:grid;place-items:center;font-size:9px;font-weight:800}.status-line{bottom:calc(76px + env(safe-area-inset-bottom))}.toast{right:10px;left:10px;max-width:none;bottom:calc(76px + env(safe-area-inset-bottom))}.dialog-body{padding:14px}.crop-stage{min-height:0;height:58dvh}.crop-stage canvas{max-width:none;max-height:none}.crop-side{padding:12px 12px calc(12px + env(safe-area-inset-bottom))}.filter-row{grid-template-columns:repeat(3,1fr)}.filter-btn{padding:6px 3px;font-size:10px}.crop-actions{grid-template-columns:1fr 1fr}.crop-actions .primary{grid-column:1/-1}.confirm-dialog{position:fixed;inset:auto 0 0 0;width:100%;max-width:none;margin:0;border-radius:18px 18px 0 0;padding-bottom:env(safe-area-inset-bottom)}#scanSection,#pagesSection,#exportSection{display:none!important}#scanSection.mobile-view-active{display:block!important}#pagesSection.mobile-view-active,#exportSection.mobile-view-active{display:block!important;min-height:calc(100dvh - 74px - env(safe-area-inset-bottom));margin:0;padding:calc(env(safe-area-inset-top) + 18px) 12px 28px}.main>footer,footer{display:none}
+    @media(max-width:600px){:root{--header-height:58px}html{background:var(--surface)}body{background:var(--bg);padding-bottom:calc(74px + env(safe-area-inset-bottom))}.app-header{display:none}.main{width:100%;padding:0 0 26px}.intro{display:none}.start-card{display:block;padding:0;border:0;border-radius:0;background:transparent;box-shadow:none}.camera-preview-shell{height:calc(100dvh - 74px - env(safe-area-inset-bottom));min-height:calc(100svh - 74px - env(safe-area-inset-bottom));border-radius:0;box-shadow:none;background:#0b0e0d;touch-action:none}.camera-preview-shell:after{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;background:linear-gradient(to bottom,rgba(0,0,0,.38),transparent 18%,transparent 64%,rgba(0,0,0,.55))}.mobile-camera-top{position:absolute;z-index:8;top:0;left:0;right:0;display:flex;align-items:center;justify-content:space-between;padding:calc(env(safe-area-inset-top) + 12px) 16px 10px;color:#fff;pointer-events:none}.mobile-camera-title{font-size:16px;font-weight:780;letter-spacing:-.01em;text-shadow:0 1px 12px rgba(0,0,0,.55)}.mobile-camera-actions{display:flex;align-items:center;gap:15px;pointer-events:auto}.mobile-camera-top button{border:0;padding:4px 1px;background:transparent;color:#fff;font-weight:760;cursor:pointer;filter:drop-shadow(0 1px 5px rgba(0,0,0,.45))}.mobile-camera-top button svg{width:22px;height:22px}.mobile-camera-top .mobile-language{font-size:12px}.mobile-camera-power{display:grid;place-items:center}.mobile-camera-power.is-off{opacity:.62}.camera-topbar{z-index:7;top:calc(env(safe-area-inset-top) + 60px);left:50%;right:auto;transform:translateX(-50%);width:auto}.camera-topbar #autoChip,.camera-topbar .camera-power-btn{display:none!important}.camera-chip{min-height:32px;background:rgba(10,13,12,.62);backdrop-filter:blur(10px);white-space:nowrap}.camera-bottom{z-index:8;bottom:calc(env(safe-area-inset-bottom) + 14px);width:calc(100% - 28px);max-width:430px;padding:7px;border-radius:20px;grid-template-columns:1fr 1fr 88px 1fr 1fr;gap:3px}.round-camera-btn,.camera-auto-action{height:58px}.shutter{width:72px;height:72px;border-width:4px;z-index:2}.mobile-zoom-bar{z-index:8;bottom:calc(env(safe-area-inset-bottom) + 96px);width:calc(100% - 34px);max-width:420px;min-height:44px;padding:7px 12px}.camera-empty{z-index:3;padding:calc(env(safe-area-inset-top) + 86px) 24px calc(env(safe-area-inset-bottom) + 128px);background:radial-gradient(circle at 50% 36%,#2a2d29,#101311 72%)}.mobile-camera-start{min-height:46px;padding:10px 18px}.camera-error{padding:calc(env(safe-area-inset-top) + 74px) 24px calc(env(safe-area-inset-bottom) + 112px)}.start-side{display:none}.zoom-wrap{display:none!important}.start-card,.section{scroll-margin-top:calc(var(--header-height) + env(safe-area-inset-top) + 10px)}.section{margin:22px 12px 0}.section-head{align-items:center;margin-bottom:10px;padding:0 2px}.section-head h2{font-size:18px}.section-head p{display:none}.count-badge{height:24px;min-width:24px}.pages-empty{padding:34px 18px;border:0;border-radius:16px;background:var(--surface);box-shadow:var(--shadow-sm)}.page-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}.page-card{padding:5px;border:0;border-radius:12px;box-shadow:0 1px 2px rgba(25,28,24,.08),0 3px 12px rgba(25,28,24,.05)}.page-thumb{border-radius:9px}.page-number{top:5px;left:5px;min-width:23px;height:23px;border-radius:7px}.drag-hint{top:5px;right:5px;width:34px;height:34px}.drag-hint svg{width:16px;height:16px}.page-meta{padding-top:4px}.page-meta span{display:none}.page-actions{width:100%;justify-content:space-around}.mini-icon{width:30px;height:30px}.export-card{display:block;padding:0;border:0;background:transparent;box-shadow:none}.setting-title{margin:0 2px 9px;font-size:12px;color:var(--muted)}.preset-row{margin:0 -12px;padding:0 12px 4px;flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch}.preset-row::-webkit-scrollbar{display:none}.preset{flex:0 0 auto;min-height:40px;padding:8px 14px;background:var(--surface);box-shadow:var(--shadow-sm)}.setting-grid{grid-template-columns:1fr 1fr;gap:0;margin-top:10px;padding:3px 14px;border-radius:16px;background:var(--surface);box-shadow:var(--shadow-sm)}.field{min-width:0;padding:10px 0}.field:nth-child(2n+1):not(.filename-field){padding-right:7px}.field:nth-child(2n):not(.filename-field){padding-left:7px}.filename-field{grid-column:1/-1;padding:11px 0 12px;border-bottom:1px solid var(--line)}.setting-grid .field:last-child{grid-column:1/-1;padding-left:0!important;padding-right:0!important;border-top:1px solid var(--line)}.field label{font-size:10px}.field select,.field input{min-height:42px;padding:8px 9px;border-color:#d7d8d3;background:#fbfbfa;font-size:16px}.filename-field input{font-weight:700}.filename-help{margin-top:1px;font-size:10px}.export-side{margin-top:12px;padding:15px;border-radius:16px;background:var(--surface);box-shadow:var(--shadow-sm)}.summary-list{margin-bottom:14px}.summary-item{padding:2px 0;font-size:12px}.export-side .btn{min-height:50px;border-radius:13px;font-size:14px}.result-card{margin-top:12px;border:0;border-radius:16px;box-shadow:var(--shadow-sm)}.result-actions{display:grid;grid-template-columns:1fr 1fr}.result-actions .btn{min-height:46px}#previewPdfLink{grid-column:1/-1}.checks{grid-template-columns:1fr}.mobile-nav{position:fixed;z-index:75;left:0;right:0;bottom:0;display:grid;grid-template-columns:repeat(3,1fr);padding:6px 10px calc(6px + env(safe-area-inset-bottom));border-top:1px solid rgba(218,219,214,.78);background:rgba(255,255,255,.94);backdrop-filter:blur(18px) saturate(1.35);box-shadow:0 -8px 24px rgba(20,22,20,.06)}.mobile-nav button{position:relative;min-height:54px;border:0;border-radius:12px;background:transparent;color:#757973;display:grid;place-items:center;align-content:center;gap:3px;font-size:10px;font-weight:750}.mobile-nav button svg{width:21px;height:21px}.mobile-nav button.active{color:var(--accent);background:var(--accent-soft)}.mobile-nav-count{position:absolute;top:4px;left:calc(50% + 7px);min-width:17px;height:17px;padding:0 4px;border-radius:999px;background:var(--accent);color:#fff;display:grid;place-items:center;font-size:9px;font-weight:800}.status-line{bottom:calc(76px + env(safe-area-inset-bottom))}.toast{right:10px;left:10px;max-width:none;bottom:calc(76px + env(safe-area-inset-bottom))}.dialog-body{padding:14px}.crop-stage{min-height:0;height:58dvh}.crop-stage canvas{max-width:none;max-height:none}.crop-side{padding:12px 12px calc(12px + env(safe-area-inset-bottom))}.filter-row{grid-template-columns:repeat(3,1fr)}.filter-btn{padding:6px 3px;font-size:10px}.crop-actions{grid-template-columns:1fr 1fr}.crop-actions .primary{grid-column:1/-1}.confirm-dialog{position:fixed;inset:auto 0 0 0;width:100%;max-width:none;margin:0;border-radius:18px 18px 0 0;padding-bottom:env(safe-area-inset-bottom)}#scanSection,#pagesSection,#exportSection{display:none!important}#scanSection.mobile-view-active{display:block!important}#pagesSection.mobile-view-active,#exportSection.mobile-view-active{display:block!important;min-height:calc(100dvh - 74px - env(safe-area-inset-bottom));margin:0;padding:calc(env(safe-area-inset-top) + 18px) 12px 28px}.main>footer,footer{display:none}
       /* Camera-off content must stay reachable without enabling the camera. */
       .camera-preview-shell.camera-off{height:auto;touch-action:pan-y}
       .camera-preview-shell.camera-off .camera-empty{position:relative;min-height:inherit}
@@ -88,6 +88,166 @@
       .mobile-camera-actions { flex: 0 0 auto; }
       .mobile-camera-title .version-badge { margin-left: 5px; padding: 1px 5px; color: inherit; border-color: currentColor; background: transparent; text-shadow: inherit; }
     }
+
+    #cornerLoupe {
+      position:absolute; top:10px; z-index:8; width:82px; height:82px;
+      border:3px solid white; border-radius:50%; box-shadow:0 3px 14px #0005;
+      pointer-events:none; transform:none;
+    }
+    #cornerLoupe[hidden], .pdf-choices, .mobile-file-summary, #pdfFacts, .mobile-settings-title {display:none}
+    @media(max-width:820px) {
+      #editorDialog[open] {display:flex; flex-direction:column; overflow:hidden}
+      #editorDialog .dialog-head {position:static; flex:none}
+      .editor-body {
+        flex:1 1 0; min-height:0; height:auto; display:grid;
+        grid-template: "tabs" auto "image" minmax(0,1fr) "options" auto "actions" auto / minmax(0,1fr);
+      }
+      .crop-side {display:contents}
+      .editor-view-tabs {grid-area:tabs; margin:6px 12px 8px}
+      .crop-stage {grid-area:image; min-height:0; height:100%}
+      .editor-options {grid-area:options; min-height:0; max-height:29dvh; overflow:auto; padding:8px 12px}
+      .editor-options .corner-panel {display:flex; flex-wrap:wrap; align-items:center; gap:6px; padding:0; margin:0; border:0; background:none}
+      .corner-panel .corner-help, .corner-panel .corner-range-title, .corner-panel>p, .corner-panel .crop-quality span {display:none}
+      .corner-panel .crop-quality {flex:1 1 90px; padding:0; margin:0; background:none}
+      .corner-panel .crop-quality strong {margin:0}
+      .corner-actions {flex:0 1 auto}
+      .corner-actions .btn {min-height:38px; padding:5px 9px}
+      .editor-options:has(.corner-panel:not(.hidden))>h3, .editor-options:has(.corner-panel:not(.hidden))>.filter-row {display:none}
+      .editor-options .filter-row {grid-template-columns:repeat(auto-fit,minmax(52px,1fr))}
+      .editor-options .import-progress, .editor-options .editor-error {margin:4px 0 0; overflow-wrap:anywhere}
+      .crop-actions {
+        grid-area:actions; position:static; margin:0; gap:5px; grid-template-columns:repeat(2,minmax(0,1fr));
+        padding:7px 12px max(8px,env(safe-area-inset-bottom)); border-top:1px solid var(--line); background:var(--surface);
+      }
+      .crop-actions .btn {min-height:38px}
+      .crop-actions .primary {grid-column:1/-1; min-height:44px}
+      .crop-actions:has(#saveAsNewPageBtn:not(.hidden)) .primary {grid-column:auto}
+    }
+    @media(max-width:600px) {
+      .export-form {display:grid; grid-template-columns:1fr auto; align-items:center}
+      .export-form .setting-grid {display:contents}
+      .export-form .filename-field {
+        order:-1; grid-column:1/-1; display:grid; grid-template-columns:auto minmax(0,1fr);
+        column-gap:12px; margin-bottom:14px; padding:12px!important; background:white;
+        border:1px solid var(--line); border-radius:14px;
+      }
+      .mobile-file-summary {display:contents}
+      #pdfThumbs {grid-column:1; grid-row:1/5; align-self:center; width:44px; height:55px; position:relative}
+      #pdfThumbs:empty {display:none}
+      #pdfThumbs img {position:absolute; left:0; width:34px; height:49px; object-fit:contain; background:white; border:1px solid var(--line-strong); transform:rotate(-6deg)}
+      #pdfThumbs img:nth-child(2) {left:4px; top:2px; transform:rotate(-2deg)}
+      #pdfThumbs img:nth-child(3) {left:8px; top:4px; transform:rotate(2deg)}
+      .filename-field :is(label,input,.filename-help,#pdfPageCount) {grid-column:2}
+      #pdfPageCount {font-size:13px}
+      .export-form>.setting-title {margin:0; color:var(--text); font-size:15px}
+      .desktop-settings-title {display:none}
+      .mobile-settings-title {display:inline}
+      #presetRow {display:block; margin:0; padding:0; overflow:visible}
+      #presetRow .preset {display:none}
+      #presetRow [data-preset=standard] {display:inline-block; border:0; background:transparent; box-shadow:none; color:var(--accent); font-size:12px}
+      .export-form .setting-grid>.field:has(select) {grid-column:1/-1; padding:10px 12px!important; border:1px solid var(--line); border-top:0; background:white}
+      .export-form .field:has(#paperSelect) {border-radius:12px 12px 0 0; border-top:1px solid var(--line)!important}
+      .export-form .field:has(#limitSelect) {border-radius:0 0 12px 12px}
+      .setting-grid .field:has(.pdf-choices)>label, .setting-grid .field:has(.pdf-choices)>select {display:none}
+      fieldset.pdf-choices {display:block; margin:0; padding:0; border:0; min-width:0}
+      .pdf-choices legend {padding:0; margin-bottom:5px; font-size:12px; font-weight:650; color:var(--muted)}
+      .pdf-choice-options {display:flex; gap:3px; border-radius:10px; padding:3px; background:var(--surface-muted)}
+      .pdf-choice-options label {position:relative; flex:1; min-width:0}
+      .pdf-choice-options input {position:absolute; inset:0; opacity:0; margin:0; width:100%; height:100%; min-height:0; cursor:pointer}
+      .pdf-choice-options span {display:grid; place-items:center; text-align:center; padding:4px 1px; min-height:38px; font-size:12px; border:1px solid transparent; border-radius:7px; color:var(--text)}
+      .pdf-choice-options input:checked+span {border-color:var(--accent); background:var(--accent-soft); color:var(--accent); font-weight:750}
+      .pdf-choice-options input:focus-visible+span {outline:3px solid var(--focus); outline-offset:0}
+      .export-side {padding:0; background:transparent; box-shadow:none}
+      .export-side :is(h3,p,.summary-list) {display:none}
+      .export-form .result-card {grid-column:1/-1}
+      #pdfFacts {display:block; margin:0 0 4px; font-size:16px; font-weight:750; color:var(--accent); overflow-wrap:anywhere}
+      .result-card:has(.check.warn) #pdfFacts {color:var(--warning)}
+      .result-head h3, .result-size, .checks:not(:has(.warn)), .checks .check:not(.warn) {display:none}
+      #resultName {overflow-wrap:anywhere}
+      .export-card:has(#resultCard:not(.hidden)) .export-side {display:none}
+    }
+    @media(max-width:820px) and (max-height:450px) {
+      #editorDialog .dialog-head {padding:4px 12px}
+      .editor-view-tabs {margin:3px 12px}
+      .editor-options {max-height:20dvh; padding:4px 10px}
+      .crop-actions {padding-block:4px}
+    }
+
+    .drop-prompt, #desktopStartCameraBtn, #cornerKeyHelp {display:none}
+    @media(min-width:821px) {
+      .start-card {display:flex; flex-direction:column; padding:14px; gap:12px}
+      .start-side {display:grid; grid-template-columns:1fr 1fr; gap:12px}
+      .camera-preview-shell {min-height:300px; height:clamp(300px,46vh,490px); border-radius:14px}
+      .start-side .camera-help {grid-column:1/-1; order:1}
+      #desktopDropArea {min-width:0}
+      #desktopDropArea .side-actions {display:flex; justify-content:flex-start; align-items:center; gap:8px; flex-wrap:wrap}
+      #desktopDropArea .side-actions .btn {width:auto}
+      #cameraShell.camera-off:not(:has(#cameraError.show)) {display:none}
+      .start-card:has(.camera-off) .start-side {display:block}
+      .start-card:has(.camera-off) .start-side>.side-block:not(#desktopDropArea) {display:none}
+      .start-card:has(.camera-off) #desktopDropArea {
+        padding:clamp(20px,3.2vh,34px) 16px; min-height:220px;
+        display:grid; justify-items:center; align-content:center; text-align:center;
+        border:1px dashed #96b5a6; border-radius:12px; background:#f6faf7;
+      }
+      .start-card:has(.camera-off) #desktopDropArea>h3, .start-card:has(.camera-off) #desktopDropArea>p {display:none}
+      .start-card:has(.camera-off) .drop-prompt {display:grid; justify-items:center}
+      .drop-prompt>svg {width:40px; height:40px; color:var(--accent); margin-bottom:7px}
+      #desktopDropArea .drop-prompt h3 {font-size:20px; line-height:1.35; margin:0}
+      #desktopDropArea .drop-prompt p {font-size:13px; margin:5px 0 15px; color:var(--muted)}
+      .start-card:has(.camera-off) #desktopDropArea .side-actions {justify-content:center}
+      .start-card:has(.camera-off) #importBtn {color:white; background:var(--accent); border-color:var(--accent)}
+      .start-card:has(.camera-off) #importBtn:hover {background:var(--accent-hover)}
+      .start-card:has(.camera-off) #desktopStartCameraBtn {display:inline-flex}
+      #desktopDropArea.is-drag-over, .start-card:has(.camera-off) #desktopDropArea.is-drag-over {background:var(--accent-soft); outline:2px solid var(--accent); outline-offset:-2px}
+      .editor-dialog {width:min(1160px,calc(100vw - 48px)); max-height:94dvh}
+      .editor-body {grid-template-columns:minmax(0,1fr) clamp(280px,26vw,332px); height:min(780px,calc(94dvh - 66px))}
+      .crop-side {display:grid; grid-template-rows:auto minmax(0,1fr) auto; gap:12px; padding:15px; overflow:hidden}
+      .crop-side .editor-view-tabs {margin:0}
+      .crop-side .editor-options {min-height:0; overflow:auto; scrollbar-gutter:stable}
+      .crop-side .crop-actions {position:static; padding:12px 0 0; margin:0; background:var(--surface); border-top:1px solid var(--line)}
+      .crop-side .crop-actions .btn {min-height:40px}
+      .corner-panel #cornerKeyHelp {display:block; margin-bottom:8px}
+      .corner-handle:focus-visible {outline:3px solid #80b6ff; outline-offset:2px}
+    }
+    @media(min-width:960px) {
+      .main,.header-inner,footer {width:min(1380px,100%)}
+      .main {display:grid; grid-template-columns:minmax(0,1fr) clamp(310px,28vw,390px); align-items:start; column-gap:22px}
+      .intro {grid-column:1/-1; margin-bottom:18px}
+      .scan-workspace {min-width:0}
+      .page-grid {grid-template-columns:repeat(auto-fill,minmax(145px,1fr))}
+      #pagesSection {margin-top:18px; min-width:0}
+      #pagesSection:not(:has(.page-card:nth-child(2))) .section-head p {display:none}
+      .pages-empty {min-height:100px; padding:16px; border-style:solid}
+      #exportSection {min-width:0; margin:0; padding:17px; border:1px solid var(--line); border-radius:16px; background:var(--surface); box-shadow:var(--shadow-sm)}
+      #exportSection .section-head {margin-bottom:14px}
+      #exportSection .section-head p {display:none}
+      .export-card {display:flex; flex-direction:column; gap:14px; padding:0; border:0; border-radius:0; box-shadow:none; background:none}
+      .export-form {display:contents}
+      .export-form>.setting-title {margin:0 0 -7px; color:var(--muted)}
+      .preset-row {gap:4px}
+      .preset {padding:5px 9px; min-height:32px}
+      .setting-grid {display:grid; grid-template-columns:minmax(0,1fr); gap:7px; margin:0}
+      .setting-grid .field:not(.filename-field) {display:grid; grid-template-columns:minmax(60px,.65fr) minmax(0,1.35fr); align-items:center; gap:8px}
+      .setting-grid .field>label {font-size:12px}
+      .setting-grid .filename-field {margin-bottom:5px}
+      .export-side {order:1; padding:0; background:none}
+      .export-side>h3,.export-side>p,.export-side .summary-item:not(:first-child) {display:none}
+      .export-side .summary-list {margin:0 0 10px; padding:9px 0 0; border-top:1px solid var(--line)}
+      .export-side .summary-item {font-size:13px}
+      .result-card {order:2; margin:0; padding:12px}
+      .export-card:has(#resultCard:not(.hidden)) .export-side {display:none}
+      #pdfFacts {display:block; margin:0 0 5px; color:var(--accent); font-weight:750}
+      .result-card:has(.check.warn) #pdfFacts {color:var(--warning)}
+      .result-head h3,.result-size,.checks:not(:has(.warn)),.checks .check:not(.warn) {display:none}
+      .checks {grid-template-columns:1fr}
+      #resultName {min-width:0; overflow-wrap:anywhere}
+      .result-actions {display:grid; grid-template-columns:1fr 1fr}
+      #previewPdfLink {grid-column:1/-1}
+    }
+    @media(min-width:960px) and (min-height:720px) {
+      #exportSection {position:sticky; top:calc(var(--header-height) + 12px)}
+    }
   </style>
 </head>
 <body>
@@ -104,12 +264,13 @@
   </div>
 </header>
 <main class="main">
-  <section class="intro">
-    <div><h2 data-i18n="introTitle">紙を撮って、そのまま提出できるPDFへ</h2><p data-i18n="introText">四隅検出、台形補正、読みやすさ調整、複数ページ整理、容量制限までまとめて処理します。</p></div>
+  <div class="intro">
+    <p data-i18n="introText">書類を撮影するか、画像を選んでPDFにまとめます。</p>
     <div class="local-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3 5 6v5c0 4.6 2.8 8 7 10 4.2-2 7-5.4 7-10V6z"/><path d="m9 12 2 2 4-5"/></svg><span data-i18n="localOnly">完全ローカル処理</span></div>
-  </section>
+  </div>
 
-  <section class="start-card" id="scanSection" aria-labelledby="scanHeading">
+  <div class="scan-workspace">
+  <section class="start-card" id="scanSection" data-i18n-aria="navScan" aria-label="スキャン">
     <div class="camera-preview-shell" id="cameraShell">
       <video id="video" autoplay playsinline muted></video><canvas id="guideCanvas"></canvas>
       <div class="mobile-camera-top"><div class="mobile-camera-title"><span data-i18n="appName">提出PDFスキャナー</span><span class="version-badge" data-app-version>v1.0.4</span></div><div class="mobile-camera-actions"><button class="mobile-language" id="mobileLangBtn" type="button" aria-label="英語に切り替え" title="英語に切り替え">EN</button><button class="mobile-camera-power" id="mobileCameraPowerBtn" type="button" data-i18n-aria="turnCameraOff" aria-label="カメラをオフ"><svg viewBox="0 0 24 24" fill="none"><path d="M12 3v8" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/><path d="M7.1 5.9a8 8 0 1 0 9.8 0" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/></svg></button><button id="mobileHelpBtn" type="button" data-i18n-aria="help" aria-label="使い方と注意事項" title="使い方と注意事項"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.8"/><path d="M9.7 9a2.45 2.45 0 0 1 4.73.92c0 1.8-2.43 1.91-2.43 3.6M12 17.2h.01" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></button></div></div>
@@ -133,7 +294,13 @@
         <div class="zoom-wrap" id="zoomWrap"><div class="zoom-head"><span data-i18n="zoom">ズーム</span><span id="zoomValue">1.0×</span></div><input id="zoomRange" type="range" min="1" max="1" step="0.1" value="1" aria-label="Zoom"></div>
       </div>
       <div class="side-block camera-help"><h3 data-i18n="goodScanTitle">きれいに撮るコツ</h3><p data-i18n="goodScanText">紙の四辺が見えるように、影を避けて真上から。自動認識が外れても次の画面で直せます。</p></div>
-      <div class="side-block"><h3 data-i18n="existingImages">すでに撮った画像から</h3><p data-i18n="existingImagesText">複数枚をまとめて選択できます。処理は端末内です。</p><div class="side-actions"><button class="btn" id="importBtn" type="button"><svg viewBox="0 0 24 24" fill="none"><path d="M12 4v11M8 8l4-4 4 4M5 14v5h14v-5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg><span data-i18n="importImages">画像を追加</span></button><button class="file-fallback" id="importFallbackBtn" type="button"><span data-i18n="chooseFromFiles">ファイルから選択</span></button></div></div>
+      <div class="side-block" id="desktopDropArea">
+        <div class="drop-prompt">
+          <svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round" aria-hidden="true"><path d="m10 9-4 1 3 24 16-2"/><path d="M14 4h12l7 7v18H14z"/><path d="M26 4v8h7M19 17h9m-9 5h6"/></svg>
+          <h3 data-i18n="dropImages">書類の画像をドロップ</h3>
+          <p data-i18n="dropImagesHelp">複数枚をまとめて追加できます。</p>
+        </div>
+        <h3 data-i18n="existingImages">すでに撮った画像から</h3><p data-i18n="existingImagesText">複数枚をまとめて選択できます。処理は端末内です。</p><div class="side-actions"><button class="btn" id="importBtn" type="button"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 4v11m-4-4 4 4 4-4M5 15v4h14v-4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg><span data-i18n="importImages">画像を追加</span></button><button class="btn" id="desktopStartCameraBtn" type="button" data-i18n="startCamera">カメラを開始</button><button class="file-fallback" id="importFallbackBtn" type="button"><span data-i18n="chooseFromFiles">ファイルから選択</span></button></div></div>
     </aside>
     <input id="fileInput" class="hidden" type="file" accept="image/*" multiple>
     <input id="fileInputFallback" class="hidden" type="file" multiple>
@@ -145,19 +312,21 @@
     <div class="page-grid hidden" id="pageGrid"></div>
   </section>
 
+  </div>
+
   <section class="section" id="exportSection" aria-labelledby="exportHeading">
     <div class="section-head"><div><h2 id="exportHeading" data-i18n="submissionPdf">提出用PDF</h2><p data-i18n="submissionPdfDesc">提出先の条件に合わせて、紙サイズ・色・容量をまとめて調整します。</p></div></div>
     <div class="export-card">
-      <div>
-        <h3 class="setting-title" data-i18n="quickPreset">提出条件プリセット</h3>
-        <div class="preset-row" id="presetRow"><button class="preset active" data-preset="standard" type="button" data-i18n="presetStandard">標準</button><button class="preset" data-preset="1mb" type="button">1 MB</button><button class="preset" data-preset="2mb" type="button">2 MB</button><button class="preset" data-preset="a4" type="button">A4</button><button class="preset" data-preset="bw" type="button" data-i18n="presetBw">白黒</button></div>
+      <div class="export-form">
+        <h3 class="setting-title"><span class="desktop-settings-title" data-i18n="quickPreset">提出条件プリセット</span><span class="mobile-settings-title" data-i18n="submissionConditions">提出条件</span></h3>
+        <div class="preset-row" id="presetRow"><button class="preset" data-preset="standard" type="button" data-i18n="presetStandard">標準に戻す</button><button class="preset" data-preset="1mb" type="button">1 MB</button><button class="preset" data-preset="2mb" type="button">2 MB</button><button class="preset" data-preset="a4" type="button">A4</button><button class="preset" data-preset="bw" type="button" data-i18n="presetBw">白黒</button></div>
         <div class="setting-grid">
-          <div class="field filename-field"><label for="filenameInput" data-i18n="filename">出力ファイル名</label><input id="filenameInput" type="text" maxlength="80" value="提出書類.pdf" autocomplete="off" enterkeyhint="done"><p class="filename-help" data-i18n="filenameHelp">.pdf を省略した場合は自動で付けます。</p></div>
+          <div class="field filename-field"><div class="mobile-file-summary"><span id="pdfThumbs" aria-hidden="true"></span><strong id="pdfPageCount"></strong></div><label for="filenameInput" data-i18n="filename">出力ファイル名</label><input id="filenameInput" type="text" maxlength="80" value="提出書類.pdf" autocomplete="off" enterkeyhint="done"><p class="filename-help" data-i18n="filenameHelp">.pdf を省略した場合は自動で付けます。</p></div>
           <div class="field"><label for="paperSelect" data-i18n="paperSize">用紙</label><select id="paperSelect"><option value="a4">A4</option><option value="original" data-i18n="originalRatio">元の比率</option></select></div>
           <div class="field"><label for="colorSelect" data-i18n="pdfColor">PDFの色</label><select id="colorSelect"><option value="page" data-i18n="keepPageFilter">各ページ設定</option><option value="gray" data-i18n="grayscale">グレー</option><option value="bw" data-i18n="blackWhite">白黒</option></select></div>
           <div class="field"><label for="limitSelect" data-i18n="maxSize">容量上限</label><select id="limitSelect"><option value="0" data-i18n="noLimit">指定なし</option><option value="1048576">1 MB</option><option value="2097152">2 MB</option><option value="5242880">5 MB</option></select></div>
         </div>
-        <div class="result-card hidden" id="resultCard"><div class="result-head"><div><h3 data-i18n="readyCheck">提出前チェック</h3><span id="resultName"></span></div><div class="result-size" id="resultSize">—</div></div><div class="checks" id="checks"></div><div class="result-actions"><button class="btn primary small" id="downloadBtn" type="button" data-i18n="downloadPdf">PDFを保存</button><button class="btn small" id="shareBtn" type="button" data-i18n="sharePdf">共有</button></div></div>
+        <div class="result-card hidden" id="resultCard"><p id="pdfFacts" role="status"></p><div class="result-head"><div><h3 data-i18n="readyCheck">提出前チェック</h3><span id="resultName"></span></div><div class="result-size" id="resultSize">—</div></div><div class="checks" id="checks"></div><div class="result-actions"><a class="btn small" id="previewPdfLink" target="_blank" rel="noopener noreferrer" data-i18n="openPdf">PDFを開いて確認</a><button class="btn primary small" id="downloadBtn" type="button" data-i18n="downloadPdf">PDFを保存</button><button class="btn small" id="shareBtn" type="button" data-i18n="sharePdf">共有</button></div></div>
       </div>
       <aside class="export-side"><h3 data-i18n="currentSettings">現在の設定</h3><p data-i18n="currentSettingsDesc">容量上限がある場合は、読める範囲で画質と解像度を自動調整します。</p><div class="summary-list"><div class="summary-item"><span data-i18n="pagesLabel">ページ数</span><strong id="summaryPages">0</strong></div><div class="summary-item"><span data-i18n="paperSize">用紙</span><strong id="summaryPaper">A4</strong></div><div class="summary-item"><span data-i18n="pdfColor">PDFの色</span><strong id="summaryColor">各ページ</strong></div><div class="summary-item"><span data-i18n="maxSize">容量上限</span><strong id="summaryLimit">指定なし</strong></div></div><button class="btn primary" id="generateBtn" type="button" disabled><svg viewBox="0 0 24 24" fill="none"><path d="M7 3h8l4 4v14H7V3Z" stroke="currentColor" stroke-width="1.8"/><path d="M15 3v5h5M10 13h6M10 17h4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg><span data-i18n="generatePdf">PDFを作成</span></button></aside>
     </div>
@@ -178,7 +347,7 @@
 <!-- APP:HELP:END -->
 </div></dialog>
 
-<dialog class="editor-dialog" id="editorDialog"><div class="dialog-head"><h2 id="editorTitle" data-i18n="adjustPage">ページを補正</h2><button class="header-icon" id="editorCloseBtn" type="button" aria-label="Close"><svg viewBox="0 0 24 24" fill="none"><path d="m7 7 10 10M17 7 7 17" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/></svg></button></div><div class="editor-body"><div class="crop-stage" id="cropStage"><canvas id="cropCanvas"></canvas><button class="corner-handle" data-corner="0" aria-label="Top left"></button><button class="corner-handle" data-corner="1" aria-label="Top right"></button><button class="corner-handle" data-corner="2" aria-label="Bottom right"></button><button class="corner-handle" data-corner="3" aria-label="Bottom left"></button><div class="editor-zoom-controls hidden" id="editorZoomControls"><button class="editor-zoom-btn" id="editorZoomOutBtn" type="button" data-i18n-aria="zoomOut" aria-label="縮小"><svg viewBox="0 0 24 24" fill="none"><path d="M6 12h12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button><button class="editor-zoom-reset" id="editorZoomResetBtn" type="button" data-i18n-aria="zoomReset" aria-label="表示を元に戻す">100%</button><button class="editor-zoom-btn" id="editorZoomInBtn" type="button" data-i18n-aria="zoomIn" aria-label="拡大"><svg viewBox="0 0 24 24" fill="none"><path d="M12 6v12M6 12h12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></div></div><aside class="crop-side"><div class="editor-view-tabs" role="tablist"><button class="editor-view-btn active" data-editor-view="preview" type="button" data-i18n="finishPreview">仕上がり</button><button class="editor-view-btn" data-editor-view="corners" type="button" data-i18n="cornerAdjust">四隅補正</button></div><div class="corner-panel hidden" id="cornerPanel"><div class="corner-help"><h3 data-i18n="cornerTitle">四隅を確認</h3><p data-i18n="cornerText">緑の枠が紙の端に合うように丸を動かしてください。拡大して細かく合わせられます。</p></div><div class="crop-quality"><strong id="detectionQuality" data-i18n="autoDetected">自動認識しました</strong><span data-i18n="manualFallback">合わない場合は四隅を調整できます。</span></div><h3 class="corner-range-title" data-i18n="cornerRange">補正範囲</h3><p data-i18n="cornerRangeText">認識をやり直すか、画像全体を使う範囲に戻せます。</p><div class="corner-actions"><button class="btn small" id="resetCornersBtn" type="button" data-i18n="redetect">再認識</button><button class="btn small" id="fullImageBtn" type="button" data-i18n="fullImage">画像全体</button></div></div><h3 data-i18n="filter">読みやすさ</h3><div class="filter-row"><button class="filter-btn" data-filter="none" type="button" data-i18n="filterNone">無変換</button><button class="filter-btn active" data-filter="auto" type="button" data-i18n="filterAuto">自動</button><button class="filter-btn" data-filter="color" type="button" data-i18n="color">カラー</button><button class="filter-btn" data-filter="gray" type="button" data-i18n="grayscale">グレー</button><button class="filter-btn" data-filter="bw" type="button" data-i18n="blackWhite">白黒</button></div><p class="editor-error hidden" id="editorError" role="alert"></p><p class="import-progress hidden" id="importProgress" role="status" aria-live="polite"></p><div class="crop-actions"><button class="btn small hidden" id="skipImageBtn" type="button" data-i18n="skipImage">この画像をスキップ</button><button class="btn small ghost-danger hidden" id="stopImportBtn" type="button" data-i18n="stopImport">読み込みを終了</button><button class="btn small hidden" id="saveAsNewPageBtn" type="button" data-i18n="saveAsNewPage">別ページとして保存</button><button class="btn primary" id="addPageBtn" type="button" data-i18n="addPage">このページを追加</button></div></aside></div></dialog>
+<dialog class="editor-dialog" id="editorDialog"><div class="dialog-head"><h2 id="editorTitle" data-i18n="adjustPage">ページを補正</h2><button class="header-icon" id="editorCloseBtn" type="button" aria-label="Close"><svg viewBox="0 0 24 24" fill="none"><path d="m7 7 10 10M17 7 7 17" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/></svg></button></div><div class="editor-body"><div class="crop-stage" id="cropStage"><canvas id="cropCanvas"></canvas><canvas id="cornerLoupe" width="164" height="164" hidden aria-hidden="true"></canvas><button class="corner-handle" data-corner="0" aria-describedby="cornerKeyHelp" data-i18n-aria="cornerTL" aria-label="左上の角"></button><button class="corner-handle" data-corner="1" aria-describedby="cornerKeyHelp" data-i18n-aria="cornerTR" aria-label="右上の角"></button><button class="corner-handle" data-corner="2" aria-describedby="cornerKeyHelp" data-i18n-aria="cornerBR" aria-label="右下の角"></button><button class="corner-handle" data-corner="3" aria-describedby="cornerKeyHelp" data-i18n-aria="cornerBL" aria-label="左下の角"></button><div class="editor-zoom-controls hidden" id="editorZoomControls"><button class="editor-zoom-btn" id="editorZoomOutBtn" type="button" data-i18n-aria="zoomOut" aria-label="縮小"><svg viewBox="0 0 24 24" fill="none"><path d="M6 12h12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button><button class="editor-zoom-reset" id="editorZoomResetBtn" type="button" data-i18n-aria="zoomReset" aria-label="表示を元に戻す">100%</button><button class="editor-zoom-btn" id="editorZoomInBtn" type="button" data-i18n-aria="zoomIn" aria-label="拡大"><svg viewBox="0 0 24 24" fill="none"><path d="M12 6v12M6 12h12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></div></div><aside class="crop-side"><div class="editor-view-tabs" role="tablist"><button class="editor-view-btn active" data-editor-view="preview" type="button" data-i18n="finishPreview">仕上がり</button><button class="editor-view-btn" data-editor-view="corners" type="button" data-i18n="cornerAdjust">四隅補正</button></div><div class="editor-options"><div class="corner-panel hidden" id="cornerPanel"><div class="corner-help"><h3 data-i18n="cornerTitle">四隅を確認</h3><p data-i18n="cornerText">緑の枠が紙の端に合うように丸を動かしてください。拡大して細かく合わせられます。</p><p id="cornerKeyHelp" data-i18n="cornerKeyHint">矢印キーで1 px、Shift＋矢印キーで10 px動かせます。</p></div><div class="crop-quality"><strong id="detectionQuality" data-i18n="autoDetected">自動認識しました</strong><span data-i18n="manualFallback">合わない場合は四隅を調整できます。</span></div><h3 class="corner-range-title" data-i18n="cornerRange">補正範囲</h3><p data-i18n="cornerRangeText">認識をやり直すか、画像全体を使う範囲に戻せます。</p><div class="corner-actions"><button class="btn small" id="resetCornersBtn" type="button" data-i18n="redetect">再認識</button><button class="btn small" id="fullImageBtn" type="button" data-i18n="fullImage">画像全体</button></div></div><h3 data-i18n="filter">読みやすさ</h3><div class="filter-row"><button class="filter-btn" data-filter="none" type="button" data-i18n="filterNone">無変換</button><button class="filter-btn active" data-filter="auto" type="button" data-i18n="filterAuto">自動</button><button class="filter-btn" data-filter="color" type="button" data-i18n="color">カラー</button><button class="filter-btn" data-filter="gray" type="button" data-i18n="grayscale">グレー</button><button class="filter-btn" data-filter="bw" type="button" data-i18n="blackWhite">白黒</button></div><p class="editor-error hidden" id="editorError" role="alert"></p><p class="import-progress hidden" id="importProgress" role="status" aria-live="polite"></p></div><div class="crop-actions"><button class="btn small hidden" id="skipImageBtn" type="button" data-i18n="skipImage">この画像をスキップ</button><button class="btn small ghost-danger hidden" id="stopImportBtn" type="button" data-i18n="stopImport">読み込みを終了</button><button class="btn small hidden" id="saveAsNewPageBtn" type="button" data-i18n="saveAsNewPage">別ページとして保存</button><button class="btn primary" id="addPageBtn" type="button" data-i18n="addPage">このページを追加</button></div></aside></div></dialog>
 
 <dialog class="confirm-dialog" id="confirmDialog"><div class="confirm-body"><h2 id="confirmTitle"></h2><p id="confirmMessage"></p></div><div class="confirm-actions"><button class="btn small" id="confirmCancel" type="button" data-i18n="cancel">キャンセル</button><button class="btn small danger" id="confirmOk" type="button" data-i18n="delete">削除</button></div></dialog>
 <div class="toast" id="toast"><span id="toastText"></span><button id="toastAction" type="button" data-i18n="undo">元に戻す</button></div>
@@ -207,7 +376,7 @@
     }
   }
 }</script>
-<script type="application/json" id="buildManifest">{"name":"Submission PDF Scanner","version":"1.0.4","generatedAtUtc":"2026-11-13T15:36:30.9201210Z","dependencyCount":0,"runtimeNetworkBlocked":true}</script>
+<script type="application/json" id="buildManifest">{"name":"Submission PDF Scanner","version":"1.0.4","generatedAtUtc":"2026-11-26T22:42:49.4897483Z","dependencyCount":0,"runtimeNetworkBlocked":true}</script>
 <script type="application/json" id="assetBundle">"e30="</script>
 <script>
 (() => {
@@ -226,8 +395,8 @@ const icons = {
   warn:'<svg viewBox="0 0 24 24" fill="none"><path d="m12 3 9 17H3L12 3Z" stroke="currentColor" stroke-width="1.7"/><path d="M12 9v5M12 17h.01" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>'
 };
 const I18N = {
-  ja:{appName:'提出PDFスキャナー',brandMeta:'補正・整理・提出条件まで、端末内で完結',help:'使い方と注意事項',close:'閉じる',introTitle:'紙を撮って、そのまま提出できるPDFへ',introText:'四隅検出、台形補正、読みやすさ調整、複数ページ整理、容量制限までまとめて処理します。',localOnly:'完全ローカル処理',cameraReadyTitle:'カメラで紙をスキャン',cameraReadyText:'カメラが使えない場合も、既存画像から追加できます。',cameraOffTitle:'カメラはオフです',cameraOffText:'必要なときだけ開始できます。画像追加はカメラOFFのまま使えます。',turnCameraOff:'カメラをオフ',turnCameraOn:'カメラをオン',cameraOff:'カメラを停止しました',detectWaiting:'書類を探しています',detectFound:'書類を認識',detectSteady:'そのまま動かさずに',autoArmed:'自動撮影 ON',torch:'ライト',switchCamera:'カメラ切替',capture:'撮影',importImages:'画像を追加',chooseFromFiles:'ファイルから選択',scanOptions:'撮影アシスト',autoDesc:'書類が止まったら自動で撮影できます。',autoCapture:'自動撮影',zoom:'ズーム',zoomOptical:'カメラズーム',zoomDigital:'デジタルズーム',goodScanTitle:'きれいに撮るコツ',goodScanText:'紙の四辺が見えるように、影を避けて真上から。自動認識が外れても次の画面で直せます。',existingImages:'すでに撮った画像から',existingImagesText:'複数枚をまとめて選択できます。処理は端末内です。',startCamera:'カメラを開始',stopCamera:'カメラを停止',pages:'ページ',pagesDesc:'長押しせず、そのままつかんで並べ替えできます。',clearAll:'すべて削除',noPages:'まだページがありません',noPagesText:'撮影または画像追加から始めてください。',submissionPdf:'提出用PDF',submissionPdfDesc:'提出先の条件に合わせて、紙サイズ・色・容量をまとめて調整します。',quickPreset:'提出条件プリセット',presetStandard:'標準',presetBw:'白黒',paperSize:'用紙',originalRatio:'元の比率',pdfColor:'PDFの色',keepPageFilter:'各ページ設定',color:'カラー',grayscale:'グレー',blackWhite:'白黒',maxSize:'容量上限',noLimit:'指定なし',filename:'出力ファイル名',filenameHelp:'.pdf を省略した場合は自動で付けます。',navScan:'スキャン',navPages:'ページ',navPdf:'PDF',readyCheck:'提出前チェック',downloadPdf:'PDFを保存',sharePdf:'共有',currentSettings:'現在の設定',currentSettingsDesc:'容量上限がある場合は、読める範囲で画質と解像度を自動調整します。',pagesLabel:'ページ数',generatePdf:'PDFを作成',footerPrivacy:'撮影もPDF化もブラウザー内で完結',helpTitle:'使い方と注意事項',helpHowTitle:'基本の使い方',helpStep1:'起動時はカメラOFFです。必要なときだけ「カメラを開始」または電源アイコンでONにして撮影するか、カメラOFFのまま既存画像を追加します。カメラは上部の電源アイコンからOFFにできます。 スマートフォンでは下部の「画像」から追加できます。',helpStep2:'自動認識された四隅を確認し、必要なら拡大して丸いハンドルを紙の端へ動かします。',helpStep3:'「仕上がり」で実際の台形補正と読みやすさを確認し、必要なら「四隅補正」に切り替えて調整します。追加後もページのプレビューボタンから変更できます。',helpStep4:'出力ファイル名と1MB / 2MB / A4 / 白黒など提出条件を選び、PDFを作成して保存または共有します。',helpPrivacyTitle:'プライバシー',helpPrivacyText:'画像処理とPDF生成はこのページ内で実行します。アプリ自身は画像・PDF・入力内容をサーバーへ送信しません。作業中のページはメモリだけに保持され、再読み込みやタブを閉じると消えます。',helpLimitTitle:'注意事項',helpLimit1:'ChromeではHTTPS・localhostに加えて file:// で直接開いたHTMLでもカメラを利用できます。ブラウザーや権限設定によって利用できない場合は画像追加を使えます。',helpLimit2:'ズームはスライダーとスマホのピンチ操作に対応します。カメラ側のズームがない端末では中央クロップ型のデジタルズームを使います。四隅の自動認識は背景・影・光沢で外れることがあるため、必ずプレビューを確認してください。',helpLimit3:'容量上限では画質と解像度を下げます。小さい文字がある書類は生成後のPDFを拡大して確認してください。',helpLimit4:'OCR（検索可能な文字レイヤー）は追加していません。',adjustPage:'ページを補正',previewPage:'ページを確認',finishPreview:'仕上がり',cornerAdjust:'四隅補正',cornerTitle:'四隅を確認',cornerText:'緑の枠が紙の端に合うように丸を動かしてください。拡大して細かく合わせられます。',autoDetected:'自動認識しました',manualFallback:'合わない場合は四隅を調整できます。',cornerRange:'補正範囲',cornerRangeText:'認識をやり直すか、画像全体を使う範囲に戻せます。',zoomOut:'縮小',zoomIn:'拡大',zoomReset:'表示を元に戻す',filter:'読みやすさ',filterNone:'無変換',filterAuto:'自動',redetect:'再認識',fullImage:'画像全体',skipImage:'この画像をスキップ',stopImport:'読み込みを終了',importProgress:'画像 {current} / {total}',processingFailed:'ページを処理できませんでした。もう一度お試しください。',addPage:'このページを追加',saveAsNewPage:'別ページとして保存',savePage:'変更を保存',pageUpdated:'ページを更新しました',preview:'プレビュー',rotate:'回転',cancel:'キャンセル',delete:'削除',undo:'元に戻す',processing:'処理しています',cameraDenied:'カメラを開始できませんでした。画像追加は利用できます。',cameraErrorTitle:'カメラを使用できません',retryCamera:'再試行',cameraPermissionDenied:'カメラの利用が許可されていません。Chromeのアドレスバー左側の設定からカメラを許可してください。',cameraBusy:'カメラが他のアプリで使用中か、端末から利用できません。',cameraMissing:'利用できるカメラが見つかりません。',cameraContextError:'このブラウザーでは現在の開き方でカメラAPIを利用できません。Chromeでは file:// でも利用できます。',imageShort:'画像',switchCameraShort:'カメラ',cameraOn:'カメラを開始しました',pageAdded:'ページを追加しました',pageDeleted:'ページを削除しました',allDeleted:'すべてのページを削除しました',deletePageTitle:'このページを削除しますか？',deletePageMessage:'削除後もしばらくは「元に戻す」で復元できます。',clearTitle:'すべてのページを削除しますか？',clearMessage:'作業中のページがすべて消えます。',fileUnsupported:'この画像はブラウザーで読み込めませんでした。',tooMany:'一度に追加できるのは30ページまでです。',buildingPdf:'PDFを作成しています',compressing:'提出条件に合わせて画質を調整中…',pdfReady:'PDFを作成しました',shareUnsupported:'このブラウザーではファイル共有に対応していません。保存してから共有してください。',shared:'共有画面を開きました',downloaded:'PDFを保存しました',checkPages:'ページが入っています',checkA4:'A4ページで生成',checkOriginal:'元の比率で生成',checkSizeOk:'容量上限以内',checkSizeWarn:'容量上限を超えています',checkReadable:'画像をPDFに埋め込み済み',page:'ページ',cameraUnavailable:'カメラなし',cameraActive:'カメラ使用中',autoFallback:'四隅を手動確認してください',sizeTargetFailed:'上限まで圧縮しましたが、指定容量に収まりませんでした。',workingLost:'再読み込みすると作業中ページは消えます。'},
-  en:{appName:'Submission PDF Scanner',brandMeta:'Correct, organize, and meet upload rules on-device',help:'How to use & notes',close:'Close',introTitle:'Photograph paper. Get a submission-ready PDF.',introText:'Corner detection, perspective correction, readability enhancement, page organization, and size limits in one browser tool.',localOnly:'Fully local processing',cameraReadyTitle:'Scan paper with your camera',cameraReadyText:'You can also import existing images if camera access is unavailable.',cameraOffTitle:'Camera is off',cameraOffText:'Turn it on only when you need it. Image import still works while the camera is off.',turnCameraOff:'Turn camera off',turnCameraOn:'Turn camera on',cameraOff:'Camera stopped',detectWaiting:'Looking for a document',detectFound:'Document detected',detectSteady:'Hold still',autoArmed:'Auto capture ON',torch:'Torch',switchCamera:'Switch camera',capture:'Capture',importImages:'Add images',chooseFromFiles:'Choose from files',scanOptions:'Capture assist',autoDesc:'Automatically capture after the document stays still.',autoCapture:'Auto capture',zoom:'Zoom',zoomOptical:'Camera zoom',zoomDigital:'Digital zoom',goodScanTitle:'Tips for a clean scan',goodScanText:'Keep all four edges visible, avoid shadows, and shoot from above. You can fix the corners on the next screen.',existingImages:'Use existing photos',existingImagesText:'Select multiple images at once. Processing stays on your device.',startCamera:'Start camera',stopCamera:'Stop camera',pages:'Pages',pagesDesc:'Drag cards directly to reorder — no long press required.',clearAll:'Delete all',noPages:'No pages yet',noPagesText:'Capture a page or add existing images to begin.',submissionPdf:'Submission PDF',submissionPdfDesc:'Set paper, color, and file-size requirements for the destination.',quickPreset:'Submission presets',presetStandard:'Standard',presetBw:'B&W',paperSize:'Paper',originalRatio:'Original ratio',pdfColor:'PDF color',keepPageFilter:'Per-page setting',color:'Color',grayscale:'Grayscale',blackWhite:'B&W',maxSize:'Max size',noLimit:'No limit',filename:'Output filename',filenameHelp:'If you omit .pdf, it will be added automatically.',navScan:'Scan',navPages:'Pages',navPdf:'PDF',readyCheck:'Pre-submit check',downloadPdf:'Save PDF',sharePdf:'Share',currentSettings:'Current settings',currentSettingsDesc:'When a size limit is set, image quality and resolution are reduced only as much as needed.',pagesLabel:'Pages',generatePdf:'Create PDF',footerPrivacy:'Scanning and PDF creation stay in the browser',helpTitle:'How to use & notes',helpHowTitle:'Basic workflow',helpStep1:'The camera starts off. Choose Start camera or the power icon when needed, or add an existing image while the camera stays off. Use the power icon at the top to turn the camera off. On narrow screens, use Image in the bottom dock.',helpStep2:'Check the detected corners, zoom in when useful, and drag the round handles to the paper edges.',helpStep3:'Check the actual corrected result, switch to Adjust corners when needed, and choose a readability mode including no enhancement. You can edit it again from the page Preview button.',helpStep4:'Set the output filename and choose 1 MB, 2 MB, A4, B&W, or custom requirements, then create and save/share the PDF.',helpPrivacyTitle:'Privacy',helpPrivacyText:'Image processing and PDF creation run inside this page. The app does not send images, PDFs, or inputs to a server. Working pages live only in memory and disappear on reload/close.',helpLimitTitle:'Notes',helpLimit1:'Chrome can use the camera on HTTPS, localhost, and directly opened file:// HTML. Other browsers or permission settings may differ; image import remains available.',helpLimit2:'Zoom works with the slider and pinch gestures on mobile. If the camera has no native zoom, the app uses centered digital zoom. Automatic corner detection can miss on difficult backgrounds, shadows, or glossy paper, so always check the preview.',helpLimit3:'A size limit may reduce image quality and resolution. Zoom into small text in the generated PDF before submitting.',helpLimit4:'OCR/searchable text layers are not included.',adjustPage:'Correct page',previewPage:'Preview page',finishPreview:'Result',cornerAdjust:'Adjust corners',cornerTitle:'Check the four corners',cornerText:'Move the round handles until the green outline matches the paper. Zoom in for precise adjustment.',autoDetected:'Corners detected automatically',manualFallback:'You can always adjust them manually.',cornerRange:'Correction area',cornerRangeText:'Detect the page again or reset the correction area to the full image.',zoomOut:'Zoom out',zoomIn:'Zoom in',zoomReset:'Reset view',filter:'Readability',filterNone:'No enhancement',filterAuto:'Auto',redetect:'Detect again',fullImage:'Full image',skipImage:'Skip image',stopImport:'Stop import',importProgress:'Image {current} / {total}',processingFailed:'Could not process this page. Please try again.',addPage:'Add this page',saveAsNewPage:'Save as new page',savePage:'Save changes',pageUpdated:'Page updated',preview:'Preview',rotate:'Rotate',cancel:'Cancel',delete:'Delete',undo:'Undo',processing:'Processing',cameraDenied:'Could not start the camera. Image import is still available.',cameraErrorTitle:'Camera unavailable',retryCamera:'Retry',cameraPermissionDenied:'Camera permission is blocked. Allow camera access from Chrome site settings and try again.',cameraBusy:'The camera is busy in another app or unavailable to the browser.',cameraMissing:'No usable camera was found.',cameraContextError:'This browser cannot use the camera API from the current context. Chrome can use it from file:// URLs.',imageShort:'Image',switchCameraShort:'Camera',cameraOn:'Camera started',pageAdded:'Page added',pageDeleted:'Page deleted',allDeleted:'All pages deleted',deletePageTitle:'Delete this page?',deletePageMessage:'You can restore it briefly with Undo.',clearTitle:'Delete all pages?',clearMessage:'All working pages will be removed.',fileUnsupported:'This image could not be decoded by the browser.',tooMany:'Up to 30 pages can be added at once.',buildingPdf:'Creating PDF',compressing:'Adjusting quality to match the size requirement…',pdfReady:'PDF created',shareUnsupported:'File sharing is not supported by this browser. Save the PDF and share it from your device.',shared:'Opened the share sheet',downloaded:'PDF saved',checkPages:'Pages included',checkA4:'Generated on A4 pages',checkOriginal:'Generated at original ratio',checkSizeOk:'Within size limit',checkSizeWarn:'Above size limit',checkReadable:'Images embedded in PDF',page:'Page',cameraUnavailable:'No camera',cameraActive:'Camera active',autoFallback:'Please check corners manually',sizeTargetFailed:'Compression reached the minimum practical quality but the PDF is still above the selected limit.',workingLost:'Reloading clears the current working pages.'}
+  ja:{dropImages:'書類の画像をドロップ',dropImagesHelp:'複数枚をまとめて追加できます。',cornerKeyHint:'矢印キーで1 px、Shift＋矢印キーで10 px動かせます。',cornerTL:'左上の角',cornerTR:'右上の角',cornerBR:'右下の角',cornerBL:'左下の角',appName:'提出PDFスキャナー',brandMeta:'補正・整理・提出条件まで、端末内で完結',help:'使い方と注意事項',close:'閉じる',introText:'書類を撮影するか、画像を選んでPDFにまとめます。',localOnly:'完全ローカル処理',cameraReadyTitle:'カメラで紙をスキャン',cameraReadyText:'カメラが使えない場合も、既存画像から追加できます。',cameraOffTitle:'カメラはオフです',cameraOffText:'必要なときだけ開始できます。画像追加はカメラOFFのまま使えます。',turnCameraOff:'カメラをオフ',turnCameraOn:'カメラをオン',cameraOff:'カメラを停止しました',detectWaiting:'書類を探しています',detectFound:'書類を認識',detectSteady:'そのまま動かさずに',autoArmed:'自動撮影 ON',torch:'ライト',switchCamera:'カメラ切替',capture:'撮影',importImages:'画像を追加',chooseFromFiles:'ファイルから選択',scanOptions:'撮影アシスト',autoDesc:'書類が止まったら自動で撮影できます。',autoCapture:'自動撮影',zoom:'ズーム',zoomOptical:'カメラズーム',zoomDigital:'デジタルズーム',goodScanTitle:'きれいに撮るコツ',goodScanText:'紙の四辺が見えるように、影を避けて真上から。自動認識が外れても次の画面で直せます。',existingImages:'すでに撮った画像から',existingImagesText:'複数枚をまとめて選択できます。処理は端末内です。',startCamera:'カメラを開始',stopCamera:'カメラを停止',pages:'ページ',pagesDesc:'長押しせず、そのままつかんで並べ替えできます。',clearAll:'すべて削除',noPages:'まだページがありません',noPagesText:'撮影または画像追加から始めてください。',submissionPdf:'提出用PDF',submissionPdfDesc:'提出先の条件に合わせて、紙サイズ・色・容量をまとめて調整します。',submissionConditions:'提出条件',sizeLimitPrefix:'上限',quickPreset:'提出条件プリセット',presetStandard:'標準に戻す',presetBw:'白黒',paperSize:'用紙',originalRatio:'元の比率',pdfColor:'PDFの色',keepPageFilter:'各ページ設定',color:'カラー',grayscale:'グレー',blackWhite:'白黒',maxSize:'容量上限',noLimit:'指定なし',filename:'出力ファイル名',filenameHelp:'.pdf を省略した場合は自動で付けます。',navScan:'スキャン',navPages:'ページ',navPdf:'PDF',readyCheck:'提出前チェック',openPdf:'PDFを開いて確認',downloadPdf:'PDFを保存',sharePdf:'共有',currentSettings:'現在の設定',currentSettingsDesc:'容量上限がある場合は、読める範囲で画質と解像度を自動調整します。',pagesLabel:'ページ数',generatePdf:'PDFを作成',footerPrivacy:'撮影もPDF化もブラウザー内で完結',helpTitle:'使い方と注意事項',helpHowTitle:'基本の使い方',helpStep1:'起動時はカメラOFFです。必要なときだけ「カメラを開始」または電源アイコンでONにして撮影するか、カメラOFFのまま既存画像を追加します。カメラは上部の電源アイコンからOFFにできます。 スマートフォンでは下部の「画像」から追加できます。',helpStep2:'自動認識された四隅を確認し、必要なら拡大して丸いハンドルを紙の端へ動かします。',helpStep3:'「仕上がり」で実際の台形補正と読みやすさを確認し、必要なら「四隅補正」に切り替えて調整します。追加後もページのプレビューボタンから変更できます。',helpStep4:'出力ファイル名と1MB / 2MB / A4 / 白黒など提出条件を選び、PDFを作成して保存または共有します。',helpPrivacyTitle:'プライバシー',helpPrivacyText:'画像処理とPDF生成はこのページ内で実行します。アプリ自身は画像・PDF・入力内容をサーバーへ送信しません。作業中のページはメモリだけに保持され、再読み込みやタブを閉じると消えます。',helpLimitTitle:'注意事項',helpLimit1:'ChromeではHTTPS・localhostに加えて file:// で直接開いたHTMLでもカメラを利用できます。ブラウザーや権限設定によって利用できない場合は画像追加を使えます。',helpLimit2:'ズームはスライダーとスマホのピンチ操作に対応します。カメラ側のズームがない端末では中央クロップ型のデジタルズームを使います。四隅の自動認識は背景・影・光沢で外れることがあるため、必ずプレビューを確認してください。',helpLimit3:'容量上限では画質と解像度を下げます。小さい文字がある書類は生成後のPDFを拡大して確認してください。',helpLimit4:'OCR（検索可能な文字レイヤー）は追加していません。',adjustPage:'ページを補正',previewPage:'ページを確認',finishPreview:'仕上がり',cornerAdjust:'四隅補正',cornerTitle:'四隅を確認',cornerText:'緑の枠が紙の端に合うように丸を動かしてください。拡大して細かく合わせられます。',autoDetected:'自動認識しました',manualFallback:'合わない場合は四隅を調整できます。',cornerRange:'補正範囲',cornerRangeText:'認識をやり直すか、画像全体を使う範囲に戻せます。',zoomOut:'縮小',zoomIn:'拡大',zoomReset:'表示を元に戻す',filter:'読みやすさ',filterNone:'無変換',filterAuto:'自動',redetect:'再認識',fullImage:'画像全体',skipImage:'この画像をスキップ',stopImport:'読み込みを終了',importProgress:'画像 {current} / {total}',processingFailed:'ページを処理できませんでした。もう一度お試しください。',addPage:'このページを追加',saveAsNewPage:'別ページとして保存',savePage:'変更を保存',pageUpdated:'ページを更新しました',preview:'プレビュー',rotate:'回転',cancel:'キャンセル',delete:'削除',undo:'元に戻す',processing:'処理しています',cameraDenied:'カメラを開始できませんでした。画像追加は利用できます。',cameraErrorTitle:'カメラを使用できません',retryCamera:'再試行',cameraPermissionDenied:'カメラの利用が許可されていません。Chromeのアドレスバー左側の設定からカメラを許可してください。',cameraBusy:'カメラが他のアプリで使用中か、端末から利用できません。',cameraMissing:'利用できるカメラが見つかりません。',cameraContextError:'このブラウザーでは現在の開き方でカメラAPIを利用できません。Chromeでは file:// でも利用できます。',imageShort:'画像',switchCameraShort:'カメラ',cameraOn:'カメラを開始しました',pageAdded:'ページを追加しました',pageDeleted:'ページを削除しました',allDeleted:'すべてのページを削除しました',deletePageTitle:'このページを削除しますか？',deletePageMessage:'削除後もしばらくは「元に戻す」で復元できます。',clearTitle:'すべてのページを削除しますか？',clearMessage:'作業中のページがすべて消えます。',fileUnsupported:'この画像はブラウザーで読み込めませんでした。',tooMany:'一度に追加できるのは30ページまでです。',buildingPdf:'PDFを作成しています',compressing:'提出条件に合わせて画質を調整中…',pdfReady:'PDFを作成しました',shareUnsupported:'このブラウザーではファイル共有に対応していません。保存してから共有してください。',shared:'共有画面を開きました',downloaded:'PDFを保存しました',checkPages:'ページが入っています',checkA4:'A4ページで生成',checkOriginal:'元の比率で生成',checkNoSizeLimit:'容量上限の指定なし',checkSizeOk:'容量上限以内',checkSizeWarn:'容量上限を超えています',checkReadable:'画像をPDFに埋め込み済み',page:'ページ',cameraUnavailable:'カメラなし',cameraActive:'カメラ使用中',autoFallback:'四隅を手動確認してください',sizeTargetFailed:'上限まで圧縮しましたが、指定容量に収まりませんでした。',workingLost:'再読み込みすると作業中ページは消えます。'},
+  en:{dropImages:'Drop document images here',dropImagesHelp:'Add several pages at once.',cornerKeyHint:'Move a corner by 1 px with the arrow keys or 10 px with Shift and an arrow key.',cornerTL:'Top left corner',cornerTR:'Top right corner',cornerBR:'Bottom right corner',cornerBL:'Bottom left corner',appName:'Submission PDF Scanner',brandMeta:'Correct, organize, and meet upload rules on-device',help:'How to use & notes',close:'Close',introText:'Take photos of your documents or choose images to make a PDF.',localOnly:'Fully local processing',cameraReadyTitle:'Scan paper with your camera',cameraReadyText:'You can also import existing images if camera access is unavailable.',cameraOffTitle:'Camera is off',cameraOffText:'Turn it on only when you need it. Image import still works while the camera is off.',turnCameraOff:'Turn camera off',turnCameraOn:'Turn camera on',cameraOff:'Camera stopped',detectWaiting:'Looking for a document',detectFound:'Document detected',detectSteady:'Hold still',autoArmed:'Auto capture ON',torch:'Torch',switchCamera:'Switch camera',capture:'Capture',importImages:'Add images',chooseFromFiles:'Choose from files',scanOptions:'Capture assist',autoDesc:'Automatically capture after the document stays still.',autoCapture:'Auto capture',zoom:'Zoom',zoomOptical:'Camera zoom',zoomDigital:'Digital zoom',goodScanTitle:'Tips for a clean scan',goodScanText:'Keep all four edges visible, avoid shadows, and shoot from above. You can fix the corners on the next screen.',existingImages:'Use existing photos',existingImagesText:'Select multiple images at once. Processing stays on your device.',startCamera:'Start camera',stopCamera:'Stop camera',pages:'Pages',pagesDesc:'Drag cards directly to reorder — no long press required.',clearAll:'Delete all',noPages:'No pages yet',noPagesText:'Capture a page or add existing images to begin.',submissionPdf:'Submission PDF',submissionPdfDesc:'Set paper, color, and file-size requirements for the destination.',submissionConditions:'Submission requirements',sizeLimitPrefix:'Limit',quickPreset:'Submission presets',presetStandard:'Reset to standard',presetBw:'B&W',paperSize:'Paper',originalRatio:'Original ratio',pdfColor:'PDF color',keepPageFilter:'Per-page setting',color:'Color',grayscale:'Grayscale',blackWhite:'B&W',maxSize:'Max size',noLimit:'No limit',filename:'Output filename',filenameHelp:'If you omit .pdf, it will be added automatically.',navScan:'Scan',navPages:'Pages',navPdf:'PDF',readyCheck:'Pre-submit check',openPdf:'Open PDF to review',downloadPdf:'Save PDF',sharePdf:'Share',currentSettings:'Current settings',currentSettingsDesc:'When a size limit is set, image quality and resolution are reduced only as much as needed.',pagesLabel:'Pages',generatePdf:'Create PDF',footerPrivacy:'Scanning and PDF creation stay in the browser',helpTitle:'How to use & notes',helpHowTitle:'Basic workflow',helpStep1:'The camera starts off. Choose Start camera or the power icon when needed, or add an existing image while the camera stays off. Use the power icon at the top to turn the camera off. On narrow screens, use Image in the bottom dock.',helpStep2:'Check the detected corners, zoom in when useful, and drag the round handles to the paper edges.',helpStep3:'Check the actual corrected result, switch to Adjust corners when needed, and choose a readability mode including no enhancement. You can edit it again from the page Preview button.',helpStep4:'Set the output filename and choose 1 MB, 2 MB, A4, B&W, or custom requirements, then create and save/share the PDF.',helpPrivacyTitle:'Privacy',helpPrivacyText:'Image processing and PDF creation run inside this page. The app does not send images, PDFs, or inputs to a server. Working pages live only in memory and disappear on reload/close.',helpLimitTitle:'Notes',helpLimit1:'Chrome can use the camera on HTTPS, localhost, and directly opened file:// HTML. Other browsers or permission settings may differ; image import remains available.',helpLimit2:'Zoom works with the slider and pinch gestures on mobile. If the camera has no native zoom, the app uses centered digital zoom. Automatic corner detection can miss on difficult backgrounds, shadows, or glossy paper, so always check the preview.',helpLimit3:'A size limit may reduce image quality and resolution. Zoom into small text in the generated PDF before submitting.',helpLimit4:'OCR/searchable text layers are not included.',adjustPage:'Correct page',previewPage:'Preview page',finishPreview:'Result',cornerAdjust:'Adjust corners',cornerTitle:'Check the four corners',cornerText:'Move the round handles until the green outline matches the paper. Zoom in for precise adjustment.',autoDetected:'Corners detected automatically',manualFallback:'You can always adjust them manually.',cornerRange:'Correction area',cornerRangeText:'Detect the page again or reset the correction area to the full image.',zoomOut:'Zoom out',zoomIn:'Zoom in',zoomReset:'Reset view',filter:'Readability',filterNone:'No enhancement',filterAuto:'Auto',redetect:'Detect again',fullImage:'Full image',skipImage:'Skip image',stopImport:'Stop import',importProgress:'Image {current} / {total}',processingFailed:'Could not process this page. Please try again.',addPage:'Add this page',saveAsNewPage:'Save as new page',savePage:'Save changes',pageUpdated:'Page updated',preview:'Preview',rotate:'Rotate',cancel:'Cancel',delete:'Delete',undo:'Undo',processing:'Processing',cameraDenied:'Could not start the camera. Image import is still available.',cameraErrorTitle:'Camera unavailable',retryCamera:'Retry',cameraPermissionDenied:'Camera permission is blocked. Allow camera access from Chrome site settings and try again.',cameraBusy:'The camera is busy in another app or unavailable to the browser.',cameraMissing:'No usable camera was found.',cameraContextError:'This browser cannot use the camera API from the current context. Chrome can use it from file:// URLs.',imageShort:'Image',switchCameraShort:'Camera',cameraOn:'Camera started',pageAdded:'Page added',pageDeleted:'Page deleted',allDeleted:'All pages deleted',deletePageTitle:'Delete this page?',deletePageMessage:'You can restore it briefly with Undo.',clearTitle:'Delete all pages?',clearMessage:'All working pages will be removed.',fileUnsupported:'This image could not be decoded by the browser.',tooMany:'Up to 30 pages can be added at once.',buildingPdf:'Creating PDF',compressing:'Adjusting quality to match the size requirement…',pdfReady:'PDF created',shareUnsupported:'File sharing is not supported by this browser. Save the PDF and share it from your device.',shared:'Opened the share sheet',downloaded:'PDF saved',checkPages:'Pages included',checkA4:'Generated on A4 pages',checkOriginal:'Generated at original ratio',checkNoSizeLimit:'No size limit set',checkSizeOk:'Within size limit',checkSizeWarn:'Above size limit',checkReadable:'Images embedded in PDF',page:'Page',cameraUnavailable:'No camera',cameraActive:'Camera active',autoFallback:'Please check corners manually',sizeTargetFailed:'Compression reached the minimum practical quality but the PDF is still above the selected limit.',workingLost:'Reloading clears the current working pages.'}
 };
 const state={lang:'ja',pages:[],cameraError:null,stream:null,track:null,devices:[],deviceIndex:0,torch:false,autoCapture:false,autoTimer:null,lastAutoCorners:null,liveDetection:null,stableCount:0,editor:null,importQueue:null,lastDeleted:null,lastPdf:null,drag:null,previewLoop:null,zoom:1,zoomMin:1,zoomMax:4,zoomMode:'digital',mobileView:'scanSection'};
 function t(k){return I18N[state.lang][k]||k}
@@ -304,7 +473,7 @@ function resetZoomUi(){
   $('#zoomValue').textContent='1.0×';$('#mobileZoomValue').textContent='1.0×';
 }
 function stopCamera(preserveError=false,announce=false){
-  if(state.previewLoop)cancelAnimationFrame(state.previewLoop);state.previewLoop=null;state.liveDetection=null;
+  if(state.previewLoop)cancelAnimationFrame(state.previewLoop);state.previewLoop=null;state.liveDetection=null;resetAutoCaptureTracking();
   state.stream?.getTracks().forEach(x=>x.stop());state.stream=null;state.track=null;state.torch=false;
   $('#video').srcObject=null;$('#cameraEmpty').classList.remove('hidden');if(!preserveError)$('#cameraError').classList.remove('show');
   $('#shutterBtn').disabled=true;$('#torchBtn').disabled=true;$('#torchBtn').classList.remove('active');$('#switchCameraBtn').disabled=true;
@@ -382,18 +551,49 @@ function onCameraPointerMove(event){
   if(cameraPointers.size===1&&cameraGestureStart){const range=state.zoomMax-state.zoomMin,delta=(cameraGestureStart.y-event.clientY)/Math.max(160,$('#cameraShell').clientHeight*.38);applyZoom(cameraGestureStart.zoom+delta*range)}
 }
 function onCameraPointerUp(event){cameraPointers.delete(event.pointerId);if(cameraPointers.size<2)cameraPinchStart=null;if(!cameraPointers.size)cameraGestureStart=null}
-function toggleCameraPower(){state.stream?stopCamera(false,true):startCamera()}
+function toggleCameraPower(){
+  if(!state.stream)return startCamera();
+  const desktopControl=innerWidth>820&&document.activeElement===$('#desktopCameraPowerBtn');
+  stopCamera(false,true);
+  if(desktopControl)$('#desktopStartCameraBtn').focus({preventScroll:true});
+}
 function clearGuide(){const c=$('#guideCanvas'),ctx=c.getContext('2d');ctx.clearRect(0,0,c.width,c.height)}
+function scanViewActive(){
+  return !document.hidden && (innerWidth>600 || state.mobileView==='scanSection');
+}
+function resetAutoCaptureTracking(){
+  clearTimeout(state.autoTimer);
+  state.autoTimer=null;
+  state.stableCount=0;
+  state.lastAutoCorners=null;
+  $('#shutterBtn').classList.remove('auto-ready');
+}
 function startPreviewLoop(){let last=0;const tick=ts=>{if(!state.stream)return;state.previewLoop=requestAnimationFrame(tick);if(ts-last<650)return;last=ts;analyzeVideoFrame().catch(()=>{})};state.previewLoop=requestAnimationFrame(tick)}
-async function analyzeVideoFrame(){if($('#editorDialog').open)return;const v=$('#video');if(v.readyState<2||!v.videoWidth)return;const r=videoSourceRect(v),temp=document.createElement('canvas'),max=360,s=Math.min(1,max/Math.max(r.sw,r.sh));temp.width=Math.max(1,Math.round(r.sw*s));temp.height=Math.max(1,Math.round(r.sh*s));temp.getContext('2d').drawImage(v,r.sx,r.sy,r.sw,r.sh,0,0,temp.width,temp.height);const det=detectDocument(temp);drawGuide(det.corners,temp.width,temp.height,det.confidence);if(det.confidence>.42){state.liveDetection={corners:det.corners.map(p=>({x:p.x/temp.width,y:p.y/temp.height})),confidence:det.confidence,at:performance.now()};$('#detectChip').classList.add('good');$('#detectLabel').textContent=state.autoCapture?t('detectSteady'):t('detectFound')}else{state.liveDetection=null;$('#detectChip').classList.remove('good');$('#detectLabel').textContent=t('detectWaiting')}
-  if(state.autoCapture&&det.confidence>.52){const n=det.corners.map(p=>({x:p.x/temp.width,y:p.y/temp.height}));if(state.lastAutoCorners){const move=n.reduce((sum,p,i)=>sum+Math.hypot(p.x-state.lastAutoCorners[i].x,p.y-state.lastAutoCorners[i].y),0)/4;state.stableCount=move<.018?state.stableCount+1:0}else state.stableCount=0;state.lastAutoCorners=n;if(state.stableCount>=2){state.stableCount=0;state.lastAutoCorners=null;$('#shutterBtn').classList.add('auto-ready');await sleep(220);captureFrame();setTimeout(()=>$('#shutterBtn').classList.remove('auto-ready'),900)}}else{state.stableCount=0;state.lastAutoCorners=null}}
+async function analyzeVideoFrame(){
+  if(!scanViewActive()||$('#editorDialog').open||$('#helpDialog').open||$('#confirmDialog').open)return;
+  const v=$('#video');if(v.readyState<2||!v.videoWidth)return;const r=videoSourceRect(v),temp=document.createElement('canvas'),max=360,s=Math.min(1,max/Math.max(r.sw,r.sh));temp.width=Math.max(1,Math.round(r.sw*s));temp.height=Math.max(1,Math.round(r.sh*s));temp.getContext('2d').drawImage(v,r.sx,r.sy,r.sw,r.sh,0,0,temp.width,temp.height);const det=detectDocument(temp);drawGuide(det.corners,temp.width,temp.height,det.confidence);if(det.confidence>.42){state.liveDetection={corners:det.corners.map(p=>({x:p.x/temp.width,y:p.y/temp.height})),confidence:det.confidence,at:performance.now()};$('#detectChip').classList.add('good');$('#detectLabel').textContent=state.autoCapture?t('detectSteady'):t('detectFound')}else{state.liveDetection=null;$('#detectChip').classList.remove('good');$('#detectLabel').textContent=t('detectWaiting')}
+  if(!state.autoCapture||det.confidence<=.52){resetAutoCaptureTracking();return}
+  if(state.autoTimer!==null)return;
+  const corners=state.liveDetection.corners;
+  if(state.lastAutoCorners){
+    const movement=corners.reduce((sum,p,i)=>sum+Math.hypot(p.x-state.lastAutoCorners[i].x,p.y-state.lastAutoCorners[i].y),0)/4;
+    state.stableCount=movement<.018?state.stableCount+1:0;
+  }
+  state.lastAutoCorners=corners;
+  if(state.stableCount<2)return;
+  $('#shutterBtn').classList.add('auto-ready');
+  state.autoTimer=setTimeout(()=>{
+    resetAutoCaptureTracking();
+    if(scanViewActive()&&state.autoCapture&&!$('#helpDialog').open&&!$('#confirmDialog').open)captureFrame();
+  },220);
+}
 function drawGuide(corners,sw,sh,confidence){const c=$('#guideCanvas'),rect=c.getBoundingClientRect();c.width=Math.round(rect.width*devicePixelRatio);c.height=Math.round(rect.height*devicePixelRatio);const ctx=c.getContext('2d');ctx.scale(devicePixelRatio,devicePixelRatio);ctx.clearRect(0,0,rect.width,rect.height);if(confidence<.28)return;const scale=Math.max(rect.width/sw,rect.height/sh),ox=(rect.width-sw*scale)/2,oy=(rect.height-sh*scale)/2;ctx.beginPath();corners.forEach((p,i)=>{const x=ox+p.x*scale,y=oy+p.y*scale;i?ctx.lineTo(x,y):ctx.moveTo(x,y)});ctx.closePath();ctx.strokeStyle=confidence>.5?'#72e6b7':'rgba(255,255,255,.82)';ctx.lineWidth=2;ctx.shadowColor='rgba(0,0,0,.4)';ctx.shadowBlur=5;ctx.stroke()}
 
 function robustLine(points,xy='x'){if(points.length<8)return null;let arr=points.slice();for(let iter=0;iter<2;iter++){const n=arr.length,sx=arr.reduce((a,p)=>a+(xy==='x'?p.y:p.x),0),sy=arr.reduce((a,p)=>a+(xy==='x'?p.x:p.y),0);const sxx=arr.reduce((a,p)=>{const x=xy==='x'?p.y:p.x;return a+x*x},0),sxy=arr.reduce((a,p)=>{const x=xy==='x'?p.y:p.x,y=xy==='x'?p.x:p.y;return a+x*y},0);const den=n*sxx-sx*sx;if(Math.abs(den)<1e-6)return null;const a=(n*sxy-sx*sy)/den,b=(sy-a*sx)/n;const res=arr.map(p=>Math.abs((xy==='x'?p.x:p.y)-(a*(xy==='x'?p.y:p.x)+b))).sort((a,b)=>a-b),cut=res[Math.floor(res.length*.72)]||3;arr=arr.filter(p=>Math.abs((xy==='x'?p.x:p.y)-(a*(xy==='x'?p.y:p.x)+b))<=Math.max(2,cut));if(iter===1)return{a,b,count:arr.length}}
 return null}
 function lineIntersection(v,h){if(!v||!h)return null;const den=1-v.a*h.a;if(Math.abs(den)<1e-6)return null;const x=(v.a*h.b+v.b)/den,y=h.a*x+h.b;return{x,y}}
 function polygonArea(p){let a=0;for(let i=0;i<p.length;i++){const j=(i+1)%p.length;a+=p[i].x*p[j].y-p[j].x*p[i].y}return Math.abs(a)/2}
-function defaultCorners(w,h,pad=.055){return[{x:w*pad,y:h*pad},{x:w*(1-pad),y:h*pad},{x:w*(1-pad),y:h*(1-pad)},{x:w*pad,y:h*(1-pad)}]}
+function defaultCorners(w,h){return [{x:0,y:0},{x:w,y:0},{x:w,y:h},{x:0,y:h}]}
 function weightedLine(points,vertical=true){if(points.length<6)return null;let sw=0,sx=0,sy=0,sxx=0,sxy=0;for(const p of points){const x=vertical?p.y:p.x,y=vertical?p.x:p.y,w=Math.max(.05,p.score||1);sw+=w;sx+=w*x;sy+=w*y;sxx+=w*x*x;sxy+=w*x*y}const den=sw*sxx-sx*sx;if(Math.abs(den)<1e-6)return null;return{a:(sw*sxy-sx*sy)/den,b:(sy*sxx-sx*sxy)/den}}
 function fitEdgeLine(points,vertical,span,tolerance){if(points.length<10)return null;const samples=[],step=Math.max(1,Math.floor(points.length/24));for(let i=0;i<points.length;i+=step)samples.push(points[i]);if(samples[samples.length-1]!==points[points.length-1])samples.push(points[points.length-1]);let best=null;for(let i=0;i<samples.length;i++){for(let j=i+1;j<samples.length;j++){const p=samples[i],q=samples[j],x1=vertical?p.y:p.x,y1=vertical?p.x:p.y,x2=vertical?q.y:q.x,y2=vertical?q.x:q.y;if(Math.abs(x2-x1)<span*.28)continue;const a=(y2-y1)/(x2-x1),b=y1-a*x1;let score=0,support=0,minPos=Infinity,maxPos=-Infinity;for(const r of points){const x=vertical?r.y:r.x,y=vertical?r.x:r.y,dist=Math.abs(y-(a*x+b));if(dist<=tolerance){const w=Math.max(.1,r.score||1)*(1-dist/tolerance*.55);score+=w;support++;minPos=Math.min(minPos,x);maxPos=Math.max(maxPos,x)}}const coverage=(maxPos-minPos)/Math.max(1,span);score*=clamp(coverage/.68,0,1);if(!best||score>best.score)best={a,b,score,support,coverage}}}if(!best||best.support<Math.max(8,points.length*.24)||best.coverage<.46)return null;let inliers=points.filter(r=>{const x=vertical?r.y:r.x,y=vertical?r.x:r.y;return Math.abs(y-(best.a*x+best.b))<=tolerance});for(let k=0;k<2;k++){const line=weightedLine(inliers,vertical);if(!line)break;best.a=line.a;best.b=line.b;inliers=points.filter(r=>{const x=vertical?r.y:r.x,y=vertical?r.x:r.y;return Math.abs(y-(best.a*x+best.b))<=tolerance*.82})}best.support=inliers.length;best.coverage=(()=>{if(!inliers.length)return 0;const pos=inliers.map(r=>vertical?r.y:r.x);return(Math.max(...pos)-Math.min(...pos))/Math.max(1,span)})();best.strength=inliers.reduce((n,p)=>n+Math.max(.1,p.score||1),0)/Math.max(1,inliers.length);return best}
 function quadIsConvex(q){let sign=0;for(let i=0;i<4;i++){const a=q[i],b=q[(i+1)%4],c=q[(i+2)%4],cross=(b.x-a.x)*(c.y-b.y)-(b.y-a.y)*(c.x-b.x);if(Math.abs(cross)<1e-4)continue;const s=Math.sign(cross);if(sign&&s!==sign)return false;sign=s}return !!sign}
@@ -428,8 +628,30 @@ async function importFiles(files){
   }}finally{if(state.importQueue===queue){state.importQueue=null;busy(false)}}
 }
 async function canvasFromBlob(blob){const bm=await fileToBitmap(blob),c=document.createElement('canvas');c.width=bm.width;c.height=bm.height;c.getContext('2d').drawImage(bm,0,0);bm.close?.();return c}
-async function openEditorFromSource(source,label,detectionHint=null){let corners,confidence;if(detectionHint?.corners?.length===4&&detectionHint.corners.every(p=>Number.isFinite(p.x)&&Number.isFinite(p.y))){corners=detectionHint.corners.map(p=>({x:clamp(p.x,0,1)*source.width,y:clamp(p.y,0,1)*source.height}));confidence=clamp(+detectionHint.confidence||0,0,1)}else{const detCanvas=document.createElement('canvas'),max=520,s=Math.min(1,max/Math.max(source.width,source.height));detCanvas.width=Math.max(1,Math.round(source.width*s));detCanvas.height=Math.max(1,Math.round(source.height*s));detCanvas.getContext('2d').drawImage(source,0,0,detCanvas.width,detCanvas.height);const det=detectDocument(detCanvas);corners=det.corners.map(p=>({x:p.x/s,y:p.y/s}));confidence=det.confidence}state.editor={source,sourceBlob:null,label,corners,originalCorners:corners.map(p=>({...p})),filter:'auto',confidence,mode:'add',pageId:null,rotation:0,view:confidence>.5?'preview':'corners',editorZoom:1,editorPanX:0,editorPanY:0};return await showEditor()}
-async function openEditorFromPage(page){busy(true,t('processing'));try{let source;if(page.sourceBlob)source=await canvasFromBlob(page.sourceBlob);else{source=document.createElement('canvas');source.width=page.canvas.width;source.height=page.canvas.height;source.getContext('2d').drawImage(page.canvas,0,0)}const corners=page.corners?.map(p=>({...p}))||defaultCorners(source.width,source.height,0);state.editor={source,sourceBlob:page.sourceBlob||null,label:page.label||'',corners,originalCorners:corners.map(p=>({...p})),filter:page.filter||'none',confidence:page.confidence||.9,mode:'edit',pageId:page.id,rotation:page.rotation||0,view:'preview',editorZoom:1,editorPanX:0,editorPanY:0};busy(false);return await showEditor()}catch(e){console.warn(e);busy(false);status(t('fileUnsupported'))}}
+function detectSourceCorners(source){
+  const canvas=document.createElement('canvas'),scale=Math.min(1,520/Math.max(source.width,source.height));
+  canvas.width=Math.max(1,Math.round(source.width*scale));
+  canvas.height=Math.max(1,Math.round(source.height*scale));
+  canvas.getContext('2d').drawImage(source,0,0,canvas.width,canvas.height);
+  const {corners,confidence}=detectDocument(canvas);
+  return {
+    corners:corners.map(p=>({x:p.x/canvas.width*source.width,y:p.y/canvas.height*source.height})),
+    confidence
+  };
+}
+async function openEditorFromSource(source,label,detectionHint=null){
+  let corners,confidence;
+  if(detectionHint?.corners?.length===4&&detectionHint.corners.every(p=>Number.isFinite(p.x)&&Number.isFinite(p.y))){
+    corners=detectionHint.corners.map(p=>({x:clamp(p.x,0,1)*source.width,y:clamp(p.y,0,1)*source.height}));
+    confidence=clamp(+detectionHint.confidence||0,0,1);
+  }else{
+    ({corners,confidence}=detectSourceCorners(source));
+  }
+  state.editor={source,sourceBlob:null,label,corners,originalCorners:corners.map(p=>({...p})),filter:'auto',confidence,
+    mode:'add',pageId:null,rotation:0,view:confidence>.5?'preview':'corners',editorZoom:1,editorPanX:0,editorPanY:0};
+  return await showEditor();
+}
+async function openEditorFromPage(page){busy(true,t('processing'));try{let source;if(page.sourceBlob)source=await canvasFromBlob(page.sourceBlob);else{source=document.createElement('canvas');source.width=page.canvas.width;source.height=page.canvas.height;source.getContext('2d').drawImage(page.canvas,0,0)}const corners=page.corners?.map(p=>({...p}))||defaultCorners(source.width,source.height);state.editor={source,sourceBlob:page.sourceBlob||null,label:page.label||'',corners,originalCorners:corners.map(p=>({...p})),filter:page.filter||'none',confidence:page.confidence||.9,mode:'edit',pageId:page.id,rotation:page.rotation||0,view:'preview',editorZoom:1,editorPanX:0,editorPanY:0};busy(false);return await showEditor()}catch(e){console.warn(e);busy(false);status(t('fileUnsupported'))}}
 function showEditor(){const ed=state.editor;if(!ed)return Promise.resolve('cancel');syncEditorUi();return new Promise(resolve=>{state.editorResolve=resolve;$('#editorDialog').showModal();requestAnimationFrame(renderEditor)})}
 function syncEditorUi(){
   const ed=state.editor;if(!ed)return;
@@ -450,6 +672,7 @@ function syncEditorUi(){
   $$('.filter-btn').forEach(b=>b.classList.toggle('active',b.dataset.filter===ed.filter));
   $$('.editor-view-btn').forEach(b=>{const active=b.dataset.editorView===ed.view;b.classList.toggle('active',active);b.setAttribute('aria-selected',active?'true':'false')});
   const corners=ed.view==='corners';
+  if(!corners)$('#cornerLoupe').hidden=true;
   $('#cornerPanel').classList.toggle('hidden',!corners);
   $('#editorZoomControls').classList.toggle('hidden',!corners);
   $('#cropStage').classList.toggle('is-corner-mode',corners);
@@ -471,7 +694,9 @@ function setEditorZoom(value,anchorX=null,anchorY=null){
 function resetEditorView(){const ed=state.editor;if(!ed)return;ed.editorZoom=1;ed.editorPanX=0;ed.editorPanY=0;renderEditor()}
 function renderEditor(){
   const ed=state.editor;if(!ed)return;syncEditorUi();
-  const stage=$('#cropStage'),canvas=$('#cropCanvas'),rect=stage.getBoundingClientRect(),maxW=Math.max(260,rect.width-20),maxH=Math.max(260,rect.height-20),ctx=canvas.getContext('2d');
+  const stage=$('#cropStage'),canvas=$('#cropCanvas'),rect=stage.getBoundingClientRect(),ctx=canvas.getContext('2d');
+  const padding=ed.view==='corners'?38:20;
+  const maxW=Math.max(1,rect.width-padding),maxH=Math.max(1,rect.height-padding);
   if(ed.view==='preview'){
     canvas.style.setProperty('--editor-pan-x','0px');canvas.style.setProperty('--editor-pan-y','0px');canvas.style.transform='translate(0px,0px)';
     const out=editorOutput(ed,1600),scale=Math.min(maxW/out.width,maxH/out.height,1);canvas.width=Math.max(1,Math.round(out.width*scale));canvas.height=Math.max(1,Math.round(out.height*scale));canvas.style.width=canvas.width+'px';canvas.style.height=canvas.height+'px';ctx.drawImage(out,0,0,canvas.width,canvas.height);return;
@@ -483,7 +708,67 @@ function renderEditor(){
   $$('.corner-handle').forEach((h,i)=>{h.style.left=(ox+ed.corners[i].x*scale)+'px';h.style.top=(oy+ed.corners[i].y*scale)+'px';h.dataset.scale=scale;h.dataset.ox=ox;h.dataset.oy=oy});
   $('#editorZoomResetBtn').textContent=Math.round((ed.editorZoom||1)*100)+'%';
 }
-function bindCornerHandles(){$$('.corner-handle').forEach(h=>{h.addEventListener('pointerdown',e=>{if(!state.editor||state.editor.view!=='corners')return;e.preventDefault();e.stopPropagation();h.setPointerCapture(e.pointerId);const move=ev=>{const stageRect=$('#cropStage').getBoundingClientRect(),scale=+h.dataset.scale,ox=+h.dataset.ox,oy=+h.dataset.oy,i=+h.dataset.corner;state.editor.corners[i]={x:clamp((ev.clientX-stageRect.left-ox)/scale,0,state.editor.source.width),y:clamp((ev.clientY-stageRect.top-oy)/scale,0,state.editor.source.height)};renderEditor()};const up=()=>{h.removeEventListener('pointermove',move);h.removeEventListener('pointerup',up);h.removeEventListener('pointercancel',up)};h.addEventListener('pointermove',move);h.addEventListener('pointerup',up);h.addEventListener('pointercancel',up)})})}
+function drawCornerLoupe(index,scale){
+  const lens=$('#cornerLoupe'),{source,corners}=state.editor,point=corners[index];
+  const ctx=lens.getContext('2d');
+  const span=82/(2*scale);
+  ctx.fillStyle='#e8e9e3';
+  ctx.fillRect(0,0,lens.width,lens.height);
+  ctx.drawImage(source,point.x-span/2,point.y-span/2,span,span,0,0,lens.width,lens.height);
+  const mid=lens.width/2;
+  ctx.beginPath();
+  ctx.moveTo(mid-18,mid);ctx.lineTo(mid+18,mid);
+  ctx.moveTo(mid,mid-18);ctx.lineTo(mid,mid+18);
+  ctx.lineWidth=5;ctx.strokeStyle='white';ctx.stroke();
+  ctx.lineWidth=2;ctx.strokeStyle='#16624f';ctx.stroke();
+  const handle=$('.corner-handle[data-corner="'+index+'"]');
+  const left=parseFloat(handle.style.left)<$('#cropStage').clientWidth/2;
+  lens.style.left=left?'auto':'10px';
+  lens.style.right=left?'10px':'auto';
+  lens.hidden=false;
+}
+function bindCornerHandles(){
+  const offsets={ArrowLeft:[-1,0],ArrowRight:[1,0],ArrowUp:[0,-1],ArrowDown:[0,1]};
+  for(const handle of $$('.corner-handle')){
+    const index=Number(handle.dataset.corner);
+    handle.addEventListener('keydown',event=>{
+      const editor=state.editor,offset=offsets[event.key];
+      if(!offset||event.altKey||event.ctrlKey||event.metaKey||!editor||editor.saving||editor.view!=='corners')return;
+      event.preventDefault();
+      const point=editor.corners[index],step=event.shiftKey?10:1;
+      point.x=clamp(point.x+offset[0]*step,0,editor.source.width);
+      point.y=clamp(point.y+offset[1]*step,0,editor.source.height);
+      renderEditor();
+    });
+    handle.addEventListener('pointerdown',event=>{
+      const editor=state.editor;
+      if(!editor||editor.view!=='corners'||!event.isPrimary)return;
+      event.preventDefault();
+      event.stopPropagation();
+      if(event.pointerType==='mouse')handle.focus({preventScroll:true});
+      handle.setPointerCapture(event.pointerId);
+      drawCornerLoupe(index,Number(handle.dataset.scale));
+      const move=pointer=>{
+        if(pointer.pointerId!==event.pointerId||state.editor!==editor||editor.view!=='corners')return;
+        const stage=$('#cropStage').getBoundingClientRect(),scale=Number(handle.dataset.scale);
+        editor.corners[index]={
+          x:clamp((pointer.clientX-stage.left-Number(handle.dataset.ox))/scale,0,editor.source.width),
+          y:clamp((pointer.clientY-stage.top-Number(handle.dataset.oy))/scale,0,editor.source.height)
+        };
+        renderEditor();
+        drawCornerLoupe(index,scale);
+      };
+      const end=pointer=>{
+        if(pointer.pointerId!==event.pointerId)return;
+        $('#cornerLoupe').hidden=true;
+        handle.removeEventListener('pointermove',move);
+        for(const type of ['pointerup','pointercancel','lostpointercapture'])handle.removeEventListener(type,end);
+      };
+      handle.addEventListener('pointermove',move);
+      for(const type of ['pointerup','pointercancel','lostpointercapture'])handle.addEventListener(type,end);
+    });
+  }
+}
 const editorPointers=new Map();let editorPanGesture=null,editorPinchGesture=null;
 function editorPointerDown(e){const ed=state.editor;if(!ed||ed.view!=='corners'||e.target.closest('button'))return;editorPointers.set(e.pointerId,{x:e.clientX,y:e.clientY});$('#cropStage').setPointerCapture?.(e.pointerId);if(editorPointers.size===1&&e.target.closest('.crop-stage,canvas'))editorPanGesture={x:e.clientX,y:e.clientY,panX:ed.editorPanX||0,panY:ed.editorPanY||0};if(editorPointers.size===2){const [a,b]=[...editorPointers.values()];editorPinchGesture={distance:Math.max(12,Math.hypot(a.x-b.x,a.y-b.y)),zoom:ed.editorZoom||1,cx:(a.x+b.x)/2,cy:(a.y+b.y)/2};editorPanGesture=null}}
 function editorPointerMove(e){const ed=state.editor;if(!ed||!editorPointers.has(e.pointerId))return;editorPointers.set(e.pointerId,{x:e.clientX,y:e.clientY});if(editorPointers.size>=2&&editorPinchGesture){e.preventDefault();const [a,b]=[...editorPointers.values()],distance=Math.max(12,Math.hypot(a.x-b.x,a.y-b.y)),cx=(a.x+b.x)/2,cy=(a.y+b.y)/2;setEditorZoom(editorPinchGesture.zoom*(distance/editorPinchGesture.distance),cx,cy);return}if(editorPointers.size===1&&editorPanGesture&&(ed.editorZoom||1)>1.001){e.preventDefault();ed.editorPanX=editorPanGesture.panX+(e.clientX-editorPanGesture.x);ed.editorPanY=editorPanGesture.panY+(e.clientY-editorPanGesture.y);$('#cropStage').classList.add('is-panning');renderEditor()}}
@@ -530,7 +815,7 @@ function restorePageFocus(pageId,action='preview'){
   const targets=[card?.querySelector(`[data-action="${action}"]`),$('#mobileNav button.active'),$('#importBtn'),$('#importRoundBtn')];
   for(const target of targets){if(!target?.isConnected||target.disabled||!target.getClientRects().length)continue;target.focus({preventScroll:true});if(document.activeElement===target)break}
 }
-function finishEditor(result,expected=state.editor){if(!expected||state.editor!==expected)return;if(result==='cancel'&&state.importQueue)state.importQueue.cancelled=true;const resolve=state.editorResolve;state.editorResolve=null;state.editor=null;busy(false);if($('#editorDialog').open)$('#editorDialog').close();if(expected.mode==='edit')restorePageFocus(expected.pageId);if(resolve)resolve(result)}
+function finishEditor(result,expected=state.editor){if(!expected||state.editor!==expected)return;if(result==='cancel'&&state.importQueue)state.importQueue.cancelled=true;const resolve=state.editorResolve;state.editorResolve=null;state.editor=null;$('#cornerLoupe').hidden=true;busy(false);if($('#editorDialog').open)$('#editorDialog').close();if(expected.mode==='edit')restorePageFocus(expected.pageId);if(resolve)resolve(result)}
 async function saveEditorPage(asNew=false){
   const ed=state.editor;if(!ed||ed.saving||(asNew&&ed.mode!=='edit'))return;ed.saving=true;ed.error='';syncEditorUi();busy(true,t('processing'));
   // Keep the pixels and editable metadata from the same instant, even if controls change during encoding.
@@ -550,8 +835,13 @@ async function saveEditorPage(asNew=false){
   }catch(e){console.warn(e);if(state.editor===ed)ed.error=t('processingFailed')}
   finally{ed.saving=false;if(state.editor===ed){busy(false);syncEditorUi()}}
 }
-function invalidatePdf(){if(state.lastPdf?.url)URL.revokeObjectURL(state.lastPdf.url);state.lastPdf=null;$('#resultCard').classList.add('hidden')}
-function renderPages(){const g=$('#pageGrid');g.innerHTML='';state.pages.forEach((p,i)=>{const card=document.createElement('article');card.className='page-card';card.dataset.id=p.id;card.tabIndex=0;card.setAttribute('aria-label',`${t('page')} ${i+1}`);card.innerHTML=`<div class="page-thumb"><img src="${p.thumb}" alt="${t('page')} ${i+1}" draggable="false"><span class="page-number">${i+1}</span><span class="drag-hint">${icons.grip}</span></div><div class="page-meta"><span>${p.canvas.width}×${p.canvas.height}</span><div class="page-actions"><button class="mini-icon" type="button" data-action="preview" aria-label="${t('preview')}">${icons.eye}</button><button class="mini-icon" type="button" data-action="rotate" aria-label="${t('rotate')}">${icons.rotate}</button><button class="mini-icon danger" type="button" data-action="delete" aria-label="${t('delete')}">${icons.trash}</button></div></div>`;g.appendChild(card);bindPageDrag(card)});const has=state.pages.length>0;g.classList.toggle('hidden',!has);$('#pagesEmpty').classList.toggle('hidden',has);$('#clearAllBtn').classList.toggle('hidden',!has);$('#pageCount').textContent=state.pages.length;$('#summaryPages').textContent=state.pages.length;const mobileCount=$('#mobileNavPagesCount');mobileCount.textContent=state.pages.length;mobileCount.classList.toggle('hidden',!has);$('#generateBtn').disabled=!has;renderSummary()}
+function invalidatePdf(){
+  $('#previewPdfLink').removeAttribute('href');
+  if(state.lastPdf?.url)URL.revokeObjectURL(state.lastPdf.url);
+  state.lastPdf=null;
+  $('#resultCard').classList.add('hidden');
+}
+function renderPages(){const g=$('#pageGrid');g.innerHTML='';state.pages.forEach((p,i)=>{const card=document.createElement('article');card.className='page-card';card.dataset.id=p.id;card.tabIndex=0;card.setAttribute('aria-label',`${t('page')} ${i+1}`);card.innerHTML=`<div class="page-thumb"><img src="${p.thumb}" alt="${t('page')} ${i+1}" draggable="false"><span class="page-number">${i+1}</span><span class="drag-hint">${icons.grip}</span></div><div class="page-meta"><span>${p.canvas.width}×${p.canvas.height}</span><div class="page-actions"><button class="mini-icon" type="button" data-action="preview" aria-label="${t('preview')}">${icons.eye}</button><button class="mini-icon" type="button" data-action="rotate" aria-label="${t('rotate')}">${icons.rotate}</button><button class="mini-icon danger" type="button" data-action="delete" aria-label="${t('delete')}">${icons.trash}</button></div></div>`;g.appendChild(card);bindPageDrag(card)});const has=state.pages.length>0;g.classList.toggle('hidden',!has);$('#pagesEmpty').classList.toggle('hidden',has);$('#clearAllBtn').classList.toggle('hidden',!has);$('#pageCount').textContent=state.pages.length;$('#summaryPages').textContent=state.pages.length;const mobileCount=$('#mobileNavPagesCount');mobileCount.textContent=state.pages.length;mobileCount.classList.toggle('hidden',!has);$('#generateBtn').disabled=!has;renderPdfThumbnails();renderSummary()}
 $('#pageGrid').addEventListener('click',async e=>{const btn=e.target.closest('[data-action]');if(!btn)return;const card=btn.closest('.page-card'),idx=state.pages.findIndex(p=>p.id===card.dataset.id);if(idx<0)return;if(btn.dataset.action==='preview'){await openEditorFromPage(state.pages[idx])}else if(btn.dataset.action==='rotate'){const p=state.pages[idx];p.canvas=rotateCanvas(p.canvas);p.rotation=((p.rotation||0)+1)%4;p.thumb=await canvasToDataURLThumb(p.canvas);renderPages();invalidatePdf();restorePageFocus(p.id,'rotate')}else if(btn.dataset.action==='delete'){if(await confirmUI.ask(t('deletePageTitle'),t('deletePageMessage'))){const [page]=state.pages.splice(idx,1);state.lastDeleted={page,index:idx};renderPages();toast(t('pageDeleted'),true);invalidatePdf();restorePageFocus(state.pages[Math.min(idx,state.pages.length-1)]?.id)}}});
 $('#toastAction').addEventListener('click',()=>{if(!state.lastDeleted)return;const {page,index,all}=state.lastDeleted;if(all)state.pages.unshift(...all);else if(page)state.pages.splice(Math.min(index,state.pages.length),0,page);state.lastDeleted=null;$('#toast').classList.remove('show');renderPages();invalidatePdf();restorePageFocus((all?.[0]||page)?.id)});
 
@@ -592,36 +882,175 @@ function bindPageDrag(card){
   });
 }
 
-function renderSummary(){const paper=$('#paperSelect').value,color=$('#colorSelect').value,limit=+$('#limitSelect').value;$('#summaryPaper').textContent=paper==='a4'?'A4':t('originalRatio');$('#summaryColor').textContent=color==='page'?t('keepPageFilter'):color==='color'?t('color'):color==='gray'?t('grayscale'):t('blackWhite');$('#summaryLimit').textContent=limit?formatBytes(limit):t('noLimit');$('#summaryPages').textContent=state.pages.length}
-function applyPreset(name){$$('.preset').forEach(b=>b.classList.toggle('active',b.dataset.preset===name));if(name==='standard'){$('#paperSelect').value='a4';$('#colorSelect').value='page';$('#limitSelect').value='0'}if(name==='1mb'){$('#paperSelect').value='a4';$('#colorSelect').value='page';$('#limitSelect').value='1048576'}if(name==='2mb'){$('#paperSelect').value='a4';$('#colorSelect').value='page';$('#limitSelect').value='2097152'}if(name==='a4'){$('#paperSelect').value='a4';$('#limitSelect').value='0'}if(name==='bw'){$('#paperSelect').value='a4';$('#colorSelect').value='bw';$('#limitSelect').value='0'}renderSummary();invalidatePdf()}
+const presetSettings={
+  standard: {paperSelect:'a4',colorSelect:'page',limitSelect:'0'},
+  '1mb': {limitSelect:'1048576'},
+  '2mb': {limitSelect:'2097152'},
+  a4: {paperSelect:'a4'},
+  bw: {colorSelect:'bw'}
+};
+function initializePdfChoices(){
+  for(const select of $$('.setting-grid select')){
+    const field=select.parentElement;
+    const group=document.createElement('fieldset');
+    group.className='pdf-choices';
+    const legend=document.createElement('legend');
+    const label=field.querySelector('label');
+    legend.dataset.i18n=label.dataset.i18n;
+    legend.textContent=t(legend.dataset.i18n);
+    group.appendChild(legend);
+    const choices=document.createElement('div');
+    choices.className='pdf-choice-options';
+    for(const option of select.options){
+      const choice=document.createElement('label');
+      const input=document.createElement('input');
+      input.type='radio';
+      input.name=select.id+'-choice';
+      input.value=option.value;
+      input.dataset.selectId=select.id;
+      input.checked=option.selected;
+      const caption=document.createElement('span');
+      if(option.dataset.i18n)caption.dataset.i18n=option.dataset.i18n;
+      caption.textContent=option.textContent;
+      input.addEventListener('change',()=>{
+        select.value=input.value;
+        select.dispatchEvent(new Event('change',{bubbles:true}));
+      });
+      choice.append(input,caption);
+      choices.appendChild(choice);
+    }
+    group.appendChild(choices);
+    field.appendChild(group);
+  }
+}
+function pageCountText(count){
+  return state.lang==='ja'?count+'ページ':count+(count===1?' page':' pages');
+}
+function renderPdfThumbnails(){
+  const stack=$('#pdfThumbs');
+  stack.innerHTML='';
+  for(const page of state.pages.slice(0,3)){
+    const thumb=document.createElement('img');
+    thumb.src=page.thumb;
+    thumb.alt='';
+    stack.appendChild(thumb);
+  }
+}
+function matchesPreset(name){
+  return Object.entries(presetSettings[name]).every(([id,value])=>$('#'+id).value===value);
+}
+function renderSummary(){
+  const paper=$('#paperSelect').value,color=$('#colorSelect').value,limit=+$('#limitSelect').value;
+  $('#summaryPaper').textContent=paper==='a4'?'A4':t('originalRatio');
+  $('#summaryColor').textContent=color==='page'?t('keepPageFilter'):color==='color'?t('color'):color==='gray'?t('grayscale'):t('blackWhite');
+  $('#summaryLimit').textContent=limit?formatBytes(limit):t('noLimit');
+  $('#summaryPages').textContent=state.pages.length;
+  $('#pdfPageCount').textContent=pageCountText(state.pages.length);
+  for(const input of $$('.pdf-choices input'))input.checked=$('#'+input.dataset.selectId).value===input.value;
+  for(const button of $$('.preset')){
+    if(button.dataset.preset==='standard')continue;
+    const active=matchesPreset(button.dataset.preset);
+    button.classList.toggle('active',active);
+    button.setAttribute('aria-pressed',String(active));
+  }
+}
+function applyPreset(name){
+  if(matchesPreset(name))return;
+  for(const [id,value] of Object.entries(presetSettings[name]))$('#'+id).value=value;
+  renderSummary();
+  invalidatePdf();
+}
 function renderChecksIfAny(){if(!state.lastPdf)return;renderChecks(state.lastPdf.blob.size,state.lastPdf.limit)}
-function renderChecks(size,limit){const items=[{ok:true,text:t('checkPages')},{ok:true,text:$('#paperSelect').value==='a4'?t('checkA4'):t('checkOriginal')},{ok:!limit||size<=limit,text:!limit||size<=limit?t('checkSizeOk'):t('checkSizeWarn')},{ok:true,text:t('checkReadable')}];$('#checks').innerHTML=items.map(x=>`<div class="check ${x.ok?'':'warn'}">${x.ok?icons.check:icons.warn}<span>${x.text}</span></div>`).join('')}
+function renderChecks(size,limit){
+  const limitText=limit?t('sizeLimitPrefix')+' '+(limit/1048576)+' MB':t('checkNoSizeLimit');
+  $('#pdfFacts').textContent=pageCountText(state.pages.length)+' · '+formatBytes(size)+' / '+limitText;
+  const sizeCheck=limit
+    ? {text:t(size<=limit?'checkSizeOk':'checkSizeWarn'),icon:size<=limit?icons.check:icons.warn,warn:size>limit}
+    : {text:t('checkNoSizeLimit'),icon:''};
+  const items=[
+    {text:t('checkPages'),icon:icons.check},
+    {text:t($('#paperSelect').value==='a4'?'checkA4':'checkOriginal'),icon:icons.check},
+    sizeCheck,
+    {text:t('checkReadable'),icon:icons.check}
+  ];
+  $('#checks').innerHTML=items.map(item=>`<div class="check${item.warn?' warn':''}">${item.icon}<span>${item.text}</span></div>`).join('');
+}
 function cloneAndFilterPage(page,override,maxLong){let src=page.canvas;if(override&&override!=='page')src=applyFilter(src,override==='gray'?'gray':override==='bw'?'bw':'none');const s=Math.min(1,maxLong/Math.max(src.width,src.height));if(s>=.999)return src;const c=document.createElement('canvas');c.width=Math.max(32,Math.round(src.width*s));c.height=Math.max(32,Math.round(src.height*s));c.getContext('2d').drawImage(src,0,0,c.width,c.height);return c}
 async function compressPage(page,override,budget){const dims=[2400,2050,1750,1450,1200,980];for(const maxLong of dims){const c=cloneAndFilterPage(page,override,maxLong);let lo=.32,hi=.9,best=null;for(let i=0;i<5;i++){const q=(lo+hi)/2,b=await canvasToBlob(c,'image/jpeg',q);if(!budget||b.size<=budget){best={blob:b,width:c.width,height:c.height,quality:q};lo=q}else hi=q}if(best)return best;const low=await canvasToBlob(c,'image/jpeg',.28);if(!budget||low.size<=budget)return{blob:low,width:c.width,height:c.height,quality:.28}}const c=cloneAndFilterPage(page,override,760),b=await canvasToBlob(c,'image/jpeg',.24);return{blob:b,width:c.width,height:c.height,quality:.24}}
 function latin1Bytes(str){const a=new Uint8Array(str.length);for(let i=0;i<str.length;i++)a[i]=str.charCodeAt(i)&255;return a}
 function concatBytes(parts){const len=parts.reduce((n,p)=>n+p.length,0),out=new Uint8Array(len);let o=0;for(const p of parts){out.set(p,o);o+=p.length}return out}
 async function buildPdf(imageEntries,paperMode){const objects=[null],add=x=>(objects.push(x),objects.length-1),pageIds=[];const catalogId=add(null),pagesId=add(null);for(let i=0;i<imageEntries.length;i++){const im=imageEntries[i],bytes=new Uint8Array(await im.blob.arrayBuffer()),imgId=add({binary:bytes,head:`<< /Type /XObject /Subtype /Image /Width ${im.width} /Height ${im.height} /ColorSpace /DeviceRGB /BitsPerComponent 8 /Filter /DCTDecode /Length ${bytes.length} >>\nstream\n`,tail:'\nendstream'});let pw,ph;if(paperMode==='a4'){const landscape=im.width>im.height;pw=landscape?841.89:595.28;ph=landscape?595.28:841.89}else{pw=595.28;ph=pw*im.height/im.width;if(ph>900){ph=841.89;pw=ph*im.width/im.height}}const margin=paperMode==='a4'?18:0,scale=Math.min((pw-margin*2)/im.width,(ph-margin*2)/im.height),dw=im.width*scale,dh=im.height*scale,x=(pw-dw)/2,y=(ph-dh)/2,content=`q\n${dw.toFixed(2)} 0 0 ${dh.toFixed(2)} ${x.toFixed(2)} ${y.toFixed(2)} cm\n/Im${i+1} Do\nQ\n`,contentBytes=latin1Bytes(content),contentId=add(`<< /Length ${contentBytes.length} >>\nstream\n${content}endstream`),pageId=add(`<< /Type /Page /Parent ${pagesId} 0 R /MediaBox [0 0 ${pw.toFixed(2)} ${ph.toFixed(2)}] /Resources << /XObject << /Im${i+1} ${imgId} 0 R >> >> /Contents ${contentId} 0 R >>`);pageIds.push(pageId)}objects[catalogId]=`<< /Type /Catalog /Pages ${pagesId} 0 R >>`;objects[pagesId]=`<< /Type /Pages /Count ${pageIds.length} /Kids [${pageIds.map(id=>id+' 0 R').join(' ')}] >>`;const parts=[latin1Bytes('%PDF-1.4\n%âãÏÓ\n')],offsets=[0];let offset=parts[0].length;for(let i=1;i<objects.length;i++){offsets[i]=offset;const o=objects[i],head=latin1Bytes(`${i} 0 obj\n`),body=typeof o==='string'?latin1Bytes(o):concatBytes([latin1Bytes(o.head),o.binary,latin1Bytes(o.tail)]),end=latin1Bytes('\nendobj\n'),chunk=concatBytes([head,body,end]);parts.push(chunk);offset+=chunk.length}const xrefOffset=offset;let xref=`xref\n0 ${objects.length}\n0000000000 65535 f \n`;for(let i=1;i<objects.length;i++)xref+=String(offsets[i]).padStart(10,'0')+' 00000 n \n';xref+=`trailer\n<< /Size ${objects.length} /Root ${catalogId} 0 R >>\nstartxref\n${xrefOffset}\n%%EOF`;parts.push(latin1Bytes(xref));return new Blob(parts,{type:'application/pdf'})}
-async function generatePdf(){if(!state.pages.length)return;invalidatePdf();busy(true,t('buildingPdf'),t('compressing'));await sleep(30);const limit=+$('#limitSelect').value,paper=$('#paperSelect').value,override=$('#colorSelect').value,budget=limit?Math.max(22000,Math.floor((limit*0.88)/state.pages.length)):0,entries=[];for(let i=0;i<state.pages.length;i++){$('#busyDetail').textContent=`${i+1} / ${state.pages.length}`;entries.push(await compressPage(state.pages[i],override,budget));await sleep(0)}let blob=await buildPdf(entries,paper);if(limit&&blob.size>limit){const tighter=Math.max(18000,Math.floor((limit*.76)/state.pages.length)),entries2=[];for(let i=0;i<state.pages.length;i++)entries2.push(await compressPage(state.pages[i],override,tighter));blob=await buildPdf(entries2,paper)}const name=normalizeFilename($('#filenameInput').value),url=URL.createObjectURL(blob);state.lastPdf={blob,url,name,limit};$('#resultName').textContent=name;$('#resultSize').textContent=formatBytes(blob.size);renderChecks(blob.size,limit);$('#resultCard').classList.remove('hidden');busy(false);status(blob.size<=limit||!limit?t('pdfReady'):t('sizeTargetFailed'),4200)}
+async function generatePdf(){if(!state.pages.length)return;
+  const focusReview=document.activeElement===$('#generateBtn');
+  invalidatePdf();busy(true,t('buildingPdf'),t('compressing'));await sleep(30);const limit=+$('#limitSelect').value,paper=$('#paperSelect').value,override=$('#colorSelect').value,budget=limit?Math.max(22000,Math.floor((limit*0.88)/state.pages.length)):0,entries=[];for(let i=0;i<state.pages.length;i++){$('#busyDetail').textContent=`${i+1} / ${state.pages.length}`;entries.push(await compressPage(state.pages[i],override,budget));await sleep(0)}let blob=await buildPdf(entries,paper);if(limit&&blob.size>limit){const tighter=Math.max(18000,Math.floor((limit*.76)/state.pages.length)),entries2=[];for(let i=0;i<state.pages.length;i++)entries2.push(await compressPage(state.pages[i],override,tighter));blob=await buildPdf(entries2,paper)}const name=normalizeFilename($('#filenameInput').value),url=URL.createObjectURL(blob);state.lastPdf={blob,url,name,limit};
+  $('#previewPdfLink').href=url;
+  $('#resultName').textContent=name;$('#resultSize').textContent=formatBytes(blob.size);renderChecks(blob.size,limit);$('#resultCard').classList.remove('hidden');busy(false);
+  if((innerWidth<=600||innerWidth>=960)&&focusReview)$('#previewPdfLink').focus();
+  status(blob.size<=limit||!limit?t('pdfReady'):t('sizeTargetFailed'),4200)}
 function syncPdfFilename(normalizeInput=false){const input=$('#filenameInput'),name=normalizeFilename(input.value);if(normalizeInput)input.value=name;if(state.lastPdf){state.lastPdf.name=name;$('#resultName').textContent=name}return name}
 function downloadPdf(){syncPdfFilename(true);const p=state.lastPdf;if(!p)return;const a=document.createElement('a');a.href=p.url;a.download=p.name;document.body.appendChild(a);a.click();a.remove();status(t('downloaded'))}
 async function sharePdf(){syncPdfFilename(true);const p=state.lastPdf;if(!p)return;try{const file=new File([p.blob],p.name,{type:'application/pdf'});if(!navigator.canShare?.({files:[file]})){status(t('shareUnsupported'),4200);return}await navigator.share({files:[file],title:p.name});status(t('shared'))}catch(e){if(e?.name!=='AbortError')status(t('shareUnsupported'),4200)}}
 
 function toggleLanguage(){state.lang=state.lang==='ja'?'en':'ja';try{localStorage.setItem('bk-scanner-lang',state.lang)}catch{}applyI18n();if(!$('#filenameInput').dataset.edited)$('#filenameInput').value=defaultFilename();syncPdfFilename()}
-function setAutoCapture(enabled){state.autoCapture=!!enabled;$('#autoCapture').checked=state.autoCapture;$('#autoChip').classList.toggle('hidden',!state.autoCapture);$('#mobileAutoBtn').classList.toggle('active',state.autoCapture);state.stableCount=0;state.lastAutoCorners=null}
+function setAutoCapture(enabled){state.autoCapture=!!enabled;$('#autoCapture').checked=state.autoCapture;$('#autoChip').classList.toggle('hidden',!state.autoCapture);$('#mobileAutoBtn').classList.toggle('active',state.autoCapture);resetAutoCaptureTracking()}
 $('#langBtn').addEventListener('click',toggleLanguage);$('#mobileLangBtn').addEventListener('click',toggleLanguage);
 $('#helpBtn').addEventListener('click',()=>$('#helpDialog').showModal());$('#mobileHelpBtn').addEventListener('click',()=>$('#helpDialog').showModal());$$('[data-close]').forEach(b=>b.addEventListener('click',()=>$('#'+b.dataset.close).close()));$('#helpDialog').addEventListener('click',e=>{if(e.target===$('#helpDialog'))$('#helpDialog').close()});
+const desktopDropArea=$('#desktopDropArea');
+desktopDropArea.addEventListener('dragover',event=>{
+  if(innerWidth<=820||!event.dataTransfer.types.includes('Files'))return;
+  event.preventDefault();
+  event.dataTransfer.dropEffect='copy';
+  desktopDropArea.classList.add('is-drag-over');
+});
+desktopDropArea.addEventListener('dragleave',event=>{
+  if(!desktopDropArea.contains(event.relatedTarget))desktopDropArea.classList.remove('is-drag-over');
+});
+desktopDropArea.addEventListener('drop',event=>{
+  desktopDropArea.classList.remove('is-drag-over');
+  if(innerWidth<=820||!event.dataTransfer.files.length)return;
+  event.preventDefault();
+  importFiles(event.dataTransfer.files);
+});
+// Keep a missed file drop from navigating away and discarding the current pages.
+for(const type of ['dragover','drop']){
+  document.addEventListener(type,event=>{
+    if(event.defaultPrevented||innerWidth<=820||!event.dataTransfer.types.includes('Files'))return;
+    event.preventDefault();
+    if(type==='dragover')event.dataTransfer.dropEffect='none';
+  });
+}
+$('#desktopStartCameraBtn').addEventListener('click',async event=>{
+  const button=event.currentTarget;
+  await startCamera();
+  if(document.activeElement!==button&&document.activeElement!==document.body)return;
+  (state.stream?$('#shutterBtn'):$('#retryCameraBtn')).focus({preventScroll:true});
+});
 $('#mobileStartCameraBtn').addEventListener('click',()=>startCamera());$('#retryCameraBtn').addEventListener('click',()=>startCamera());$('#desktopCameraPowerBtn').addEventListener('click',toggleCameraPower);$('#mobileCameraPowerBtn').addEventListener('click',toggleCameraPower);$('#shutterBtn').addEventListener('click',captureFrame);$('#switchCameraBtn').addEventListener('click',switchCamera);$('#torchBtn').addEventListener('click',toggleTorch);$('#importBtn').addEventListener('click',()=>$('#fileInput').click());$('#importRoundBtn').addEventListener('click',()=>$('#fileInput').click());$('#errorImportBtn').addEventListener('click',()=>$('#fileInput').click());$('#fileInput').addEventListener('change',e=>importFiles(e.target.files));$('#importFallbackBtn').addEventListener('click',()=>{const fi=$('#fileInputFallback');fi.value='';fi.click()});$('#fileInputFallback').addEventListener('change',e=>{importFiles(e.target.files);e.target.value=''});
 $('#autoCapture').addEventListener('change',e=>setAutoCapture(e.target.checked));$('#mobileAutoBtn').addEventListener('click',()=>setAutoCapture(!state.autoCapture));
 $('#cameraShell').addEventListener('pointerdown',onCameraPointerDown);$('#cameraShell').addEventListener('pointermove',onCameraPointerMove);$('#cameraShell').addEventListener('pointerup',onCameraPointerUp);$('#cameraShell').addEventListener('pointercancel',onCameraPointerUp);
 $('#skipImageBtn').addEventListener('click',()=>{if(!state.editor?.saving)finishEditor('skip')});$('#stopImportBtn').addEventListener('click',()=>finishEditor('cancel'));$('#editorCloseBtn').addEventListener('click',()=>finishEditor('cancel'));$('#editorDialog').addEventListener('cancel',e=>{e.preventDefault();finishEditor('cancel')});
-$('#resetCornersBtn').addEventListener('click',()=>{if(!state.editor)return;const src=state.editor.source,c=document.createElement('canvas'),max=520,s=Math.min(1,max/Math.max(src.width,src.height));c.width=Math.round(src.width*s);c.height=Math.round(src.height*s);c.getContext('2d').drawImage(src,0,0,c.width,c.height);const det=detectDocument(c);state.editor.corners=det.corners.map(p=>({x:p.x/s,y:p.y/s}));state.editor.confidence=det.confidence;state.editor.view='corners';resetEditorView()});$('#fullImageBtn').addEventListener('click',()=>{if(!state.editor)return;state.editor.corners=defaultCorners(state.editor.source.width,state.editor.source.height,0);state.editor.view='corners';resetEditorView()});$$('.editor-view-btn').forEach(b=>b.addEventListener('click',()=>{if(!state.editor)return;state.editor.view=b.dataset.editorView;if(state.editor.view==='corners'&&!state.editor.editorZoom)resetEditorView();else renderEditor()}));$$('.filter-btn').forEach(b=>b.addEventListener('click',()=>{if(!state.editor)return;state.editor.filter=b.dataset.filter;state.editor.view='preview';renderEditor()}));$('#editorZoomOutBtn').addEventListener('click',()=>setEditorZoom((state.editor?.editorZoom||1)/1.25));$('#editorZoomInBtn').addEventListener('click',()=>setEditorZoom((state.editor?.editorZoom||1)*1.25));$('#editorZoomResetBtn').addEventListener('click',resetEditorView);$('#cropStage').addEventListener('wheel',e=>{if(!state.editor||state.editor.view!=='corners')return;e.preventDefault();setEditorZoom((state.editor.editorZoom||1)*(e.deltaY<0?1.12:.89),e.clientX,e.clientY)},{passive:false});$('#cropStage').addEventListener('pointerdown',editorPointerDown);$('#cropStage').addEventListener('pointermove',editorPointerMove);$('#cropStage').addEventListener('pointerup',editorPointerUp);$('#cropStage').addEventListener('pointercancel',editorPointerUp);$('#addPageBtn').addEventListener('click',()=>saveEditorPage());$('#saveAsNewPageBtn').addEventListener('click',()=>saveEditorPage(true));window.addEventListener('resize',()=>{if($('#editorDialog').open)renderEditor()});bindCornerHandles();
+$('#resetCornersBtn').addEventListener('click',()=>{if(!state.editor)return;Object.assign(state.editor,detectSourceCorners(state.editor.source));state.editor.view='corners';resetEditorView()});$('#fullImageBtn').addEventListener('click',()=>{if(!state.editor)return;state.editor.corners=defaultCorners(state.editor.source.width,state.editor.source.height);state.editor.view='corners';resetEditorView()});$$('.editor-view-btn').forEach(b=>b.addEventListener('click',()=>{if(!state.editor)return;state.editor.view=b.dataset.editorView;if(state.editor.view==='corners'&&!state.editor.editorZoom)resetEditorView();else renderEditor()}));$$('.filter-btn').forEach(b=>b.addEventListener('click',()=>{if(!state.editor)return;state.editor.filter=b.dataset.filter;state.editor.view='preview';renderEditor()}));$('#editorZoomOutBtn').addEventListener('click',()=>setEditorZoom((state.editor?.editorZoom||1)/1.25));$('#editorZoomInBtn').addEventListener('click',()=>setEditorZoom((state.editor?.editorZoom||1)*1.25));$('#editorZoomResetBtn').addEventListener('click',resetEditorView);$('#cropStage').addEventListener('wheel',e=>{if(!state.editor||state.editor.view!=='corners')return;e.preventDefault();setEditorZoom((state.editor.editorZoom||1)*(e.deltaY<0?1.12:.89),e.clientX,e.clientY)},{passive:false});$('#cropStage').addEventListener('pointerdown',editorPointerDown);$('#cropStage').addEventListener('pointermove',editorPointerMove);$('#cropStage').addEventListener('pointerup',editorPointerUp);$('#cropStage').addEventListener('pointercancel',editorPointerUp);$('#addPageBtn').addEventListener('click',()=>saveEditorPage());$('#saveAsNewPageBtn').addEventListener('click',()=>saveEditorPage(true));window.addEventListener('resize',()=>{if($('#editorDialog').open)renderEditor()});bindCornerHandles();
+if(typeof ResizeObserver!=='undefined'){
+  new ResizeObserver(()=>{if($('#editorDialog').open)renderEditor()}).observe($('#cropStage'));
+}
 $('#clearAllBtn').addEventListener('click',async()=>{if(await confirmUI.ask(t('clearTitle'),t('clearMessage'),t('delete'))){const old=state.pages.slice();state.pages=[];state.lastDeleted={page:null,index:0,all:old};renderPages();toast(t('allDeleted'),true);invalidatePdf();restorePageFocus()}});
-$('#presetRow').addEventListener('click',e=>{const b=e.target.closest('[data-preset]');if(b)applyPreset(b.dataset.preset)});['paperSelect','colorSelect','limitSelect'].forEach(id=>$('#'+id).addEventListener('change',()=>{renderSummary();$$('.preset').forEach(x=>x.classList.remove('active'));invalidatePdf()}));$('#filenameInput').addEventListener('input',e=>{e.target.dataset.edited='1';syncPdfFilename()});$('#filenameInput').addEventListener('blur',e=>{e.target.value=normalizeFilename(e.target.value);e.target.dataset.edited='1';syncPdfFilename()});$('#generateBtn').addEventListener('click',generatePdf);$('#downloadBtn').addEventListener('click',downloadPdf);$('#shareBtn').addEventListener('click',sharePdf);
+$('#presetRow').addEventListener('click',e=>{const b=e.target.closest('[data-preset]');if(b)applyPreset(b.dataset.preset)});['paperSelect','colorSelect','limitSelect'].forEach(id=>$('#'+id).addEventListener('change',()=>{renderSummary();invalidatePdf()}));$('#filenameInput').addEventListener('input',e=>{e.target.dataset.edited='1';syncPdfFilename()});$('#filenameInput').addEventListener('blur',e=>{e.target.value=normalizeFilename(e.target.value);e.target.dataset.edited='1';syncPdfFilename()});$('#generateBtn').addEventListener('click',generatePdf);$('#downloadBtn').addEventListener('click',downloadPdf);$('#shareBtn').addEventListener('click',sharePdf);
 window.addEventListener('beforeunload',()=>{stopCamera();if(state.lastPdf?.url)URL.revokeObjectURL(state.lastPdf.url)});
-document.addEventListener('visibilitychange',()=>{if(document.hidden&&state.torch)toggleTorch()});
-const mobileSectionIds=['scanSection','pagesSection','exportSection'];function setMobileNavActive(id){$$('#mobileNav button').forEach(b=>b.classList.toggle('active',b.dataset.target===id))}function setMobileView(id,scrollTop=true){if(!mobileSectionIds.includes(id))return;state.mobileView=id;for(const sectionId of mobileSectionIds){const el=$('#'+sectionId);if(el)el.classList.toggle('mobile-view-active',sectionId===id)}setMobileNavActive(id);if(innerWidth<=600&&scrollTop)window.scrollTo({top:0,behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'})}function syncMobileViews(){if(innerWidth<=600)setMobileView(state.mobileView||'scanSection',false);else for(const id of mobileSectionIds)$('#'+id)?.classList.remove('mobile-view-active')}$$('#mobileNav button').forEach(btn=>btn.addEventListener('click',()=>{const id=btn.dataset.target;if(innerWidth<=600)setMobileView(id);else $('#'+id)?.scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth',block:'start'})}));addEventListener('resize',syncMobileViews)
+document.addEventListener('visibilitychange',()=>{if(document.hidden){resetAutoCaptureTracking();if(state.torch)toggleTorch()}});
+const mobileSectionIds=['scanSection','pagesSection','exportSection'];function setMobileNavActive(id){$$('#mobileNav button').forEach(b=>b.classList.toggle('active',b.dataset.target===id))}
+function setMobileView(id,scrollTop=true){
+  if(!mobileSectionIds.includes(id))return;
+  if(id!==state.mobileView||id!=='scanSection')resetAutoCaptureTracking();
+  state.mobileView=id;
+  for(const sectionId of mobileSectionIds){
+    $('#'+sectionId)?.classList.toggle('mobile-view-active',sectionId===id);
+  }
+  setMobileNavActive(id);
+  if(innerWidth<=600&&scrollTop)window.scrollTo({top:0,behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'});
+}
+function syncMobileViews(){if(innerWidth<=600)setMobileView(state.mobileView||'scanSection',false);else for(const id of mobileSectionIds)$('#'+id)?.classList.remove('mobile-view-active')}$$('#mobileNav button').forEach(btn=>btn.addEventListener('click',()=>{const id=btn.dataset.target;if(innerWidth<=600)setMobileView(id);else $('#'+id)?.scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth',block:'start'})}));addEventListener('resize',syncMobileViews)
 
-applyI18n();$('#filenameInput').value=defaultFilename();renderPages();renderSummary();syncMobileViews();
+applyI18n();initializePdfChoices();$('#filenameInput').value=defaultFilename();renderPages();renderSummary();syncMobileViews();
 // Keep the initial camera-off state until an explicit camera action, including on file://.
 // APP:END
 })();
